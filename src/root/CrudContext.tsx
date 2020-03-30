@@ -15,5 +15,6 @@ export function getInitialState(config: CrudConfig, setState: (payload: any) => 
 }
 
 const defaultValue: ContextConfig = undefined as any;
+
 export const CrudContext = React.createContext(defaultValue);
 

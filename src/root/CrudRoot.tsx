@@ -1,10 +1,14 @@
 import * as React from 'react';
 import {CrudContext, getInitialState} from "./CrudContext";
 import {ContextConfig, CrudConfig} from "../config/Config";
-import CrudLayout from "./CrudLayout";
+import {SimpleCrudLayout} from "./SimpleCrudLayout";
 
 
 class CrudRoot extends React.Component<CrudConfig, ContextConfig> {
+
+    static defaultProps = {
+        layout: () => <SimpleCrudLayout/>
+    };
 
     constructor(props: CrudConfig) {
         super(props);
@@ -12,10 +16,12 @@ class CrudRoot extends React.Component<CrudConfig, ContextConfig> {
     }
 
     render() {
+        const layout = this.props.layout!();
+
         return (
             <div className={'__curd-root'}>
                 <CrudContext.Provider value={this.state}>
-                    <CrudLayout/>
+                    {layout}
                 </CrudContext.Provider>
             </div>
         );

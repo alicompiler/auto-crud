@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CrudRoot from "./Root/CrudRoot";
+import CrudRoot from "./root/CrudRoot";
 
 function App() {
     return (
         <div className="App">
-            <CrudRoot collections={[]} modals={[]} operations={[]} pages={[]}/>
+            <CrudRoot name={'books'} routerRoot={'/books'}
+                      collections={[]} modals={[]} operations={[]} pages={[]}/>
         </div>
     );
 }
