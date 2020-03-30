@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {CrudContext, getInitialState} from "./CrudContext";
 import {ContextConfig, CrudConfig} from "../config/Config";
-import {SimpleCrudLayout} from "./SimpleCrudLayout";
+import SimpleRouterCrudLayout from "./SimpleRouterCrudLayout";
 
 
 class CrudRoot extends React.Component<CrudConfig, ContextConfig> {
 
     static defaultProps = {
-        layout: () => <SimpleCrudLayout/>
+        layout: () => <SimpleRouterCrudLayout/>
     };
 
     constructor(props: CrudConfig) {
