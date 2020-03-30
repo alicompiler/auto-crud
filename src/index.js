@@ -1,7 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import CrudRoot from "./Root/CrudRoot";
 
+function App() {
+    return (
+        <div className="App">
+            <CrudRoot collections={[]} modals={[]} operations={[]} pages={[]}/>
+        </div>
+    );
+}
 
 ReactDOM.render(
     <React.StrictMode>
