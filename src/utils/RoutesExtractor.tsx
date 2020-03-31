@@ -1,10 +1,10 @@
 import {ContextConfig, PageConfig} from "../config/Config";
 import React from "react";
-import {Route} from "react-router-dom";
+import {Route, RouteComponentProps} from "react-router-dom";
 
 export default class RoutesExtractor {
 
-    private context: ContextConfig;
+    private readonly context: ContextConfig;
 
     constructor(context: ContextConfig) {
         this.context = context;
@@ -13,13 +13,24 @@ export default class RoutesExtractor {
     getRoutes = () => {
         return this.getRouteOptions().map(option => <Route key={option.name}
                                                            exact={option.exact}
-                                                           component={option.component}
+                                                           component={this.getComponent(option)}
                                                            path={option.path}/>)
     };
+
+    protected getComponent(option: any) {
+        const Page = option.component.as;
+        return (route: RouteComponentProps) => <Page name={option.name}
+                                                     history={route.history}
+                                                     location={route.location}
+                                                     match={route.match}
+                                                     context={this.context}/>
+    }
 
     protected getRouteOptions = () => {
         //note that every optional property for page config is available after fixing
         const options: any[] = [];
+
+        options.push(this.getRouteOptionForPage(this.context.config.indexPage!));
 
         if (!this.context.config.createPage?.skip)
             options.push(this.getRouteOptionForPage(this.context.config.createPage!));

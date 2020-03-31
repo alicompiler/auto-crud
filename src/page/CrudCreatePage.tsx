@@ -2,13 +2,12 @@ import React from 'react';
 import CrudPage from "./CrudPage";
 
 class CrudCreatePage extends CrudPage {
-    render() {
-        return (
-            <div>
-                Crud Page
-            </div>
-        );
+    protected renderContent(): any {
+        return <>
+            Create Crud Page
+            TODO : SHOULD DISPLAY CREATE FORM FROM CONFIG (PAGE OPTIONS)
+        </>
     }
 }
 
-export default CrudPage;
+export default CrudCreatePage;

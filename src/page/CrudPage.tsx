@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
+import BaseCrudPage from "./BaseCrudPage";
 
-class CrudPage extends Component {
-    render() {
-        return (
-            <div>
-                Crud Page
-            </div>
-        );
+class CrudPage extends BaseCrudPage {
+    protected renderContent(): any {
+        return <>
+            Crud Page
+        </>
     }
 }
 

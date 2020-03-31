@@ -1,13 +1,17 @@
 import {ReactElement} from "react";
 import CrudLayoutBase from "../root/CrudLayoutBase";
-import CrudPage from "../page/CrudPage";
 
+
+export interface PageConfigComponent {
+    as: any
+}
 
 export interface PageConfig {
     name?: string;
     route?: string;
-    pageComponent?: () => ReactElement<CrudPage>;
+    pageComponent?: PageConfigComponent;
     skip?: boolean;
+    options?: any;
 }
 
 
@@ -16,6 +20,7 @@ export interface CrudConfig {
     routeRoot: string;
     operations: any[];
     pages?: PageConfig[];
+    indexPage?: PageConfig;
     createPage?: PageConfig;
     editPage?: PageConfig;
     deletePage?: PageConfig;
@@ -24,7 +29,6 @@ export interface CrudConfig {
     collections: any[];
 
     layout?: () => ReactElement<CrudLayoutBase>;
-    indexPage?: () => ReactElement;
 }
 
 

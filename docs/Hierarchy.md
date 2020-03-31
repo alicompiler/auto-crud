@@ -1,4 +1,4 @@
-Hierarchy
+Main Hierarchy
 
     <CrudRoot>
     
@@ -9,5 +9,27 @@ Hierarchy
         </CrudContext.Provider>
     
     </CrudRoot>
+    
+    
+Layout Hierarchy 
+
+    <Layout>
+    
+        <Switch>
+            <Route />
+            <Route />
+            <Route />
+            ...
+        </Switch>
+    
+    
+        <ModalsWrapper>
+            <Modal />
+            <Modal />
+            <Modal />
+            ...        
+        </ModalsWrapper>
+        
+    </Layout>
     
     

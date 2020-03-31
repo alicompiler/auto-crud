@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Component} from 'react';
 import {ContextConfig} from "../config/Config";
-import IndexPage from "../page/IndexPage";
 
 abstract class CrudLayoutBase extends Component {
 
@@ -18,8 +17,7 @@ abstract class CrudLayoutBase extends Component {
     protected abstract renderContent(): any;
 
     protected getIndexPage = (context: ContextConfig) => {
-        const indexPage = context.config.indexPage ?? (() => <IndexPage/>);
-        return indexPage();
+        return <h1>NO INDEX PAGE</h1>;
     };
 
     protected getPages = (config: ContextConfig) => {
