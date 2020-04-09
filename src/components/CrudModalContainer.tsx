@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {CrudContext} from "../root/CrudContext";
-import {ContextConfig} from "../config/Config";
+import {ContextConfig, CrudContext} from "../config/CrudContext";
 
 
 interface Props {
@@ -9,7 +8,6 @@ interface Props {
 
 class CrudModalContainer extends Component<Props> {
     render() {
-        const modalConfig = this.getModalConfig();
 
         return (
             <div>
@@ -21,10 +19,6 @@ class CrudModalContainer extends Component<Props> {
     private getContext = (): ContextConfig => {
         return this.context;
     };
-
-    private getModalConfig = () => {
-        return this.getContext().modals[this.props.name];
-    }
 }
 
 CrudModalContainer.contextType = CrudContext;

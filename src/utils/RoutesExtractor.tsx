@@ -1,6 +1,7 @@
-import {ContextConfig, PageConfig} from "../config/Config";
+import {PageConfig} from "../config/Config";
 import React from "react";
 import {Route, RouteComponentProps} from "react-router-dom";
+import {ContextConfig} from "../config/CrudContext";
 
 export default class RoutesExtractor {
 
@@ -27,7 +28,7 @@ export default class RoutesExtractor {
     }
 
     protected getRouteOptions = () => {
-        //note that every optional property for page config is available after fixing
+        //note that every optional property for _page Config is available after fixing
         const options: any[] = [];
 
         options.push(this.getRouteOptionForPage(this.context.config.indexPage!));
@@ -38,6 +39,7 @@ export default class RoutesExtractor {
             options.push(this.getRouteOptionForPage(this.context.config.editPage!));
         if (!this.context.config.deletePage?.skip)
             options.push(this.getRouteOptionForPage(this.context.config.deletePage!));
+
         for (let pageConfig of this.context.config.pages!) {
             if (!pageConfig.skip)
                 options.push(this.getRouteOptionForPage(pageConfig));
@@ -47,7 +49,7 @@ export default class RoutesExtractor {
     };
 
     protected getRouteOptionForPage = (pageConfig: PageConfig) => {
-        //note that every optional property for page config is available after fixing
+        //note that every optional property for _page Config is available after fixing
         return {
             name: pageConfig.name!,
             path: pageConfig.route!,

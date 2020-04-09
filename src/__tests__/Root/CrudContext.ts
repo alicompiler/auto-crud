@@ -1,4 +1,4 @@
-import {getInitialState} from "../../root/CrudContext";
+import {getInitialState} from "../../config/CrudContext";
 
 describe('crud context', () => {
 

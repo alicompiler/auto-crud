@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
-import {CrudContext} from "./CrudContext";
-import {ContextConfig} from "../config/Config";
+import {ContextConfig, CrudContext} from "../config/CrudContext";
 import {Switch} from "react-router-dom";
 import RoutesExtractor from "../utils/RoutesExtractor";
+import TitleComponent from "../components/TitleComponent/TitleComponent";
+
 
 class SimpleRouterCrudLayout extends Component {
+
+    private previousSwitch: any = null;
+
     render() {
         return (
             <div>
-                <h1>Router Layout</h1>
+                <TitleComponent/>
                 {
                     this.getRouterSwitch()
                 }
@@ -18,10 +22,13 @@ class SimpleRouterCrudLayout extends Component {
 
 
     protected getRouterSwitch = () => {
+        if (this.previousSwitch)
+            return this.previousSwitch;
         const routesExtractor = new RoutesExtractor(this.getContext());
-        return <Switch>
+        this.previousSwitch = <Switch>
             {routesExtractor.getRoutes()}
-        </Switch>
+        </Switch>;
+        return this.previousSwitch;
     };
 
     protected getContext = (): ContextConfig => this.context;

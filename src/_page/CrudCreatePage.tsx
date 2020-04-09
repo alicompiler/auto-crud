@@ -1,5 +1,5 @@
 import React from 'react';
-import CrudPage from "./CrudPage";
+import CrudPage from "../Page/Base/CrudPage";
 
 class CrudCreatePage extends CrudPage {
     protected renderContent(): any {

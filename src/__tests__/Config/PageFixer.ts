@@ -1,10 +1,10 @@
 import {PageConfigFixer} from "../../config/ConfigFixer/PageConfigFixer";
 
-describe('page fixer', () => {
+describe('_page fixer', () => {
 
     const baseConfig: any = {routeRoot: '/root'};
 
-    it('should fix create page config when no createPage property exists', function () {
+    it('should fix create _page Config when no createPage property exists', function () {
         const fixer = new PageConfigFixer();
         const newConfig = fixer.fix(baseConfig);
         const createPageConfig = newConfig.createPage!;
@@ -13,7 +13,7 @@ describe('page fixer', () => {
         expect(createPageConfig.name).toEqual('create');
     });
 
-    it('should fix create page config with overriding properties from createPage property', function () {
+    it('should fix create _page Config with overriding properties from createPage property', function () {
         const config: any = {
             ...baseConfig, createPage: {skip: true, route: '/add'}
         };
@@ -26,7 +26,7 @@ describe('page fixer', () => {
     });
 
 
-    it('should fix edit page config when no createPage property exists', function () {
+    it('should fix edit _page Config when no createPage property exists', function () {
         const fixer = new PageConfigFixer();
         const newConfig = fixer.fix(baseConfig);
         const editPageConfig = newConfig.editPage!;
@@ -35,7 +35,7 @@ describe('page fixer', () => {
         expect(editPageConfig.name).toEqual('edit');
     });
 
-    it('should fix edit page config with overriding properties from editPage property', function () {
+    it('should fix edit _page Config with overriding properties from editPage property', function () {
         const config: any = {
             ...baseConfig, editPage: {skip: true, route: '/update'}
         };
@@ -48,7 +48,7 @@ describe('page fixer', () => {
     });
 
 
-    it('should fix delete page config when no deletePage property exists', function () {
+    it('should fix delete _page Config when no deletePage property exists', function () {
         const fixer = new PageConfigFixer();
         const newConfig = fixer.fix(baseConfig);
         const deletePageConfig = newConfig.deletePage!;
@@ -57,7 +57,7 @@ describe('page fixer', () => {
         expect(deletePageConfig.name).toEqual('delete');
     });
 
-    it('should fix delete page config with overriding properties from deletePage property', function () {
+    it('should fix delete _page Config with overriding properties from deletePage property', function () {
         const config: any = {
             ...baseConfig, editPage: {skip: true, route: '/delete'}
         };
@@ -72,22 +72,22 @@ describe('page fixer', () => {
     it('should fix custom pages', function () {
         const config = {
             ...baseConfig, pages: [
-                {route: '/test-page-1', name: 'page-1', pageComponent: () => null},
-                {route: '/test-page-2', name: 'page-2', pageComponent: () => null},
+                {route: '/test-_page-1', name: '_page-1', pageComponent: () => null},
+                {route: '/test-_page-2', name: '_page-2', pageComponent: () => null},
             ]
         };
 
         const fixer = new PageConfigFixer();
         const newConfig = fixer.fix(config);
         const pages = newConfig.pages!;
-        expect(pages[0].name).toEqual('page-1');
+        expect(pages[0].name).toEqual('_page-1');
         expect(pages[0].skip).toEqual(false);
-        expect(pages[0].route).toEqual('/root/test-page-1');
+        expect(pages[0].route).toEqual('/root/test-_page-1');
         expect(typeof pages[0].pageComponent).toBe("function");
 
-        expect(pages[1].name).toEqual('page-2');
+        expect(pages[1].name).toEqual('_page-2');
         expect(pages[1].skip).toEqual(false);
-        expect(pages[1].route).toEqual('/root/test-page-2');
+        expect(pages[1].route).toEqual('/root/test-_page-2');
         expect(typeof pages[1].pageComponent).toBe("function");
     });
 

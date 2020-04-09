@@ -1,4 +1,5 @@
-import {ContextConfig, PageConfig} from "../config/Config";
+import {PageConfig} from "../config/Config";
+import {ContextConfig} from "../config/CrudContext";
 
 export default class PageConfigUtils {
 
@@ -12,6 +13,7 @@ export default class PageConfigUtils {
 
     private generateAllPagesObject(): { [pageName: string]: PageConfig } {
         const allPagesObject: any = {};
+        allPagesObject[this.context.config.indexPage!.name!] = this.context.config.indexPage;
         allPagesObject[this.context.config.createPage!.name!] = this.context.config.createPage;
         allPagesObject[this.context.config.editPage!.name!] = this.context.config.editPage;
         allPagesObject[this.context.config.deletePage!.name!] = this.context.config.deletePage;
@@ -23,6 +25,26 @@ export default class PageConfigUtils {
 
     public getPageConfigByName(name: string): PageConfig {
         return this.allPages[name];
+    }
+
+    public getRouteForPage(name: string): string {
+        const pageConfig = this.getPageConfigByName(name);
+        return pageConfig.route!;
+    }
+
+    public getPageState(name: string): any {
+        const state = this.context.ui.pages[name];
+        return state ?? {};
+    }
+
+    public updatePageState(name: string, payload: any): void {
+        const state = this.getPageState(name);
+        const newState = {...state, ...payload};
+        const {updateState} = this.context;
+        const ui = {...this.context.ui};
+        const pages = {...ui.pages};
+        pages[name] = newState;
+        updateState({ui: {...ui, pages: pages}});
     }
 
 }

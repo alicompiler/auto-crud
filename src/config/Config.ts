@@ -1,9 +1,21 @@
 import {ReactElement} from "react";
 import CrudLayoutBase from "../root/CrudLayoutBase";
+import BaseCrudPage from "../Page/Base/BaseCrudPage";
 
 
 export interface PageConfigComponent {
     as: any
+}
+
+export interface PageOption {
+    onLoadAction?: (page: BaseCrudPage) => Promise<any>;
+    afterOnLoadAction?: (result: any, page: BaseCrudPage) => void;
+    onDestroyAction?: (page: BaseCrudPage) => void;
+
+    initialState?: any;
+    pageTitle? : string;
+
+    [propName: string]: any;
 }
 
 export interface PageConfig {
@@ -11,7 +23,7 @@ export interface PageConfig {
     route?: string;
     pageComponent?: PageConfigComponent;
     skip?: boolean;
-    options?: any;
+    options?: PageOption;
 }
 
 
@@ -28,20 +40,11 @@ export interface CrudConfig {
     modals: any[];
     collections: any[];
 
+    mainTitle?: string;
+
     layout?: () => ReactElement<CrudLayoutBase>;
 }
 
 
-interface ModalState {
-    open: boolean;
-}
 
-export interface ContextConfig<State = any> {
-    config: CrudConfig;
-    state: State;
-    modals: {
-        [modalName: string]: ModalState
-    };
-    updateState: (payload: Partial<State>) => Partial<State>;
-    setState: (state: State) => State;
-}
+

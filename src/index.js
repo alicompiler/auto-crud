@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CrudRoot from "./root/CrudRoot";
 import {BrowserRouter} from "react-router-dom";
+import SimpleCurdApp from "./example/SimpleCurdApp";
+import "./example/style/compiled-style.css";
 
 function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <CrudRoot name={'books'} routeRoot={'/books'}
-                          collections={[]} modals={[]} operations={[]} pages={[]}/>
+                <SimpleCurdApp/>
             </BrowserRouter>
         </div>
     );

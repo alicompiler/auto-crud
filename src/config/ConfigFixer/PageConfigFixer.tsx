@@ -1,9 +1,9 @@
 import {CrudConfig, PageConfig, PageConfigComponent} from "../Config";
 import {ConfigFixer} from "./ConfigFixer";
-import CrudCreatePage from "../../page/CrudCreatePage";
-import CrudUpdatePage from "../../page/CrudUpdatePage";
-import CrudDeletePage from "../../page/CrudDeletePage";
-import CrudIndexPage from "../../page/CrudIndexPage";
+import CrudCreatePage from "../../_page/CrudCreatePage";
+import CrudUpdatePage from "../../_page/CrudUpdatePage";
+import CrudDeletePage from "../../_page/CrudDeletePage";
+import CrudIndexPage from "../../_page/CrudIndexPage";
 
 export class PageConfigFixer implements ConfigFixer {
 
@@ -23,7 +23,8 @@ export class PageConfigFixer implements ConfigFixer {
         const defaultRoute = `${config.routeRoot}`;
         const defaultSkip = false;
         const defaultPageComponent: PageConfigComponent = {as: CrudIndexPage};
-        return this.getDefaultPageConfig(config, config.indexPage, 'index', defaultRoute, defaultSkip, defaultPageComponent);
+        const indexPageConfig = {...(config.indexPage ?? {}), route: ''};
+        return this.getPageConfig(config, indexPageConfig, 'index', defaultRoute, defaultSkip, defaultPageComponent);
 
     }
 
@@ -31,7 +32,7 @@ export class PageConfigFixer implements ConfigFixer {
         const defaultRoute = `${config.routeRoot}/create`;
         const defaultSkip = false;
         const defaultPageComponent: PageConfigComponent = {as: CrudCreatePage};
-        return this.getDefaultPageConfig(config, config.createPage, 'create', defaultRoute, defaultSkip, defaultPageComponent);
+        return this.getPageConfig(config, config.createPage, 'create', defaultRoute, defaultSkip, defaultPageComponent);
     }
 
 
@@ -39,14 +40,14 @@ export class PageConfigFixer implements ConfigFixer {
         const defaultRoute = `${config.routeRoot}/edit`;
         const defaultSkip = false;
         const defaultPageComponent = {as: CrudUpdatePage};
-        return this.getDefaultPageConfig(config, config.editPage, 'edit', defaultRoute, defaultSkip, defaultPageComponent);
+        return this.getPageConfig(config, config.editPage, 'edit', defaultRoute, defaultSkip, defaultPageComponent);
     }
 
     protected getDeletePage(config: CrudConfig): PageConfig {
         const defaultRoute = `${config.routeRoot}/remove`;
         const defaultSkip = false;
         const defaultPageComponent = {as: CrudDeletePage};
-        return this.getDefaultPageConfig(config, config.editPage, 'delete', defaultRoute, defaultSkip, defaultPageComponent);
+        return this.getPageConfig(config, config.editPage, 'delete', defaultRoute, defaultSkip, defaultPageComponent);
     }
 
     protected getCustomPagesConfig(config: CrudConfig): PageConfig[] {
@@ -57,7 +58,7 @@ export class PageConfigFixer implements ConfigFixer {
             if (!pageConfig.name) throw Error(`Custom page has no name`);
             if (!pageConfig.route) throw Error(`Page ${pageConfig.name} has no route`);
             if (!pageConfig.pageComponent) throw Error(`Page ${pageConfig.name} has no PageComponent`);
-            pageConfigArr.push(this.getDefaultPageConfig(config, pageConfig,
+            pageConfigArr.push(this.getPageConfig(config, pageConfig,
                 pageConfig.name, pageConfig.route, false, pageConfig.pageComponent)
             );
         }
@@ -65,18 +66,19 @@ export class PageConfigFixer implements ConfigFixer {
         return pageConfigArr;
     }
 
-    protected getDefaultPageConfig(config: CrudConfig,
-                                   pageConfig: PageConfig | undefined,
-                                   name: string,
-                                   defaultRoute: string,
-                                   defaultSkip: boolean,
-                                   defaultPageComponent: PageConfigComponent): PageConfig {
+    protected getPageConfig(config: CrudConfig,
+                            pageConfig: PageConfig | undefined,
+                            name: string,
+                            defaultRoute: string,
+                            defaultSkip: boolean,
+                            defaultPageComponent: PageConfigComponent): PageConfig {
         if (!pageConfig) {
             return {
                 name: name,
                 route: defaultRoute,
                 skip: defaultSkip,
-                pageComponent: defaultPageComponent
+                pageComponent: defaultPageComponent,
+                options: {}
             }
         }
 
@@ -84,7 +86,8 @@ export class PageConfigFixer implements ConfigFixer {
             name: name,
             route: `${config.routeRoot}${pageConfig.route}` ?? defaultRoute,
             skip: pageConfig.skip ?? defaultSkip,
-            pageComponent: pageConfig.pageComponent ?? defaultPageComponent
+            pageComponent: pageConfig.pageComponent ?? defaultPageComponent,
+            options: pageConfig.options ?? {}
         };
     }
 
