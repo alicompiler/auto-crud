@@ -19,7 +19,6 @@ class AutoCrud extends React.Component<CrudConfig, any> {
         super(props);
         this.state = {state: {}, uiState: {}};
         this.config = new DefaultConfigInitializer(this.props).initialize();
-        console.log(this.config);
     }
 
 
