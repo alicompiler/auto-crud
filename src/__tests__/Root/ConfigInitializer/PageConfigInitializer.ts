@@ -3,6 +3,7 @@ import CreatePage from "../../../Page/CrudPage/Create/CreatePage";
 import {CrudConfig} from "../../../Root/CrudConfig";
 import UpdatePage from "../../../Page/CrudPage/Update/UpdatePage";
 import DeletePage from "../../../Page/CrudPage/DeletePage/CrudDeletePage";
+import DetailsPage from "../../../Page/CrudPage/Details/DetailsPage";
 
 describe('Page Config Initializer', () => {
 
@@ -41,7 +42,6 @@ describe('Page Config Initializer', () => {
         expect(createPageConfig.options).toEqual(pageOptions);
     });
 
-
     it('should get default update page config', function () {
         const fixer = new PageConfigInitializer();
         const newConfig = fixer.fix(baseConfig);
@@ -74,7 +74,6 @@ describe('Page Config Initializer', () => {
         expect(editPageConfig.pageComponent).toBe(MockedPage);
     });
 
-
     it('should get default delete page config', function () {
         const fixer = new PageConfigInitializer();
         const newConfig = fixer.fix(baseConfig);
@@ -101,6 +100,36 @@ describe('Page Config Initializer', () => {
         expect(deletePageConfig.route).toEqual('/root/delete');
         expect(deletePageConfig.skip).toEqual(true);
         expect(deletePageConfig.name).toEqual('delete');
+        expect(deletePageConfig.options).toEqual(options);
+        expect(deletePageConfig.pageComponent).toBe(MockedPage);
+    });
+
+    it('should get default details page config', function () {
+        const fixer = new PageConfigInitializer();
+        const newConfig = fixer.fix(baseConfig);
+        const detailsPage = newConfig.detailsPage!;
+        expect(detailsPage.route).toEqual('/root/details/:key');
+        expect(detailsPage.skip).toEqual(false);
+        expect(detailsPage.name).toEqual('details');
+        expect(detailsPage.options).toEqual({});
+        expect(detailsPage.pageComponent).toEqual(DetailsPage);
+    });
+
+    it('should get details page config from crud config', function () {
+
+        const MockedPage = {};
+        const options = {test: 'options'};
+        const fixer = new PageConfigInitializer();
+        const config: CrudConfig = {
+            ...baseConfig, detailsPage: {
+                skip: true, route: '/:id(\\d+)', options: options, pageComponent: MockedPage
+            }
+        };
+        const newConfig = fixer.fix(config);
+        const deletePageConfig = newConfig.detailsPage!;
+        expect(deletePageConfig.route).toEqual('/root/:id(\\d+)');
+        expect(deletePageConfig.skip).toEqual(true);
+        expect(deletePageConfig.name).toEqual('details');
         expect(deletePageConfig.options).toEqual(options);
         expect(deletePageConfig.pageComponent).toBe(MockedPage);
     });

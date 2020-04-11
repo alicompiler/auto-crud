@@ -56,7 +56,7 @@ export class PageConfigInitializer implements ConfigFixer {
         const defaultRoute = `${config.routeRoot}/details/:key`;
         const defaultSkip = false;
         const defaultPageComponent = DetailsPage;
-        return this.getPageConfigOrDefaultsConfig(config, config.updatePage, 'delete', defaultRoute, defaultSkip, defaultPageComponent);
+        return this.getPageConfigOrDefaultsConfig(config, config.detailsPage, 'details', defaultRoute, defaultSkip, defaultPageComponent);
     }
 
     protected getCustomPagesConfig(config: CrudConfig): PageConfig[] {
