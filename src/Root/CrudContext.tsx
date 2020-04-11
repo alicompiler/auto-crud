@@ -1,9 +1,9 @@
 import * as React from "react";
-import {CrudConfig} from "./Config";
-import {DefaultConfigFixer} from "./ConfigFixer/ConfigFixer";
-import {UIStateInitializer} from "./UIStateInitializer";
+import {CrudConfig} from "./CrudConfig";
+import {DefaultConfigFixer} from "./ConfigInitializer/ConfigFixer";
+import {UIStateInitializer} from "../config/UIStateInitializer";
 
-export interface ContextConfig<State = any> {
+export interface CrudContextValue<State = any> {
     config: CrudConfig;
     state: State;
     ui: UIState;
@@ -19,7 +19,7 @@ export interface UIState {
     };
 }
 
-export function getInitialState(config: CrudConfig): Omit<ContextConfig, "updateState"> {
+export function getInitialState(config: CrudConfig): Omit<CrudContextValue, "updateState"> {
     const updatedConfig = new DefaultConfigFixer(config).fix();
     const uiState = new UIStateInitializer(updatedConfig).initialize();
     return {
@@ -31,7 +31,6 @@ export function getInitialState(config: CrudConfig): Omit<ContextConfig, "update
     }
 }
 
-const defaultValue: ContextConfig = undefined as any;
-
+const defaultValue: CrudContextValue = undefined as any;
 export const CrudContext = React.createContext(defaultValue as any);
 

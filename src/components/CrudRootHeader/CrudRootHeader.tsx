@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ContextConfig, CrudContext} from "../../config/CrudContext";
+import {CrudContextValue, CrudContext} from "../../Root/CrudContext";
 import TitleComponent from "../TitleComponent/TitleComponent";
 import {CrudRootHeaderDefault as Defaults} from "../../Defaults/Components/CrudRootHeaderDefautlts";
 import {withRouter} from 'react-router-dom';
@@ -37,7 +37,7 @@ class CrudRootHeader extends Component<Props> {
         </button>
     };
 
-    protected getContext = (): ContextConfig => {
+    protected getContext = (): CrudContextValue => {
         return this.context;
     }
 }

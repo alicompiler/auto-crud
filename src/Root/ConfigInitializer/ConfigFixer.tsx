@@ -1,5 +1,5 @@
-import {CrudConfig} from "../Config";
-import {PageConfigFixer} from "./PageConfigFixer";
+import {CrudConfig} from "../CrudConfig";
+import {PageConfigInitializer} from "./PageConfigInitializer";
 
 export interface ConfigFixer {
     fix(config: CrudConfig): CrudConfig;
@@ -12,7 +12,7 @@ export class DefaultConfigFixer {
     constructor(config: CrudConfig) {
         this.config = config;
         this.fixers = [
-            new PageConfigFixer()
+            new PageConfigInitializer()
         ];
     }
 

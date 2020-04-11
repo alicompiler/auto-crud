@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import CrudRoot from "../root/CrudRoot";
+import AutoCrud from "../Root/AutoCrud";
 import {AxiosDataSource} from "auto-collection";
 import {IndexPage} from "../Page/CrudPage/Index/IndexPage";
 import CreatePage from "../Page/CrudPage/Create/CreatePage";
@@ -10,16 +10,14 @@ class SimpleCurdApp extends Component {
     render() {
         return (
             <div>
-                <CrudRoot name={'books'} collections={[]} modals={[]} operations={[]} routeRoot={'/books'}
-
+                <AutoCrud name={'books'}
+                          routeRoot={'/books'}
                           endpointRoot={'http://localhost:8080/api/books'}
-
                           fields={[
                               {as: TextField, name: 'name'},
                               {as: TextField, name: 'author'},
                               {as: TextArea, name: 'description'},
                           ]}
-
                           createPage={{
                               name: 'create',
                               route: '/create',
@@ -28,7 +26,6 @@ class SimpleCurdApp extends Component {
                                   as: CreatePage,
                               }
                           }}
-
                           indexPage={{
                               name: 'index',
                               route: '/',

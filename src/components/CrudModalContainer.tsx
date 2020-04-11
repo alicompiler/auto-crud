@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ContextConfig, CrudContext} from "../config/CrudContext";
+import {CrudContextValue, CrudContext} from "../Root/CrudContext";
 
 
 interface Props {
@@ -16,7 +16,7 @@ class CrudModalContainer extends Component<Props> {
         );
     }
 
-    private getContext = (): ContextConfig => {
+    private getContext = (): CrudContextValue => {
         return this.context;
     };
 }

@@ -1,20 +1,22 @@
-import {CrudConfig, PageConfig, PageConfigComponent} from "../Config";
+import {CrudConfig} from "../CrudConfig";
 import {ConfigFixer} from "./ConfigFixer";
 import CreatePage from "../../Page/CrudPage/Create/CreatePage";
-import CrudUpdatePage from "../../_page/CrudUpdatePage";
-import CrudDeletePage from "../../_page/CrudDeletePage";
-import CrudIndexPage from "../../_page/CrudIndexPage";
+import UpdatePage from "../../Page/CrudPage/Update/UpdatePage";
+import DeletePage from "../../Page/CrudPage/DeletePage/CrudDeletePage";
+import {IndexPage} from "../../Page/CrudPage/Index/IndexPage";
+import {PageConfig} from "../../Page/PageConfig";
+import DetailsPage from "../../Page/CrudPage/Details/DetailsPage";
 
-export class PageConfigFixer implements ConfigFixer {
-
+export class PageConfigInitializer implements ConfigFixer {
 
     public fix(config: CrudConfig): CrudConfig {
         return {
             ...config,
             indexPage: this.getIndexPageConfig(config),
             createPage: this.getCreatePageConfig(config),
-            editPage: this.getEditPageConfig(config),
+            updatePage: this.getEditPageConfig(config),
             deletePage: this.getDeletePage(config),
+            detailsPage: this.getDetailsPage(config),
             pages: this.getCustomPagesConfig(config)
         };
     }
@@ -22,32 +24,39 @@ export class PageConfigFixer implements ConfigFixer {
     protected getIndexPageConfig(config: CrudConfig) {
         const defaultRoute = `${config.routeRoot}`;
         const defaultSkip = false;
-        const defaultPageComponent: PageConfigComponent = {as: CrudIndexPage};
+        const defaultPageComponent: any = IndexPage;
         const indexPageConfig = {...(config.indexPage ?? {}), route: ''};
-        return this.getPageConfig(config, indexPageConfig, 'index', defaultRoute, defaultSkip, defaultPageComponent);
+        return this.getPageConfigOrDefaultsConfig(config, indexPageConfig, 'index', defaultRoute, defaultSkip, defaultPageComponent);
 
     }
 
     protected getCreatePageConfig(config: CrudConfig): PageConfig {
         const defaultRoute = `${config.routeRoot}/create`;
         const defaultSkip = false;
-        const defaultPageComponent: PageConfigComponent = {as: CreatePage};
-        return this.getPageConfig(config, config.createPage, 'create', defaultRoute, defaultSkip, defaultPageComponent);
+        const defaultPageComponent: any = CreatePage;
+        return this.getPageConfigOrDefaultsConfig(config, config.createPage, 'create', defaultRoute, defaultSkip, defaultPageComponent);
     }
 
 
     protected getEditPageConfig(config: CrudConfig): PageConfig {
         const defaultRoute = `${config.routeRoot}/edit`;
         const defaultSkip = false;
-        const defaultPageComponent = {as: CrudUpdatePage};
-        return this.getPageConfig(config, config.editPage, 'edit', defaultRoute, defaultSkip, defaultPageComponent);
+        const defaultPageComponent: any = UpdatePage;
+        return this.getPageConfigOrDefaultsConfig(config, config.updatePage, 'edit', defaultRoute, defaultSkip, defaultPageComponent);
     }
 
     protected getDeletePage(config: CrudConfig): PageConfig {
         const defaultRoute = `${config.routeRoot}/remove`;
         const defaultSkip = false;
-        const defaultPageComponent = {as: CrudDeletePage};
-        return this.getPageConfig(config, config.editPage, 'delete', defaultRoute, defaultSkip, defaultPageComponent);
+        const defaultPageComponent: any = DeletePage;
+        return this.getPageConfigOrDefaultsConfig(config, config.deletePage, 'delete', defaultRoute, defaultSkip, defaultPageComponent);
+    }
+
+    protected getDetailsPage(config: CrudConfig): PageConfig {
+        const defaultRoute = `${config.routeRoot}/details/:key`;
+        const defaultSkip = false;
+        const defaultPageComponent = DetailsPage;
+        return this.getPageConfigOrDefaultsConfig(config, config.updatePage, 'delete', defaultRoute, defaultSkip, defaultPageComponent);
     }
 
     protected getCustomPagesConfig(config: CrudConfig): PageConfig[] {
@@ -58,7 +67,7 @@ export class PageConfigFixer implements ConfigFixer {
             if (!pageConfig.name) throw Error(`Custom page has no name`);
             if (!pageConfig.route) throw Error(`Page ${pageConfig.name} has no route`);
             if (!pageConfig.pageComponent) throw Error(`Page ${pageConfig.name} has no PageComponent`);
-            pageConfigArr.push(this.getPageConfig(config, pageConfig,
+            pageConfigArr.push(this.getPageConfigOrDefaultsConfig(config, pageConfig,
                 pageConfig.name, pageConfig.route, false, pageConfig.pageComponent)
             );
         }
@@ -66,12 +75,12 @@ export class PageConfigFixer implements ConfigFixer {
         return pageConfigArr;
     }
 
-    protected getPageConfig(config: CrudConfig,
-                            pageConfig: PageConfig | undefined,
-                            name: string,
-                            defaultRoute: string,
-                            defaultSkip: boolean,
-                            defaultPageComponent: PageConfigComponent): PageConfig {
+    protected getPageConfigOrDefaultsConfig(config: CrudConfig,
+                                            pageConfig: PageConfig | undefined,
+                                            name: string,
+                                            defaultRoute: string,
+                                            defaultSkip: boolean,
+                                            defaultPageComponent: any): PageConfig {
         if (!pageConfig) {
             return {
                 name: name,
@@ -84,7 +93,7 @@ export class PageConfigFixer implements ConfigFixer {
 
         return {
             name: name,
-            route: `${config.routeRoot}${pageConfig.route}` ?? defaultRoute,
+            route: pageConfig.route ? `${config.routeRoot}${pageConfig.route}` : defaultRoute,
             skip: pageConfig.skip ?? defaultSkip,
             pageComponent: pageConfig.pageComponent ?? defaultPageComponent,
             options: pageConfig.options ?? {}

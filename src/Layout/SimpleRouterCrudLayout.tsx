@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {ContextConfig, CrudContext} from "../config/CrudContext";
+import {CrudContext, CrudContextValue} from "../Root/CrudContext";
 import {Switch} from "react-router-dom";
 import RoutesExtractor from "../utils/RoutesExtractor";
-import TitleComponent from "../components/TitleComponent/TitleComponent";
 
 
 class SimpleRouterCrudLayout extends Component {
@@ -30,7 +29,7 @@ class SimpleRouterCrudLayout extends Component {
         return this.previousSwitch;
     };
 
-    protected getContext = (): ContextConfig => this.context;
+    protected getContext = (): CrudContextValue => this.context;
 
 }
 

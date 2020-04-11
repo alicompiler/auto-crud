@@ -1,12 +1,12 @@
-import {ContextConfig} from "../../config/CrudContext";
+import {CrudContextValue} from "../../Root/CrudContext";
 import {FormPageOptions} from "./FormPageOptions";
 import {RenderConfig} from "react-auto-form-core/dist/Form/FormProps";
 
 export class FormRenderConfigGenerator {
-    private readonly context: ContextConfig;
+    private readonly context: CrudContextValue;
     private readonly options: FormPageOptions;
 
-    constructor(context: ContextConfig, options: FormPageOptions) {
+    constructor(context: CrudContextValue, options: FormPageOptions) {
         this.context = context;
         this.options = options;
     }

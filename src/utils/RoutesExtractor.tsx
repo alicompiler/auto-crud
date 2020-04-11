@@ -1,13 +1,13 @@
-import {PageConfig} from "../config/Config";
 import React from "react";
 import {Route, RouteComponentProps} from "react-router-dom";
-import {ContextConfig} from "../config/CrudContext";
+import {CrudContextValue} from "../Root/CrudContext";
+import {PageConfig} from "../Page/PageConfig";
 
 export default class RoutesExtractor {
 
-    private readonly context: ContextConfig;
+    private readonly context: CrudContextValue;
 
-    constructor(context: ContextConfig) {
+    constructor(context: CrudContextValue) {
         this.context = context;
     }
 
@@ -19,7 +19,8 @@ export default class RoutesExtractor {
     };
 
     protected getComponent(option: any) {
-        const Page = option.component.as;
+        const Page = option.component
+        ;
         return (route: RouteComponentProps) => <Page name={option.name}
                                                      history={route.history}
                                                      location={route.location}
@@ -35,8 +36,8 @@ export default class RoutesExtractor {
 
         if (!this.context.config.createPage?.skip)
             options.push(this.getRouteOptionForPage(this.context.config.createPage!));
-        if (!this.context.config.editPage?.skip)
-            options.push(this.getRouteOptionForPage(this.context.config.editPage!));
+        if (!this.context.config.updatePage?.skip)
+            options.push(this.getRouteOptionForPage(this.context.config.updatePage!));
         if (!this.context.config.deletePage?.skip)
             options.push(this.getRouteOptionForPage(this.context.config.deletePage!));
 

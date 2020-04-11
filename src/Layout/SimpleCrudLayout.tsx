@@ -1,6 +1,6 @@
 import React from 'react';
 import CrudLayoutBase from "./CrudLayoutBase";
-import {ContextConfig, CrudContext} from "../config/CrudContext";
+import {CrudContextValue, CrudContext} from "../Root/CrudContext";
 
 export class SimpleCrudLayout extends CrudLayoutBase {
     protected renderContent(): any {
@@ -10,7 +10,7 @@ export class SimpleCrudLayout extends CrudLayoutBase {
         </>
     }
 
-    private getContext = (): ContextConfig => {
+    private getContext = (): CrudContextValue => {
         return this.context;
     }
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ContextConfig, CrudContext} from "../../config/CrudContext";
+import {CrudContextValue, CrudContext} from "../../Root/CrudContext";
 
 class TitleComponent extends Component {
 
@@ -22,7 +22,7 @@ class TitleComponent extends Component {
     }
 
 
-    protected getContext = (): ContextConfig => this.context;
+    protected getContext = (): CrudContextValue => this.context;
 }
 
 TitleComponent.contextType = CrudContext;

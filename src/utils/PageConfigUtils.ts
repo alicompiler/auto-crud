@@ -1,12 +1,12 @@
-import {PageConfig} from "../config/Config";
-import {ContextConfig} from "../config/CrudContext";
+import {CrudContextValue} from "../Root/CrudContext";
+import {PageConfig} from "../Page/PageConfig";
 
 export default class PageConfigUtils {
 
-    private readonly context: ContextConfig;
+    private readonly context: CrudContextValue;
     private readonly allPages: { [pageName: string]: PageConfig };
 
-    constructor(context: ContextConfig) {
+    constructor(context: CrudContextValue) {
         this.context = context;
         this.allPages = this.generateAllPagesObject();
     }
@@ -15,7 +15,7 @@ export default class PageConfigUtils {
         const allPagesObject: any = {};
         allPagesObject[this.context.config.indexPage!.name!] = this.context.config.indexPage;
         allPagesObject[this.context.config.createPage!.name!] = this.context.config.createPage;
-        allPagesObject[this.context.config.editPage!.name!] = this.context.config.editPage;
+        allPagesObject[this.context.config.updatePage!.name!] = this.context.config.updatePage;
         allPagesObject[this.context.config.deletePage!.name!] = this.context.config.deletePage;
         for (let page of this.context.config.pages!) {
             allPagesObject[page.name!] = page;

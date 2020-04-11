@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {PageConfig, PageOption} from "../../config/Config";
 import PageConfigUtils from "../../utils/PageConfigUtils";
 import H from "history";
-import {ContextConfig} from "../../config/CrudContext";
+import {CrudContextValue} from "../../Root/CrudContext";
+import {BasePageOptions, PageConfig} from "../PageConfig";
 
 export interface BaseCrudPageProps {
     name: string;
-    context: ContextConfig;
+    context: CrudContextValue;
     history: H.History;
     location: H.Location;
     match: any;
@@ -59,7 +59,7 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
 
     protected abstract renderContent(): any;
 
-    protected getOptions(): PageOption {
+    protected getOptions(): BasePageOptions {
         return this.currentPageConfig.options ?? {};
     }
 
@@ -72,7 +72,7 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
     }
 
 
-    protected getContext = (): ContextConfig => {
+    protected getContext = (): CrudContextValue => {
         return this.props.context;
     }
 }

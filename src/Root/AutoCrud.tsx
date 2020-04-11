@@ -1,0 +1,48 @@
+import * as React from 'react';
+import {CrudContext} from "./CrudContext";
+import {DefaultConfigFixer} from "./ConfigInitializer/ConfigFixer";
+import CrudRootHeader from "../components/CrudRootHeader/CrudRootHeader";
+import SimpleRouterCrudLayout from "../Layout/SimpleRouterCrudLayout";
+import {CrudConfig} from "./CrudConfig";
+
+
+class AutoCrud extends React.Component<CrudConfig, any> {
+
+    static defaultProps = {
+        layout: () => <SimpleRouterCrudLayout/>,
+        header: () => <CrudRootHeader/>,
+    };
+
+    private readonly config: CrudConfig;
+
+    constructor(props: CrudConfig) {
+        super(props);
+        this.state = {state: {}, uiState: {}};
+        this.config = new DefaultConfigFixer(this.props).fix();
+    }
+
+
+    render() {
+        const layout = this.props.layout!();
+        const header = this.props.header!();
+
+        return (
+            <div className={'__curd-Root'}>
+                <CrudContext.Provider value={this.getContextValue()}>
+                    {header}
+                    {layout}
+                </CrudContext.Provider>
+            </div>
+        );
+    }
+
+    private getContextValue = () => {
+        return {
+            state: this.state,
+            config: this.config,
+            updateState: (payload: any) => this.setState(payload)
+        };
+    }
+}
+
+export default AutoCrud;
