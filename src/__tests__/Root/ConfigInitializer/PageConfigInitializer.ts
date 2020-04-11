@@ -11,7 +11,7 @@ describe('Page Config Initializer', () => {
 
     it('should get default create page config', function () {
         const fixer = new PageConfigInitializer();
-        const newConfig = fixer.fix(baseConfig);
+        const newConfig = fixer.initialize(baseConfig);
         const createPageConfig = newConfig.createPage!;
         expect(createPageConfig.route).toEqual('/root/create');
         expect(createPageConfig.skip).toEqual(false);
@@ -33,7 +33,7 @@ describe('Page Config Initializer', () => {
             }
         };
         const fixer = new PageConfigInitializer();
-        const newConfig = fixer.fix(config);
+        const newConfig = fixer.initialize(config);
         const createPageConfig = newConfig.createPage!;
         expect(createPageConfig.route).toEqual('/root/add');
         expect(createPageConfig.skip).toEqual(true);
@@ -44,7 +44,7 @@ describe('Page Config Initializer', () => {
 
     it('should get default update page config', function () {
         const fixer = new PageConfigInitializer();
-        const newConfig = fixer.fix(baseConfig);
+        const newConfig = fixer.initialize(baseConfig);
         const editPageConfig = newConfig.updatePage!;
         expect(editPageConfig.route).toEqual('/root/edit');
         expect(editPageConfig.skip).toEqual(false);
@@ -65,7 +65,7 @@ describe('Page Config Initializer', () => {
             }
         };
         const fixer = new PageConfigInitializer();
-        const newConfig = fixer.fix(config);
+        const newConfig = fixer.initialize(config);
         const editPageConfig = newConfig.updatePage!;
         expect(editPageConfig.route).toEqual('/root/update');
         expect(editPageConfig.skip).toEqual(true);
@@ -76,7 +76,7 @@ describe('Page Config Initializer', () => {
 
     it('should get default delete page config', function () {
         const fixer = new PageConfigInitializer();
-        const newConfig = fixer.fix(baseConfig);
+        const newConfig = fixer.initialize(baseConfig);
         const deletePageConfig = newConfig.deletePage!;
         expect(deletePageConfig.route).toEqual('/root/remove');
         expect(deletePageConfig.skip).toEqual(false);
@@ -95,7 +95,7 @@ describe('Page Config Initializer', () => {
                 skip: true, route: '/delete', options: options, pageComponent: MockedPage
             }
         };
-        const newConfig = fixer.fix(config);
+        const newConfig = fixer.initialize(config);
         const deletePageConfig = newConfig.deletePage!;
         expect(deletePageConfig.route).toEqual('/root/delete');
         expect(deletePageConfig.skip).toEqual(true);
@@ -106,7 +106,7 @@ describe('Page Config Initializer', () => {
 
     it('should get default details page config', function () {
         const fixer = new PageConfigInitializer();
-        const newConfig = fixer.fix(baseConfig);
+        const newConfig = fixer.initialize(baseConfig);
         const detailsPage = newConfig.detailsPage!;
         expect(detailsPage.route).toEqual('/root/details/:key');
         expect(detailsPage.skip).toEqual(false);
@@ -125,7 +125,7 @@ describe('Page Config Initializer', () => {
                 skip: true, route: '/:id(\\d+)', options: options, pageComponent: MockedPage
             }
         };
-        const newConfig = fixer.fix(config);
+        const newConfig = fixer.initialize(config);
         const deletePageConfig = newConfig.detailsPage!;
         expect(deletePageConfig.route).toEqual('/root/:id(\\d+)');
         expect(deletePageConfig.skip).toEqual(true);
@@ -145,7 +145,7 @@ describe('Page Config Initializer', () => {
         };
 
         const fixer = new PageConfigInitializer();
-        const newConfig = fixer.fix(config);
+        const newConfig = fixer.initialize(config);
         const pages = newConfig.pages!;
         expect(pages[0].name).toEqual('page-one');
         expect(pages[0].skip).toEqual(false);
@@ -171,11 +171,35 @@ describe('Page Config Initializer', () => {
             indexPage: {name: 'index-page'}
         };
         const fixer = new PageConfigInitializer();
-        const newConfig = fixer.fix(config);
+        const newConfig = fixer.initialize(config);
         expect(newConfig.createPage!.skip).toEqual(false);
         expect(newConfig.updatePage!.pageComponent).toEqual(UpdatePage);
         expect(newConfig.deletePage!.route).toEqual('/root/remove');
         expect(newConfig.indexPage!.options).toEqual({});
+    });
+
+    it('should throw error when custom page does not provide name', function () {
+        const config = {
+            ...baseConfig, pages: [{route: '/page-1', pageComponent: CreatePage}]
+        };
+        const fixer = new PageConfigInitializer();
+        expect(() => fixer.initialize(config)).toThrowError('Custom page has no name');
+    });
+    
+    it('should throw error when custom page does not provide route', function () {
+        const config = {
+            ...baseConfig, pages: [{name: 'custom-page', pageComponent: CreatePage}]
+        };
+        const fixer = new PageConfigInitializer();
+        expect(() => fixer.initialize(config)).toThrowError('Page custom-page has no route');
+    });
+
+    it('should throw error when custom page does not provide pageComponent', function () {
+        const config = {
+            ...baseConfig, pages: [{name: 'custom-page', route: '/test'}]
+        };
+        const fixer = new PageConfigInitializer();
+        expect(() => fixer.initialize(config)).toThrowError('Page custom-page has no PageComponent');
     });
 
 });

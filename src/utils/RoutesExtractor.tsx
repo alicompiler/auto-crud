@@ -19,8 +19,8 @@ export default class RoutesExtractor {
     };
 
     protected getComponent(option: any) {
-        const Page = option.component
-        ;
+        const Page = option.component;
+        console.log(Page);
         return (route: RouteComponentProps) => <Page name={option.name}
                                                      history={route.history}
                                                      location={route.location}

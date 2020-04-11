@@ -4,7 +4,7 @@ import {PageConfig} from "../Page/PageConfig";
 export interface CrudConfig {
     name: string;
     endpointRoot: string;
-    routeRoot: string;
+    routeRoot?: string;
     pages?: PageConfig[];
     indexPage?: PageConfig;
     createPage?: PageConfig;

@@ -1,5 +1,5 @@
 import {CrudConfig} from "../CrudConfig";
-import {ConfigFixer} from "./ConfigFixer";
+import {ConfigInitializer} from "./ConfigInitializer";
 import CreatePage from "../../Page/CrudPage/Create/CreatePage";
 import UpdatePage from "../../Page/CrudPage/Update/UpdatePage";
 import DeletePage from "../../Page/CrudPage/DeletePage/CrudDeletePage";
@@ -7,9 +7,9 @@ import {IndexPage} from "../../Page/CrudPage/Index/IndexPage";
 import {PageConfig} from "../../Page/PageConfig";
 import DetailsPage from "../../Page/CrudPage/Details/DetailsPage";
 
-export class PageConfigInitializer implements ConfigFixer {
+export class PageConfigInitializer implements ConfigInitializer {
 
-    public fix(config: CrudConfig): CrudConfig {
+    public initialize(config: CrudConfig): CrudConfig {
         return {
             ...config,
             indexPage: this.getIndexPageConfig(config),

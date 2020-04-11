@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {CrudContext} from "./CrudContext";
-import {DefaultConfigFixer} from "./ConfigInitializer/ConfigFixer";
+import {DefaultConfigInitializer} from "./ConfigInitializer/ConfigInitializer";
 import CrudRootHeader from "../components/CrudRootHeader/CrudRootHeader";
 import SimpleRouterCrudLayout from "../Layout/SimpleRouterCrudLayout";
 import {CrudConfig} from "./CrudConfig";
@@ -18,7 +18,8 @@ class AutoCrud extends React.Component<CrudConfig, any> {
     constructor(props: CrudConfig) {
         super(props);
         this.state = {state: {}, uiState: {}};
-        this.config = new DefaultConfigFixer(this.props).fix();
+        this.config = new DefaultConfigInitializer(this.props).initialize();
+        console.log(this.config);
     }
 
 
