@@ -1,7 +1,7 @@
 import {ReactElement} from "react";
 import CrudLayoutBase from "../root/CrudLayoutBase";
 import BaseCrudPage from "../Page/Base/BaseCrudPage";
-
+import FieldConfig from "react-auto-form-core/dist/Field/FieldConfig";
 
 export interface PageConfigComponent {
     as: any
@@ -13,7 +13,7 @@ export interface PageOption {
     onDestroyAction?: (page: BaseCrudPage) => void;
 
     initialState?: any;
-    pageTitle? : string;
+    pageTitle?: string;
 
     [propName: string]: any;
 }
@@ -29,6 +29,7 @@ export interface PageConfig {
 
 export interface CrudConfig {
     name: string;
+    endpointRoot: string;
     routeRoot: string;
     operations: any[];
     pages?: PageConfig[];
@@ -42,7 +43,10 @@ export interface CrudConfig {
 
     mainTitle?: string;
 
+    fields: FieldConfig[];
+
     layout?: () => ReactElement<CrudLayoutBase>;
+    header?: () => any;
 }
 
 

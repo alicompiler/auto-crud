@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter} from "react-router-dom";
 import SimpleCurdApp from "./example/SimpleCurdApp";
 import "./example/style/compiled-style.css";
+import {setRafDefaults} from "raf-defaults/dist/setup"
+
+setRafDefaults();
 
 function App() {
     return (

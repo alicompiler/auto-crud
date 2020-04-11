@@ -3,6 +3,7 @@ import React from "react";
 import ToolbarComponent from "../../../components/Toolbar/ToolbarComponent";
 import ToolbarNavigationAction from "../../../Defaults/Components/ToolbarNavigationAction";
 import {CollectionPageDefaults} from "../../../Defaults/Page/CollectionPageDefaults";
+import {IndexPageOptions} from "./IndexPageOptions";
 
 export class IndexPage extends TablePage {
 
@@ -17,8 +18,11 @@ export class IndexPage extends TablePage {
 
     protected renderToolbar = () => {
         return <ToolbarComponent onSearch={this.onSearch}
+                                 noSearch={this.getOptions().noSearch}
+                                 searchInputClassName={this.getOptions().searchInputClassName}
+                                 wrapperClassName={this.getOptions().toolbarWrapperClassName}
                                  page={this}
-                                 searchInputPlaceholder={CollectionPageDefaults.localization.search}
+                                 searchInputPlaceholder={this.getOptions().searchInputPlaceholder ?? CollectionPageDefaults.localization.search}
                                  actions={this.getToolbarAction()}/>
     };
 
@@ -31,7 +35,7 @@ export class IndexPage extends TablePage {
     protected getToolbarAction = () => {
         const toolbarActions = this.getOptions().toolbarActions;
         if (toolbarActions) {
-            return toolbarActions;
+            return toolbarActions.map(action => () => action(this));
         }
         return [
             () => <ToolbarNavigationAction icon={'fas fa-plus text-white'}
@@ -42,6 +46,10 @@ export class IndexPage extends TablePage {
                 <i className={'fas text-white fa-sync'}/>
             </button>
         ];
+    };
+
+    protected getOptions(): IndexPageOptions {
+        return super.getOptions();
     }
 
 

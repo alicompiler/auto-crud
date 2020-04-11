@@ -1,6 +1,6 @@
 import {CrudConfig, PageConfig, PageConfigComponent} from "../Config";
 import {ConfigFixer} from "./ConfigFixer";
-import CrudCreatePage from "../../_page/CrudCreatePage";
+import CreatePage from "../../Page/CrudPage/Create/CreatePage";
 import CrudUpdatePage from "../../_page/CrudUpdatePage";
 import CrudDeletePage from "../../_page/CrudDeletePage";
 import CrudIndexPage from "../../_page/CrudIndexPage";
@@ -31,7 +31,7 @@ export class PageConfigFixer implements ConfigFixer {
     protected getCreatePageConfig(config: CrudConfig): PageConfig {
         const defaultRoute = `${config.routeRoot}/create`;
         const defaultSkip = false;
-        const defaultPageComponent: PageConfigComponent = {as: CrudCreatePage};
+        const defaultPageComponent: PageConfigComponent = {as: CreatePage};
         return this.getPageConfig(config, config.createPage, 'create', defaultRoute, defaultSkip, defaultPageComponent);
     }
 

@@ -7,19 +7,16 @@ class TitleComponent extends Component {
         const title = this.getContext().config.mainTitle;
         const subtitle = this.getContext().state.pageTitle;
         return (
-            <div>
-                <div className={'flex p-2'}>
-                    {
-                        title && <h2 className={'text-xl text-gray-700'}>{title}</h2>
-                    }
-                    {
-                        subtitle && <>
-                            {title && <span className={'text-black font-bold text-xl mx-4'}>|</span>}
-                            <p className={'text-xl text-gray-500'}>{subtitle}</p>
-                        </>
-                    }
-                </div>
-                <div className={'my-4 h-px w-full bg-gray-300'}/>
+            <div className={'flex p-2'}>
+                {
+                    title && <h2 className={'text-xl text-gray-700'}>{title}</h2>
+                }
+                {
+                    subtitle && <>
+                        {title && <span className={'text-black font-bold text-xl mx-4'}>|</span>}
+                        <p className={'text-xl text-gray-500'}>{subtitle}</p>
+                    </>
+                }
             </div>
         );
     }

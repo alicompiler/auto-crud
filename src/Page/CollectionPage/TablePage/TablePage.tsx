@@ -3,6 +3,7 @@ import React from "react";
 import {TableRenderOptions} from "auto-collection";
 import SimpleTableContainer from "auto-collection/dist/Container/SimpleTableContainer";
 import {CollectionPageDefaults} from "../../../Defaults/Page/CollectionPageDefaults";
+import {TablePageOptions} from "./TablePageOptions";
 
 export class TablePage extends CollectionPage {
     protected renderCollectionContainer(): any {
@@ -20,10 +21,13 @@ export class TablePage extends CollectionPage {
         />
     }
 
-
     protected getRenderOptions = (): TableRenderOptions => {
         const overrideRenderOptionsConfig = this.getOptions().renderOptionsConfig ? this.getOptions().renderOptionsConfig : {};
         const config = {...CollectionPageDefaults.renderOptionsConfig, ...overrideRenderOptionsConfig};
         return this.getOptions().collectionRenderOptions ?? new TableRenderOptions(config);
+    };
+
+    protected getOptions(): TablePageOptions {
+        return super.getOptions();
     }
 }

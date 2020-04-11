@@ -5,7 +5,13 @@
   "dependencies": {
     "auto-collection": "^0.2.2",
     "axios": "^0.19.2",
-    "react-router-dom": "^5.1.2"
+    "raf-axios-submitter": "^0.2.0",
+    "raf-default-validator": "^0.1.0",
+    "raf-defaults": "^0.3.0",
+    "raf-tailwind-components": "^0.2.1",
+    "react-auto-form-core": "^0.3.0",
+    "react-router-dom": "^5.1.2",
+    "validate.js": "^0.13.1"
   },
   "scripts": {
     "build:styles": "postcss src/example/style/tailwindcss.css -o src/example/style/compiled-style.css --watch",

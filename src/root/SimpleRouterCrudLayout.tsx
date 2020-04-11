@@ -12,7 +12,6 @@ class SimpleRouterCrudLayout extends Component {
     render() {
         return (
             <div>
-                <TitleComponent/>
                 {
                     this.getRouterSwitch()
                 }
