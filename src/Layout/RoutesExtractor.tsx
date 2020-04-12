@@ -39,6 +39,8 @@ export default class RoutesExtractor {
             options.push(this.getRouteOptionForPage(this.context.config.updatePage!));
         if (!this.context.config.deletePage?.skip)
             options.push(this.getRouteOptionForPage(this.context.config.deletePage!));
+        if (!this.context.config.detailsPage?.skip)
+            options.push(this.getRouteOptionForPage(this.context.config.detailsPage!));
 
         for (let pageConfig of this.context.config.pages!) {
             if (!pageConfig.skip)

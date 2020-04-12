@@ -185,7 +185,7 @@ describe('Page Config Initializer', () => {
         const fixer = new PageConfigInitializer();
         expect(() => fixer.initialize(config)).toThrowError('Custom page has no name');
     });
-    
+
     it('should throw error when custom page does not provide route', function () {
         const config = {
             ...baseConfig, pages: [{name: 'custom-page', pageComponent: CreatePage}]
@@ -200,6 +200,12 @@ describe('Page Config Initializer', () => {
         };
         const fixer = new PageConfigInitializer();
         expect(() => fixer.initialize(config)).toThrowError('Page custom-page has no PageComponent');
+    });
+
+    it('should get empty array for pages when no custom pages provided', function () {
+        const fixer = new PageConfigInitializer();
+        const newConfig = fixer.initialize(baseConfig);
+        expect(newConfig.pages).toHaveLength(0);
     });
 
 });

@@ -2,14 +2,14 @@ import * as React from 'react';
 import {CrudContext} from "./CrudContext";
 import {DefaultConfigInitializer} from "./ConfigInitializer/ConfigInitializer";
 import CrudRootHeader from "../components/CrudRootHeader/CrudRootHeader";
-import SimpleRouterCrudLayout from "../Layout/SimpleRouterCrudLayout";
+import CrudLayout from "../Layout/CrudLayout";
 import {CrudConfig} from "./CrudConfig";
 
 
 class AutoCrud extends React.Component<CrudConfig, any> {
 
     static defaultProps = {
-        layout: () => <SimpleRouterCrudLayout/>,
+        layout: () => <CrudLayout/>,
         header: () => <CrudRootHeader/>,
     };
 
