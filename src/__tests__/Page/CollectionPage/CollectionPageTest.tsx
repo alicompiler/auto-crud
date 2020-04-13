@@ -49,7 +49,6 @@ function getPageInstance(context: any, name: string = 'index'): SimpleCollection
 
 describe('CollectionContainer', () => {
 
-
     describe('DataSource', () => {
 
         it('should get DataSource from config', function () {
@@ -196,4 +195,5 @@ describe('CollectionContainer', () => {
         expect(page.getLocalization()).toEqual(localization);
     });
 
+    
 });

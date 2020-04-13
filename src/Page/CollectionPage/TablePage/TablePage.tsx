@@ -21,8 +21,8 @@ export class TablePage extends CollectionPage {
         />
     }
 
-    protected getRenderOptions = (): TableRenderOptions => {
-        const overrideRenderOptionsConfig = this.getOptions().renderOptionsConfig ? this.getOptions().renderOptionsConfig : {};
+    public getRenderOptions = (): TableRenderOptions => {
+        const overrideRenderOptionsConfig = this.getOptions().renderOptionsConfig ?? {};
         const config = {...CollectionPageDefaults.renderOptionsConfig, ...overrideRenderOptionsConfig};
         return this.getOptions().collectionRenderOptions ?? new TableRenderOptions(config);
     };
