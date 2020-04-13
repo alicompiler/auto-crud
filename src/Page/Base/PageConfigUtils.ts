@@ -27,11 +27,6 @@ export default class PageConfigUtils {
         return this.allPages[name];
     }
 
-    public getRouteForPage(name: string): string {
-        const pageConfig = this.getPageConfigByName(name);
-        return pageConfig.route!;
-    }
-
     public getPageState(name: string): any {
         const state = this.context.ui.pages[name];
         return state ?? {};
