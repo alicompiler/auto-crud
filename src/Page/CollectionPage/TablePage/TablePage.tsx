@@ -27,7 +27,7 @@ export class TablePage extends CollectionPage {
         return this.getOptions().collectionRenderOptions ?? new TableRenderOptions(config);
     };
 
-    protected getOptions(): TablePageOptions {
+    public getOptions(): TablePageOptions {
         return super.getOptions();
     }
 }

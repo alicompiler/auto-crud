@@ -20,10 +20,6 @@ class SimpleCurdApp extends Component {
                           indexPage={{
                               name: 'index',
                               options: {
-                                  dataSource: new AxiosDataSource({
-                                      url: 'https://api.npoint.io/b8cab438591b6a238751',
-                                      method: 'get'
-                                  }),
                                   onSearch: (value: any) => console.log('onSearch', value),
                                   renderOptionsConfig: {
                                       overrideColumns: {

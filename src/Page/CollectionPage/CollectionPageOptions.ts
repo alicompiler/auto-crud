@@ -1,5 +1,6 @@
-import {KeyExtractor} from "auto-collection";
+import {AxiosFetchOption, DataSource, KeyExtractor} from "auto-collection";
 import {BasePageOptions} from "../PageConfig";
+import CollectionPage from "./CollectionPage";
 
 export interface CollectionPageOptions extends BasePageOptions {
     onFetchFail?: () => void;
@@ -10,5 +11,10 @@ export interface CollectionPageOptions extends BasePageOptions {
     renderEmpty?: () => any;
     keyExtractor?: KeyExtractor;
     renderOptionsConfig?: any;
+
+    dataSource?: (page: CollectionPage) => DataSource<any, any>;
+    dataSourceUrl?: string | ((page: CollectionPage) => string);
+    dataSourceOptions?: AxiosFetchOption;
+
     collectionRenderOptions?: any;
 }

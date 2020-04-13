@@ -11,7 +11,7 @@ interface CollectionPageDefault {
     localization: {
         loading_data: string,
         fail_to_fetch_data: string,
-        empty_data: string,
+        data_empty: string,
         try_again: string,
         search : string;
     },
@@ -23,7 +23,7 @@ export const CollectionPageDefaults: CollectionPageDefault = {
     renderError: page => <CollectionPageErrorComponent page={page} action={page => page.restart()}/>,
     renderEmpty: page => <CollectionPageEmptyComponent page={page} action={page => page.restart()}/>,
     localization: {
-        empty_data: 'Data Empty',
+        data_empty: 'Data Empty',
         fail_to_fetch_data: 'Fail To Fetch Data',
         loading_data: 'Loading Data...',
         try_again: 'Try Again',
