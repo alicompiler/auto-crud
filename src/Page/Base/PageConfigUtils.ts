@@ -1,5 +1,5 @@
-import {CrudContextValue} from "../Root/CrudContext";
-import {PageConfig} from "../Page/PageConfig";
+import {CrudContextValue} from "../../Root/CrudContext";
+import {PageConfig} from "../PageConfig";
 
 export default class PageConfigUtils {
 

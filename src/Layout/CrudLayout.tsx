@@ -5,7 +5,6 @@ import RoutesExtractor from "./RoutesExtractor";
 
 
 class CrudLayout extends Component {
-
     private previousSwitch: any = null;
 
     render() {
@@ -17,7 +16,6 @@ class CrudLayout extends Component {
             </div>
         );
     }
-
 
     protected getRouterSwitch = () => {
         if (this.previousSwitch)

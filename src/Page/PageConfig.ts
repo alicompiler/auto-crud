@@ -11,6 +11,7 @@ export interface PageConfig {
 }
 
 export interface BasePageOptions {
+
     onLoadAction?: (page: BaseCrudPage) => Promise<any>;
     afterOnLoadAction?: (result: any, page: BaseCrudPage) => void;
     onDestroyAction?: (page: BaseCrudPage) => void;

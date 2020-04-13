@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PageConfigUtils from "../../utils/PageConfigUtils";
+import PageConfigUtils from "./PageConfigUtils";
 import H from "history";
 import {CrudContextValue} from "../../Root/CrudContext";
 import {BasePageOptions, PageConfig} from "../PageConfig";

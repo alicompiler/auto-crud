@@ -1,7 +1,7 @@
 import * as React from "react";
 import {CrudConfig} from "./CrudConfig";
 import {DefaultConfigInitializer} from "./ConfigInitializer/ConfigInitializer";
-import {UIStateInitializer} from "../config/UIStateInitializer";
+import {UIStateInitializer} from "./ConfigInitializer/UIStateInitializer";
 
 export interface CrudContextValue<State = any> {
     config: CrudConfig;

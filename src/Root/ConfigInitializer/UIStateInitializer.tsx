@@ -1,5 +1,5 @@
-import {CrudConfig} from "../Root/CrudConfig";
-import {UIState} from "../Root/CrudContext";
+import {CrudConfig} from "../CrudConfig";
+import {UIState} from "../CrudContext";
 
 export class UIStateInitializer {
 
@@ -23,10 +23,12 @@ export class UIStateInitializer {
         pagesState[this.config.createPage!.name!] = this.config.createPage!.options?.initialState ?? {};
         pagesState[this.config.updatePage!.name!] = this.config.updatePage!.options?.initialState ?? {};
         pagesState[this.config.deletePage!.name!] = this.config.deletePage!.options?.initialState ?? {};
+        pagesState[this.config.detailsPage!.name!] = this.config.detailsPage!.options?.initialState ?? {};
 
         for (let page of this.config.pages!) {
             pagesState[page.name!] = page.options?.initialState ?? {}
         }
+
         return pagesState;
     }
 

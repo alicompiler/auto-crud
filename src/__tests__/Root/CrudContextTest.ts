@@ -1,7 +1,7 @@
 import {getInitialState} from "../../Root/CrudContext";
 import {CrudConfig} from "../../Root/CrudConfig";
 import {DefaultConfigInitializer} from "../../Root/ConfigInitializer/ConfigInitializer";
-import {UIStateInitializer} from "../../config/UIStateInitializer";
+import {UIStateInitializer} from "../../Root/ConfigInitializer/UIStateInitializer";
 
 describe('crud context', () => {
 
