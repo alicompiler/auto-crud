@@ -1,7 +1,7 @@
 import React from 'react';
-import CrudPage from "../Page/Base/CrudPage";
+import BaseCrudPage from "../Page/Base/BaseCrudPage";
 
-class ExampleCounterCrudPage extends CrudPage {
+class ExampleCounterCrudPage extends BaseCrudPage {
     protected renderContent(): any {
         return <>
             <h1>Counter : {this.getState().counter}</h1>

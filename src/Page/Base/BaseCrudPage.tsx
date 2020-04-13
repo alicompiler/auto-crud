@@ -59,20 +59,19 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
 
     protected abstract renderContent(): any;
 
-    protected getOptions(): BasePageOptions {
+    public getOptions(): BasePageOptions {
         return this.currentPageConfig.options ?? {};
     }
 
-    protected getState(): any {
+    public getState(): any {
         return this.pageConfigUtils.getPageState(this.props.name);
     }
 
-    protected updateState(payload: any): void {
+    public updateState(payload: any): void {
         this.pageConfigUtils.updatePageState(this.props.name, payload);
     }
 
-
-    protected getContext = (): CrudContextValue => {
+    public getContext = (): CrudContextValue => {
         return this.props.context;
     }
 }
