@@ -24,7 +24,7 @@ export class FormRenderConfigGenerator {
                 return this.getFieldByName(field);
             });
         }
-        
+
         return this.getAllFields();
     }
 

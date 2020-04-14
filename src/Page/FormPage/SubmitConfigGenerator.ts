@@ -6,25 +6,37 @@ import {IFormPageDefaults} from "../../Defaults/Page/FormPageDefaults";
 export class SubmitConfigGenerator {
     private readonly context: CrudContextValue;
     private readonly options: FormPageOptions;
-    private readonly defaults: any;
+    private readonly defaults: IFormPageDefaults;
 
     constructor(context: CrudContextValue, options: FormPageOptions, defaults: IFormPageDefaults,) {
         this.context = context;
         this.options = options;
-        this.defaults = defaults ?? {};
+        this.defaults = defaults;
     }
 
     public generate(): SubmitConfig {
+
+        if (this.options.submitConfig) {
+            return this.options.submitConfig;
+        }
+
+        const overrideConfig = this.options.overrideSubmitConfig ?? {};
         return {
             url: this.getUrl(),
-            method: this.defaults.form.httpMethod
+            method: this.defaults.form.httpMethod,
+            ...overrideConfig
         }
     }
 
     protected getUrl(): string {
-        if (this.options.url)
-            return this.options.url;
+        if (this.options.url) {
+            const url = this.options.url;
+            if (typeof url === "string")
+                return `${this.context.config.endpointRoot}${url}`;
+            if (typeof url === "function")
+                return url(this.context);
+        }
         const urlPostfix = this.options.urlPostfix ?? '';
-        return this.context.config.endpointRoot + (`/${urlPostfix}` ?? '');
+        return this.context.config.endpointRoot + urlPostfix;
     }
 }

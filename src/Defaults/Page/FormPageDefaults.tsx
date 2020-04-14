@@ -4,8 +4,8 @@ import * as React from "react";
 export interface IFormPageDefaults {
     form: {
         renderOptions: {
-            form: {
-                renderButton: (form: IForm) => any;
+            form?: {
+                renderButton?: (form: IForm) => any;
             }
         },
         httpMethod: "get" | "post" | "put" | "patch" | "delete"

@@ -9,14 +9,19 @@ import {FormRenderConfigGenerator} from "./FormRenderConfigGenerator";
 
 class FormPage extends BaseCrudPage {
     protected renderContent(): any {
+        return <div className={'__curd-form-page'}>
+            {this.renderForm()}
+        </div>
+    }
+
+    protected renderForm = () => {
         return <Form fields={this.getFields()}
                      initialValues={this.getInitialValues()}
                      on={this.getFormListeners()}
-                     onAnyValueChanged={this.getOnAnyValueChangeListener}
+                     onAnyValueChanged={this.getOnAnyValueChangeListener()}
                      services={this.getFormServices()}
                      renderOptions={this.getFormRenderOptions()}
-                     submitConfig={this.getSubmitConfig()}
-        />
+                     submitConfig={this.getSubmitConfig()}/>
     }
 
 
@@ -24,7 +29,7 @@ class FormPage extends BaseCrudPage {
         return new FormRenderConfigGenerator(this.getContext(), this.getOptions()).generate();
     };
 
-    protected getFormRenderOptions = () => {
+    public getFormRenderOptions = () => {
         if (this.getOptions().renderOptions)
             return this.getOptions().renderOptions;
         return FormPageDefault.form.renderOptions;
@@ -47,14 +52,11 @@ class FormPage extends BaseCrudPage {
     };
 
     protected getSubmitConfig = () => {
-        if (this.getOptions().submitConfig) {
-            return this.getOptions().submitConfig;
-        }
         const generator = new SubmitConfigGenerator(this.getContext(), this.getOptions(), FormPageDefault);
         return generator.generate();
     };
 
-    protected getOptions(): FormPageOptions {
+    public getOptions(): FormPageOptions {
         return super.getOptions();
     }
 }
