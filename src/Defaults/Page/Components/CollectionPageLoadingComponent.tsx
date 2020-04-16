@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function CollectionPageLoadingComponent(props: Props) {
-    const className = props.className ?? 'p-8 flex items-center justify-center text-center rounded bg-white';
+    const className = props.className ?? 'p-8 flex flex-col items-center justify-center text-center rounded bg-white';
     const style = props.style ?? {};
     const injectedProps = props.injectedProps ?? {};
     const page = props.page;

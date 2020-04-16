@@ -26,7 +26,9 @@ abstract class CollectionPage extends BaseCrudPage {
     public getDataSource(): DataSource<any, any> {
         if (this.getOptions().dataSource)
             return this.getOptions().dataSource!(this);
-        return this.getDefaultDataSource();
+        const ds = this.getDefaultDataSource();
+        console.log(ds);
+        return ds;
     }
 
     protected getDefaultDataSource(): DataSource<any, any> {
@@ -40,10 +42,12 @@ abstract class CollectionPage extends BaseCrudPage {
 
     protected getDataSourceUrl(): string {
         const url = this.getOptions().dataSourceUrl;
+        console.log(url);
         if (typeof url === "string")
             return `${this.getContext().config.endpointRoot}${url}`;
         else if (typeof url === "function")
             return url(this);
+
         return this.getUrlWhenNoAnyMatchFound();
     }
 

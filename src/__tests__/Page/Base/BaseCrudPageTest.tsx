@@ -31,7 +31,8 @@ const context: CrudContextValue = {
     },
     state: {},
     ui: {pages: {index: {someKey: 'someValue'}}, modals: {}},
-    updateState: () => null
+    updateState: () => null,
+    updatePageOptions: () => null
 }
 
 
@@ -192,4 +193,42 @@ describe('BaseCrudPage', () => {
         const content = container!.querySelector('div[data-testid="simple-base-crud-page"]');
         expect(content).toBeTruthy();
     });
+
+    describe('Toolbar', () => {
+        it('should render null for toolbar when set to null in config', function () {
+            const _context = JSON.parse(JSON.stringify(context));
+            _context.config.indexPage.toolbar = null;
+            const page = mount(<SimpleBaseCrudPage name={'index'}
+                                                   context={_context}
+                                                   history={(() => '') as any}
+                                                   location={{} as any}
+                                                   match={{} as any}/>).instance() as BaseCrudPage;
+
+            expect(page.renderToolbar()).toBeNull();
+        });
+
+        it('should render toolbar using function in config', function () {
+            const _context = JSON.parse(JSON.stringify(context));
+            _context.config.indexPage.toolbar = (page: BaseCrudPage) => page.props.name;
+            const page = mount(<SimpleBaseCrudPage name={'index'}
+                                                   context={_context}
+                                                   history={(() => '') as any}
+                                                   location={{} as any}
+                                                   match={{} as any}/>).instance() as BaseCrudPage;
+
+            expect(page.renderToolbar()).toEqual('index');
+        });
+
+
+        it('should render null as default toolbar renderer', function () {
+            const page = mount(<SimpleBaseCrudPage name={'index'}
+                                                   context={context}
+                                                   history={(() => '') as any}
+                                                   location={{} as any}
+                                                   match={{} as any}/>).instance() as BaseCrudPage;
+            expect(page.renderToolbar()).toBeNull();
+        });
+    })
+
+
 });

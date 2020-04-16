@@ -51,6 +51,10 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
         return (
             <div className={`__curd-page`}>
                 {
+                    this.renderToolbar()
+                }
+                <br/>
+                {
                     this.renderContent()
                 }
             </div>
@@ -58,6 +62,18 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
     }
 
     protected abstract renderContent(): any;
+
+    public renderToolbar = (): any => {
+        if (this.currentPageConfig.toolbar === null)
+            return null;
+        if (this.currentPageConfig.toolbar) {
+            return this.currentPageConfig.toolbar(this);
+        }
+
+        return this.renderDefaultToolbar();
+    }
+
+    protected renderDefaultToolbar = (): any => null;
 
     public getOptions(): BasePageOptions {
         return this.currentPageConfig.options ?? {};
@@ -73,6 +89,10 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
 
     public getContext = (): CrudContextValue => {
         return this.props.context;
+    }
+
+    public updateOptions = (newOptions: any, afterUpdateCallback?: () => void) => {
+        this.getContext().updatePageOptions(this.props.name, newOptions, afterUpdateCallback);
     }
 }
 

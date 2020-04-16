@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {CrudContext} from "./CrudContext";
+import {CrudContext, CrudContextValue} from "./CrudContext";
 import {DefaultConfigInitializer} from "./ConfigInitializer/ConfigInitializer";
 import CrudRootHeader from "../components/CrudRootHeader/CrudRootHeader";
 import CrudLayout from "../Layout/CrudLayout";
@@ -13,12 +13,11 @@ class AutoCrud extends React.Component<CrudConfig, any> {
         header: () => <CrudRootHeader/>,
     };
 
-    private readonly config: CrudConfig;
 
     constructor(props: CrudConfig) {
         super(props);
-        this.state = {state: {}, uiState: {}};
-        this.config = new DefaultConfigInitializer(this.props).initialize();
+        const config = new DefaultConfigInitializer(this.props).initialize();
+        this.state = {state: {}, uiState: {}, config: config};
     }
 
 
@@ -39,9 +38,39 @@ class AutoCrud extends React.Component<CrudConfig, any> {
     private getContextValue = () => {
         return {
             state: this.state,
-            config: this.config,
-            updateState: (payload: any) => this.setState(payload)
+            config: this.state.config,
+            updateState: (payload: any) => this.setState(payload),
+            updatePageOptions: this.updatePageOptions
         };
+    }
+
+    private updatePageOptions = (pageName: string, options: any, afterUpdateCallback?: () => void) => {
+
+        //todo : cleanup
+
+        if (this.state.config.indexPage.name === pageName) {
+            this.state.config.indexPage.options = options;
+        }
+        if (this.state.config.createPage.name === pageName) {
+            this.state.config.indexPage.options = options;
+        }
+        if (this.state.config.updatePage.name === pageName) {
+            this.state.config.indexPage.options = options;
+        }
+        if (this.state.config.deletePage.name === pageName) {
+            this.state.config.indexPage.options = options;
+        }
+        if (this.state.config.detailsPage.name === pageName) {
+            this.state.config.indexPage.options = options;
+        }
+
+        this.state.config.pages = this.state.config.pages.map((page: any) => {
+            if (page.name === pageName)
+                return {...page, options: options};
+            return {...page};
+        });
+
+        this.setState({config: {...this.state.config}}, afterUpdateCallback);
     }
 }
 

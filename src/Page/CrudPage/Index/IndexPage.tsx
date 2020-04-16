@@ -9,14 +9,11 @@ export class IndexPage extends TablePage {
 
     protected renderContent(): any {
         return <div>
-            {this.renderToolbar()}
-            <br/>
             {this.renderCollectionContainer()}
         </div>
     }
 
-
-    protected renderToolbar = () => {
+    protected renderDefaultToolbar = () => {
         return <ToolbarComponent onSearch={this.onSearch}
                                  noSearch={this.getOptions().noSearch}
                                  searchInputClassName={this.getOptions().searchInputClassName}
@@ -24,15 +21,25 @@ export class IndexPage extends TablePage {
                                  page={this}
                                  searchInputPlaceholder={this.getOptions().searchInputPlaceholder ?? CollectionPageDefaults.localization.search}
                                  actions={this.getToolbarAction()}/>
-    };
-
+    }
 
     protected onSearch = (value: string) => {
         const onSearch = this.getOptions().onSearch;
-        onSearch && onSearch(value, this);
+        onSearch ? onSearch(value, this) : this.defaultOnSearch(value);
     };
 
-    protected getToolbarAction = () => {
+    protected defaultOnSearch = (value: string) => {
+        const url = this.getContext().config.endpointRoot + "search?query=" + encodeURI(value)
+        this.updateDataSourceUrl(url);
+    }
+
+    public updateDataSourceUrl = (url: string) => {
+        this.updateOptions({...this.getOptions(), dataSourceUrl: () => url}, () => {
+            this.forceUpdate(() => this.getCollectionRef()!.startDataFetch());
+        });
+    }
+
+    public getToolbarAction = () => {
         const toolbarActions = this.getOptions().toolbarActions;
         if (toolbarActions) {
             return toolbarActions.map(action => () => action(this));
@@ -48,9 +55,8 @@ export class IndexPage extends TablePage {
         ];
     };
 
-    protected getOptions(): IndexPageOptions {
+    public getOptions(): IndexPageOptions {
         return super.getOptions();
     }
-
 
 }

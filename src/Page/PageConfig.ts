@@ -8,6 +8,7 @@ export interface PageConfig {
     // skip used to not include page route in main router switch
     skip?: boolean;
     options?: BasePageOptions;
+    toolbar?: ((page: BaseCrudPage) => any) | null
 }
 
 export interface BasePageOptions {

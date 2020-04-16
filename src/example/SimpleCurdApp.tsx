@@ -10,7 +10,7 @@ class SimpleCurdApp extends Component {
             <div>
                 <AutoCrud name={'books'}
                           routeRoot={'/books'}
-                          endpointRoot={'http://localhost:8080/api/books'}
+                          endpointRoot={'http://localhost:8080/api/books/'}
                           fields={[
                               {as: TextField, name: 'name', placeholder: 'Name'},
                               {as: TextField, name: 'author', placeholder: 'Author'},
@@ -20,16 +20,8 @@ class SimpleCurdApp extends Component {
                           indexPage={{
                               name: 'index',
                               options: {
+                                  url: '',
                                   onSearch: (value: any) => console.log('onSearch', value),
-                                  renderOptionsConfig: {
-                                      overrideColumns: {
-                                          id: {
-                                              name: 'id',
-                                              title: 'OPEN',
-                                              cellClassName: 'bg-red-400'
-                                          }
-                                      }
-                                  },
                                   pageTitle: 'Main'
                               },
                           }}

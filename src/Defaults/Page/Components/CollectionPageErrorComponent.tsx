@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function CollectionPageErrorComponent(props: Props) {
-    const className = props.className ?? 'p-8 flex items-center justify-center text-center rounded bg-red-400';
+    const className = props.className ?? 'p-8 flex flex-col items-center justify-center text-center rounded bg-red-400';
     const style = props.style ?? {};
     const injectedProps = props.injectedProps ?? {};
     const page = props.page;

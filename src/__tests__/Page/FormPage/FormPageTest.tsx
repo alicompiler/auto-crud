@@ -24,7 +24,8 @@ const context: CrudContextValue = {
     },
     state: {},
     ui: {pages: {index: {someKey: 'someValue'}}, modals: {}},
-    updateState: () => null
+    updateState: () => null,
+    updatePageOptions: () => null
 }
 
 function getPageJSXComponent(context: any, name: any) {
