@@ -6,8 +6,12 @@ import {FormPageOptions} from "./FormPageOptions";
 import {FormPageDefault} from "../../Defaults/Page/FormPageDefaults";
 import {FormRenderConfigGenerator} from "./FormRenderConfigGenerator";
 import {BaseSubmitConfigGenerator} from "./BaseSubmitConfigGenerator";
+import {SubmitConfig} from "raf-axios-submitter/dist/SubmitConfig"
 
 class FormPage extends BaseCrudPage {
+
+    protected formRef: Form | null = null;
+
     protected renderContent(): any {
         return <div className={'__curd-form-page'}>
             {this.renderForm()}
@@ -15,13 +19,17 @@ class FormPage extends BaseCrudPage {
     }
 
     protected renderForm = () => {
-        return <Form fields={this.getFields()}
+        return <Form ref={ref => this.formRef = ref} fields={this.getFields()}
                      initialValues={this.getInitialValues()}
                      on={this.getFormListeners()}
                      onAnyValueChanged={this.getOnAnyValueChangeListener()}
                      services={this.getFormServices()}
                      renderOptions={this.getFormRenderOptions()}
                      submitConfig={this.getSubmitConfig()}/>
+    }
+
+    public getFormRef = () => {
+        return this.formRef;
     }
 
 
@@ -56,9 +64,11 @@ class FormPage extends BaseCrudPage {
         return generator.generate();
     };
 
-    public getDefaultHttpMethod = () => FormPageDefault.form.httpMethod;
+    public getDefaultHttpMethod = () : string => FormPageDefault.form.httpMethod;
 
-    public getDefaultSubmitConfig = () => ({});
+    public getDefaultSubmitConfig(): Partial<SubmitConfig> {
+        return {};
+    }
 
     public getOptions(): FormPageOptions {
         return super.getOptions();

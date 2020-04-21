@@ -3,6 +3,8 @@ import IForm from "react-auto-form-core/dist/Form/IForm";
 import {FormServices, RenderConfig} from "react-auto-form-core/dist/Form/FormProps";
 import {BasePageOptions} from "../PageConfig";
 import {CrudContextValue} from "../../Root/CrudContext";
+import FormPage from "./FormPage";
+import {AxiosResponse} from "axios";
 
 export interface FormPageOptions extends BasePageOptions {
     initialValues?: any;
@@ -16,5 +18,9 @@ export interface FormPageOptions extends BasePageOptions {
     renderConfig?: RenderConfig;
     fields?: (string | string[])[];
 
+    onFail?: (page: FormPage, error: any) => any;
+    onSuccess?: (page: FormPage, response: AxiosResponse) => any;
+
     url?: string | ((context: CrudContextValue) => string);
+    httpMethod? : string;
 }
