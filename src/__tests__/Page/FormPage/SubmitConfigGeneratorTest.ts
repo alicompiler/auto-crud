@@ -1,18 +1,15 @@
-import {SubmitConfigGenerator} from "../../../Page/FormPage/SubmitConfigGenerator";
-import {IFormPageDefaults} from "../../../Defaults/Page/FormPageDefaults";
+import {BaseSubmitConfigGenerator as SubmitConfigGenerator} from "../../../Page/FormPage/BaseSubmitConfigGenerator";
 
 describe('SubmitConfigGenerator', () => {
 
-    const defaults: IFormPageDefaults = {
-        form: {
-            httpMethod: 'post',
-            renderOptions: {
-                form: {
-                    renderButton: () => null
-                }
-            }
-        },
-        localization: {save: 'save'}
+
+    const getMockedFormPage = (context: any, options: any): any => {
+        return {
+            getContext: () => context,
+            getDefaultHttpMethod: () => 'post',
+            getDefaultSubmitConfig: () => ({}),
+            getOptions: () => options
+        }
     }
 
     it('should return submit config from options', function () {
@@ -21,7 +18,7 @@ describe('SubmitConfigGenerator', () => {
             submitConfig: {method: 'delete', url: '/test'}
         };
 
-        const generator = new SubmitConfigGenerator(context, options, defaults);
+        const generator = new SubmitConfigGenerator(getMockedFormPage(context, options));
         const config = generator.generate();
         expect(config).toEqual({method: 'delete', url: '/test'});
     });
@@ -30,7 +27,7 @@ describe('SubmitConfigGenerator', () => {
         const context: any = {config: {endpointRoot: '/api/'}}
         const options: any = {};
 
-        const generator = new SubmitConfigGenerator(context, options, defaults);
+        const generator = new SubmitConfigGenerator(getMockedFormPage(context, options));
         const config = generator.generate();
 
         expect(config).toEqual({
@@ -44,7 +41,7 @@ describe('SubmitConfigGenerator', () => {
         const context: any = {config: {endpointRoot: '/api/'}}
         const options: any = {url: 'some-url'};
 
-        const generator = new SubmitConfigGenerator(context, options, defaults);
+        const generator = new SubmitConfigGenerator(getMockedFormPage(context, options));
         const config = generator.generate();
 
         expect(config).toEqual({
@@ -57,7 +54,7 @@ describe('SubmitConfigGenerator', () => {
         const context: any = {config: {endpointRoot: '/api/', name: 'test'}}
         const options: any = {url: (context: any) => context.config.name};
 
-        const generator = new SubmitConfigGenerator(context, options, defaults);
+        const generator = new SubmitConfigGenerator(getMockedFormPage(context, options));
         const config = generator.generate();
 
         expect(config).toEqual({
@@ -71,7 +68,7 @@ describe('SubmitConfigGenerator', () => {
         const context: any = {config: {endpointRoot: '/api/', name: 'test'}}
         const options: any = {urlPostfix: 'xyz'};
 
-        const generator = new SubmitConfigGenerator(context, options, defaults);
+        const generator = new SubmitConfigGenerator(getMockedFormPage(context, options));
         const config = generator.generate();
 
         expect(config).toEqual({
@@ -85,7 +82,7 @@ describe('SubmitConfigGenerator', () => {
         const context: any = {config: {endpointRoot: '/api/', name: 'test'}}
         const options: any = {overrideSubmitConfig: {method: 'put', changeLoadingState: true}};
 
-        const generator = new SubmitConfigGenerator(context, options, defaults);
+        const generator = new SubmitConfigGenerator(getMockedFormPage(context, options));
         const config = generator.generate();
 
         expect(config).toEqual({

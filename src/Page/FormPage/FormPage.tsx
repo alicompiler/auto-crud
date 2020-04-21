@@ -4,8 +4,8 @@ import Form from "react-auto-form-core/dist/Form/Form";
 import {RenderConfig} from "react-auto-form-core/dist/Form/FormProps";
 import {FormPageOptions} from "./FormPageOptions";
 import {FormPageDefault} from "../../Defaults/Page/FormPageDefaults";
-import {SubmitConfigGenerator} from "./SubmitConfigGenerator";
 import {FormRenderConfigGenerator} from "./FormRenderConfigGenerator";
+import {BaseSubmitConfigGenerator} from "./BaseSubmitConfigGenerator";
 
 class FormPage extends BaseCrudPage {
     protected renderContent(): any {
@@ -35,26 +35,30 @@ class FormPage extends BaseCrudPage {
         return FormPageDefault.form.renderOptions;
     };
 
-    protected getInitialValues = () => {
+    public getInitialValues = () => {
         return this.getOptions().initialValues;
     };
 
-    protected getFormListeners = () => {
+    public getFormListeners = () => {
         return this.getOptions().formListeners;
     };
 
-    protected getOnAnyValueChangeListener = () => {
+    public getOnAnyValueChangeListener = () => {
         return this.getOptions().onAnyValueChangeListener;
     };
 
-    protected getFormServices = () => {
+    public getFormServices = () => {
         return this.getOptions().services;
     };
 
-    protected getSubmitConfig = () => {
-        const generator = new SubmitConfigGenerator(this.getContext(), this.getOptions(), FormPageDefault);
+    public getSubmitConfig = () => {
+        const generator = new BaseSubmitConfigGenerator(this);
         return generator.generate();
     };
+
+    public getDefaultHttpMethod = () => FormPageDefault.form.httpMethod;
+
+    public getDefaultSubmitConfig = () => ({});
 
     public getOptions(): FormPageOptions {
         return super.getOptions();
