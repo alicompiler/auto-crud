@@ -28,7 +28,7 @@ export class IndexPage extends TablePage {
         onSearch ? onSearch(value, this) : this.defaultOnSearch(value);
     };
 
-    protected defaultOnSearch = (value: string) => {
+    public defaultOnSearch(value: string): void {
         const url = this.getContext().config.endpointRoot + "search?query=" + encodeURI(value)
         this.updateDataSourceUrl(url);
     }

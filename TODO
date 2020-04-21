@@ -1,3 +1,13 @@
-render toolbar for every page (BaseCrudPage)
-default onSearch for IndexPage
-ResultPage
+create/edit page
+get initial values callback
+send submit request
+return to index page after store success
+default onFail , onLoad , onSuccess
+
+prevent edit/delete when loading the page from url, it should be go through the index page
+
+delete page
+confirmation code
+send submit request
+return to index page after store success
+default onFail , onLoad , onSuccess

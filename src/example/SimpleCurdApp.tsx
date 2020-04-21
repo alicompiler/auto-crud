@@ -21,7 +21,6 @@ class SimpleCurdApp extends Component {
                               name: 'index',
                               options: {
                                   url: '',
-                                  onSearch: (value: any) => console.log('onSearch', value),
                                   pageTitle: 'Main'
                               },
                           }}
