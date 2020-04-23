@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from "react-router-dom";
-import SimpleCurdApp from "./example/SimpleCurdApp";
+import SimpleCrudApp from "./example/SimpleCrudApp";
 import "./example/style/compiled-style.css";
 import {setRafDefaults} from "raf-defaults/dist/setup"
 
@@ -11,15 +11,14 @@ function App() {
     return (
         <div className="App" style={{padding: 8}}>
             <BrowserRouter>
-                <SimpleCurdApp/>
+                <SimpleCrudApp/>
             </BrowserRouter>
         </div>
     );
 }
 
 ReactDOM.render(
-    <React.StrictMode>
-        <App/>
-    </React.StrictMode>,
+    <App/>
+    ,
     document.getElementById('root')
 );

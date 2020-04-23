@@ -1,9 +1,10 @@
 import * as React from 'react';
-import {CrudContext, CrudContextValue} from "./CrudContext";
+import {CrudContext} from "./CrudContext";
 import {DefaultConfigInitializer} from "./ConfigInitializer/ConfigInitializer";
 import CrudRootHeader from "../components/CrudRootHeader/CrudRootHeader";
 import CrudLayout from "../Layout/CrudLayout";
 import {CrudConfig} from "./CrudConfig";
+import {UIStateInitializer} from "./ConfigInitializer/UIStateInitializer";
 
 
 class AutoCrud extends React.Component<CrudConfig, any> {
@@ -17,7 +18,8 @@ class AutoCrud extends React.Component<CrudConfig, any> {
     constructor(props: CrudConfig) {
         super(props);
         const config = new DefaultConfigInitializer(this.props).initialize();
-        this.state = {state: {}, uiState: {}, config: config};
+        const uiState = new UIStateInitializer(config).initialize();
+        this.state = {state: {}, uiState: uiState, config: config};
     }
 
 
@@ -39,8 +41,13 @@ class AutoCrud extends React.Component<CrudConfig, any> {
         return {
             state: this.state,
             config: this.state.config,
-            updateState: (payload: any) => this.setState(payload),
-            updatePageOptions: this.updatePageOptions
+            updateState: (payload: any) => {
+                this.setState(payload, () => {
+                    console.log('after state update : ', this.state);
+                });
+            },
+            updatePageOptions: this.updatePageOptions,
+            getState: () => this.state
         };
     }
 

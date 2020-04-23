@@ -1,21 +1,20 @@
-import {CrudContextValue} from "../../Root/CrudContext";
-import {FormPageOptions} from "./FormPageOptions";
 import {RenderConfig} from "react-auto-form-core/dist/Form/FormProps";
+import FormPage from "./FormPage";
 
 export class FormRenderConfigGenerator {
-    private readonly context: CrudContextValue;
-    private readonly options: FormPageOptions;
 
-    constructor(context: CrudContextValue, options: FormPageOptions) {
-        this.context = context;
-        this.options = options;
+    private readonly formPage: FormPage;
+
+    constructor(formPage: FormPage) {
+        this.formPage = formPage;
     }
 
     public generate(): RenderConfig {
-        if (this.options.renderConfig)
-            return this.options.renderConfig;
+        const options = this.formPage.getOptions();
+        if (options.renderConfig)
+            return options.renderConfig;
 
-        const fieldsName = this.options.fields;
+        const fieldsName = options.fields;
         if (fieldsName) {
             return fieldsName.map(field => {
                 if (Array.isArray(field)) {
@@ -29,7 +28,8 @@ export class FormRenderConfigGenerator {
     }
 
     protected getAllFields = () => {
-        return this.context.config.fields;
+        const context = this.formPage.getContext();
+        return context.config.fields;
     };
 
     protected getFieldByName = (name: string) => {

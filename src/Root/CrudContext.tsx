@@ -9,6 +9,7 @@ export interface CrudContextValue<State = any> {
     ui: UIState;
     updateState: (payload: Partial<State>) => void;
     updatePageOptions: (pageName: string, options: any, afterUpdateCallback?: () => void) => void;
+    getState: () => any;
 }
 
 export interface UIState {
@@ -20,7 +21,7 @@ export interface UIState {
     };
 }
 
-export function getInitialState(config: CrudConfig): Omit<CrudContextValue, "updateState" | "updatePageOptions"> {
+export function getInitialState(config: CrudConfig): Omit<CrudContextValue, "updateState" | "updatePageOptions" | "getState"> {
     const updatedConfig = new DefaultConfigInitializer(config).initialize();
     const uiState = new UIStateInitializer(updatedConfig).initialize();
     return {

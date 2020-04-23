@@ -28,7 +28,7 @@ export default class PageConfigUtils {
     }
 
     public getPageState(name: string): any {
-        const state = this.context.ui.pages[name];
+        const state = this.context.getState().uiState.pages[name];
         return state ?? {};
     }
 
@@ -36,10 +36,10 @@ export default class PageConfigUtils {
         const state = this.getPageState(name);
         const newState = {...state, ...payload};
         const {updateState} = this.context;
-        const ui = {...this.context.ui};
+        const ui = {...this.context.getState().uiState};
         const pages = {...ui.pages};
         pages[name] = newState;
-        updateState({ui: {...ui, pages: pages}});
+        updateState({uiState: {...ui, pages: pages}});
     }
 
 }

@@ -13,6 +13,9 @@ export class IndexPage extends TablePage {
         </div>
     }
 
+
+    getDefaultPageTitle = () => 'Main';
+
     protected renderDefaultToolbar = () => {
         return <ToolbarComponent onSearch={this.onSearch}
                                  noSearch={this.getOptions().noSearch}

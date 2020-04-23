@@ -21,6 +21,11 @@ export interface FormPageOptions extends BasePageOptions {
     onFail?: (page: FormPage, error: any) => any;
     onSuccess?: (page: FormPage, response: AxiosResponse) => any;
 
+
+    renderError?: (page: FormPage) => any;
+    renderLoading?: (page: FormPage) => any;
+    renderSuccess?: (page: FormPage) => any;
+
     url?: string | ((context: CrudContextValue) => string);
-    httpMethod? : string;
+    httpMethod?: string;
 }

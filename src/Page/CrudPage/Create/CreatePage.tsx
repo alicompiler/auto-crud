@@ -9,13 +9,34 @@ class CreatePage extends FormPage {
         const onFail = this.getOptions().onFail;
         const onSuccess = this.getOptions().onSuccess;
         return {
-            onFail: (e: any) => onFail && onFail(this, e),
-            onSuccess: (response: AxiosResponse) => onSuccess && onSuccess(this, response),
+            onFail: (e: any) => {
+                let stop = undefined;
+                onFail && (stop = onFail(this, e));
+                if (stop === false) {
+                    return;
+                }
+                this.updateState({error: e});
+                setTimeout(() => {
+                    this.forceUpdate();
+                }, 1000);
+            },
+            onSuccess: (response: AxiosResponse) => {
+                let stop = undefined;
+                onSuccess && (stop = onSuccess(this, response));
+                if (stop === false) {
+                    return;
+                }
+                this.getFormRef()!.clear();
+                this.updateState({error: null});
+                this.forceUpdate()
+            },
             changeLoadingStatus: true,
         }
     }
 
-    public getDefaultHttpMethod = (): string => this.getOptions().httpMethod ?? FormPageDefault.form.httpMethod
+    public getDefaultHttpMethod = (): string => this.getOptions().httpMethod ?? FormPageDefault.form.methods.create;
+
+    public getDefaultPageTitle = () => FormPageDefault.titles.create_page
 
 }
 

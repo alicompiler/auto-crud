@@ -33,10 +33,18 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
             }
         }
 
-        const pageTitle = this.getOptions().pageTitle;
+        this.setPageTitle();
+    }
+
+    protected setPageTitle = () => {
+        const pageTitle = this.getOptions().pageTitle ?? this.getDefaultPageTitle();
         if (pageTitle) {
             this.getContext().updateState({pageTitle: pageTitle});
         }
+    }
+
+    protected getDefaultPageTitle = (): (string | undefined) => {
+        return undefined;
     }
 
     componentWillUnmount(): void {
