@@ -7,7 +7,7 @@ export interface CrudContextValue<State = any> {
     config: CrudConfig;
     state: State;
     ui: UIState;
-    updateState: (payload: Partial<State>) => void;
+    updateState: (payload: Partial<State>, afterCallback?: (state: any) => void) => void;
     updatePageOptions: (pageName: string, options: any, afterUpdateCallback?: () => void) => void;
     getState: () => any;
 }

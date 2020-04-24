@@ -19,12 +19,18 @@ class SimpleCrudApp extends Component {
                               },
                               {
                                   as: TextField,
-                                  name: 'author',
-                                  placeholder: 'Author',
+                                  name: 'phone',
+                                  placeholder: 'Phone',
                                   validationRules: {length: {minimum: 2}}
                               },
-                              {as: TextArea, name: 'description', placeholder: 'Write Some Description...'},
+                              {as: TextArea, name: 'email', placeholder: 'Write Some Description...'},
                           ]}
+                          indexPage={{
+                              options: {
+                                  dataSourceUrl: () => 'https://api.npoint.io/214d2378f4c140904eda',
+                                  orderBy: ['id', 'name', 'phone', 'email', 'x', 'live', 'y', '__actions']
+                              }
+                          }}
                           mainTitle='Books'
                 />
             </div>

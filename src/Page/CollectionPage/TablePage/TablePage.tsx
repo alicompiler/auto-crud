@@ -23,9 +23,22 @@ export class TablePage extends CollectionPage {
 
     public getRenderOptions = (): TableRenderOptions => {
         const overrideRenderOptionsConfig = this.getOptions().renderOptionsConfig ?? {};
-        const config = {...CollectionPageDefaults.renderOptionsConfig, ...overrideRenderOptionsConfig};
+        const config = {
+            ...CollectionPageDefaults.renderOptionsConfig,
+            orderBy: this.getOptions().orderBy,
+            extraColumns: this.getOptions().extraColumns ?? this.getDefaultExtraColumns(),
+            ...overrideRenderOptionsConfig
+        };
         return this.getOptions().collectionRenderOptions ?? new TableRenderOptions(config);
     };
+
+
+    public getDefaultExtraColumns = () => {
+        return [
+            CollectionPageDefaults.table.defaultActionColumn()
+        ]
+    }
+
 
     public getOptions(): TablePageOptions {
         return super.getOptions();

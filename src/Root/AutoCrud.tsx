@@ -41,9 +41,9 @@ class AutoCrud extends React.Component<CrudConfig, any> {
         return {
             state: this.state,
             config: this.state.config,
-            updateState: (payload: any) => {
+            updateState: (payload: any, afterCallback?: (state: any) => void) => {
                 this.setState(payload, () => {
-                    console.log('after state update : ', this.state);
+                    afterCallback && afterCallback(this.state)
                 });
             },
             updatePageOptions: this.updatePageOptions,
