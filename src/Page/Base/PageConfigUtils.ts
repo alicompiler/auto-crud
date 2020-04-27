@@ -32,14 +32,14 @@ export default class PageConfigUtils {
         return state ?? {};
     }
 
-    public updatePageState(name: string, payload: any): void {
+    public updatePageState(name: string, payload: any, afterCallback?: (state: any) => void): void {
         const state = this.getPageState(name);
         const newState = {...state, ...payload};
         const {updateState} = this.context;
         const ui = {...this.context.getState().uiState};
         const pages = {...ui.pages};
         pages[name] = newState;
-        updateState({uiState: {...ui, pages: pages}});
+        updateState({uiState: {...ui, pages: pages}}, afterCallback);
     }
 
 }

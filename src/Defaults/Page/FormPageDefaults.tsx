@@ -3,8 +3,11 @@ import * as React from "react";
 import FormPage from "../../Page/FormPage/FormPage";
 import FormPageSuccessComponent from "./Components/FormPageSuccessComponent";
 import FormPageErrorComponent from "./Components/FormPageErrorComponent";
+import DeletePage from "../../Page/CrudPage/DeletePage/CrudDeletePage";
 
 export interface IFormPageDefaults {
+    renderDeleteMessage: (page: DeletePage) => any;
+
     renderLoading: ((page: FormPage) => any);
     renderError: ((page: FormPage) => any);
     renderSuccess: ((page: FormPage) => any);
@@ -31,6 +34,9 @@ export interface IFormPageDefaults {
         loading_message: string;
         error_message: string;
         success_message: string;
+        are_you_sure_of_delete: string;
+        delete: string;
+        cancel: string;
     },
     titles: {
         create_page: string;
@@ -40,6 +46,18 @@ export interface IFormPageDefaults {
 }
 
 export const FormPageDefault: IFormPageDefaults = {
+
+
+    renderDeleteMessage: (page) => {
+        const loading = page.getState().deleting;
+        return <div className={'mb-4'}>
+            <p className={'text-xl font-bold'}>{FormPageDefault.localization.are_you_sure_of_delete}</p>
+            <button disabled={loading} onClick={() => page.handleDelete()}
+                    className={'rounded py-2 px-4 bg-red-400'}>{FormPageDefault.localization.delete}</button>
+            <button disabled={loading} onClick={() => page.navigateToHome()}
+                    className={'rounded py-2 px-4 bg-gray-400'}>{FormPageDefault.localization.cancel}</button>
+        </div>
+    },
 
     renderLoading: () => <div>TODO : Horizontal Loading Progress</div>,
     renderError: page => <FormPageErrorComponent page={page}/>,
@@ -80,6 +98,9 @@ export const FormPageDefault: IFormPageDefaults = {
         error_message: 'Operation Failed',
         loading_message: 'Loading...',
         success_message: 'Done Successfully',
+        are_you_sure_of_delete: 'Are sure of the delete action ?',
+        delete: 'Delete',
+        cancel: 'Cancel'
     },
     titles: {
         create_page: 'Create',

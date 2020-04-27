@@ -91,8 +91,8 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
         return this.pageConfigUtils.getPageState(this.props.name);
     }
 
-    public updateState(payload: any): void {
-        this.pageConfigUtils.updatePageState(this.props.name, payload);
+    public updateState(payload: any, afterCallback?: (state: any) => void): void {
+        this.pageConfigUtils.updatePageState(this.props.name, payload, afterCallback);
     }
 
     public getContext = (): CrudContextValue => {
@@ -101,6 +101,11 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
 
     public updateOptions = (newOptions: any, afterUpdateCallback?: () => void) => {
         this.getContext().updatePageOptions(this.props.name, newOptions, afterUpdateCallback);
+    }
+
+    public navigateToHome = () => {
+        const indexPageRoute = this.getContext().config.indexPage!.route!;
+        this.props.history.push(indexPageRoute);
     }
 }
 

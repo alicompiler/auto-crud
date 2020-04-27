@@ -2,7 +2,9 @@
   "name": "auto-crud",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "react-keyvalue-ui": "^1.0.0"
+  },
   "jest": {
     "transformIgnorePatterns": [
       "node_modules/(?!(react-auto-form-core|auto-collection)/)"
