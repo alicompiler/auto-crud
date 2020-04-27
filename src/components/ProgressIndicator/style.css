@@ -1,0 +1,48 @@
+.__progress-indicator, .__progress-indicator:before {
+    height: 4px;
+    width: 100%;
+    margin: 0;
+}
+
+.__progress-indicator {
+    background-color: #B3D4FC;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.__progress-indicator:before {
+    background-color: #3F51B5;
+    content: '';
+    -webkit-animation: progress-indicator-animation 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: progress-indicator-animation 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@-webkit-keyframes progress-indicator-animation {
+    0% {
+        margin-left: 0;
+        margin-right: 100%;
+    }
+    50% {
+        margin-left: 25%;
+        margin-right: 0;
+    }
+    100% {
+        margin-left: 100%;
+        margin-right: 0;
+    }
+}
+
+@keyframes progress-indicator-animation {
+    0% {
+        margin-left: 0;
+        margin-right: 100%;
+    }
+    50% {
+        margin-left: 25%;
+        margin-right: 0;
+    }
+    100% {
+        margin-left: 100%;
+        margin-right: 0;
+    }
+}

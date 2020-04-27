@@ -6,6 +6,7 @@ import Axios from "axios";
 import {DeletePageOptions} from "./DeletePageOptions";
 import IForm from "react-auto-form-core/dist/Form/IForm";
 import Form from "react-auto-form-core/dist/Form/Form";
+import {AutoCrudDefaults} from "../../AutoCrudDefaults";
 
 class DeletePage extends BaseCrudPage {
 
@@ -19,18 +20,11 @@ class DeletePage extends BaseCrudPage {
         const isLoading = this.getState().deleting;
         return <div>
 
-            {
-                isLoading && <h1>Deleting...</h1>
-            }
+            {isLoading && AutoCrudDefaults.progressIndicator()}
 
-            {
-                this.renderConfirmationForm()
-            }
-
-
-            {
-                this.renderDeleteMessage()
-            }
+            {this.renderConfirmationForm()}
+            
+            {this.renderDeleteMessage()}
 
             <KeyValueComponent item={item} {...keyValueProps}/>
 
