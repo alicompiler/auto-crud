@@ -17,6 +17,7 @@ export default class PageConfigUtils {
         allPagesObject[this.context.config.createPage!.name!] = this.context.config.createPage;
         allPagesObject[this.context.config.updatePage!.name!] = this.context.config.updatePage;
         allPagesObject[this.context.config.deletePage!.name!] = this.context.config.deletePage;
+        allPagesObject[this.context.config.detailsPage!.name!] = this.context.config.detailsPage;
         for (let page of this.context.config.pages!) {
             allPagesObject[page.name!] = page;
         }

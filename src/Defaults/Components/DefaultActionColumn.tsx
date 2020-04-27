@@ -54,12 +54,6 @@ class DefaultActionColumn extends React.Component<any> {
         this.props.history.push(page.route!);
     }
 
-    private static getPageRoute(page: PageConfig): string | false {
-        if (page.skip)
-            return false;
-        return page.route!;
-    }
-
 }
 
 
