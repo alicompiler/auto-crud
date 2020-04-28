@@ -11,19 +11,24 @@ import {AutoCrudDefaults} from "../../AutoCrudDefaults";
 class DeletePage extends BaseCrudPage {
 
     private confirmationForm: IForm | null = null;
+    private currentConfirmationCode: string | null = null;
 
     getDefaultPageTitle = () => FormPageDefault.titles.delete_page;
 
     protected renderContent(): any {
         const item = this.getState().__item ?? {};
         const keyValueProps = this.getOptions().keyValueProps ?? {};
-        const isLoading = this.getState().deleting;
+        const isLoading = this.getState().__deleting;
+        const errorMessage = this.getState().__errorMessage;
+
         return <div>
+
+            {errorMessage && AutoCrudDefaults.errorMessage({message: errorMessage})}
 
             {isLoading && AutoCrudDefaults.progressIndicator()}
 
             {this.renderConfirmationForm()}
-            
+
             {this.renderDeleteMessage()}
 
             <KeyValueComponent item={item} {...keyValueProps}/>
@@ -36,12 +41,22 @@ class DeletePage extends BaseCrudPage {
         if (this.getOptions().confirmationRequired === false) {
             return null;
         }
+
         const field = FormPageDefault.defaultConfirmationField;
         const confirmationFormWrapperClassName = FormPageDefault.confirmationFormWrapperClassName;
         const messageClassName = FormPageDefault.confirmationMessageClassName;
         const confirmationMessage = FormPageDefault.localization.confirmation_message;
-        const confirmationCode = this.getConfirmationCode();
+
+        let confirmationCode: string | null;
+        if (this.currentConfirmationCode === null) {
+            confirmationCode = this.getConfirmationCode();
+            this.currentConfirmationCode = confirmationCode;
+        } else {
+            confirmationCode = this.currentConfirmationCode;
+        }
+
         const confirmationNode = confirmationCode === null ? null : this.getConfirmationCodeNode(confirmationCode);
+        this.currentConfirmationCode = confirmationCode;
 
         return <div className={confirmationFormWrapperClassName}>
             <p className={messageClassName}>{confirmationMessage} {confirmationNode}</p>
@@ -83,25 +98,38 @@ class DeletePage extends BaseCrudPage {
             return render(this);
         }
 
-        const defaultRender = FormPageDefault.renderDeleteMessage;
-        return defaultRender(this);
+        return AutoCrudDefaults.components.deleteMessage({
+            disabled: this.getState().__deleting,
+            handleDelete: this.handleDelete,
+            handleCancel: () => this.navigateToHome()
+        });
     }
 
     public handleDelete = async () => {
+
+        this.updateState({__errorMessage: null, __success: null}, () => this.forceUpdate());
+
+        if (!this.confirmationForm || this.currentConfirmationCode !== this.confirmationForm.collect().getData()['confirmation']) {
+            this.updateState({
+                __errorMessage: AutoCrudDefaults.localization.confirmation_fail_message
+            }, () => this.forceUpdate());
+            return;
+        }
+
         const method = this.getOptions().deleteRequest?.method ?? FormPageDefault.form.methods.delete;
         const url = this.getDeleteUrl();
         const config = this.getOptions().deleteRequest?.requestConfig ?? {};
 
         try {
-            this.updateState({deleting: true, success: null});
-            await Axios({
-                method: method,
-                url: url,
-                ...config
-            });
-            this.updateState({deleting: false, success: true});
+            this.updateState({__deleting: true, __success: null});
+            await Axios({method: method, url: url, ...config});
+            this.updateState({__deleting: false, __success: true}, () => this.forceUpdate());
         } catch (e) {
-            this.updateState({fail: e, deleting: false, success: false});
+            this.updateState({
+                __errorMessage: AutoCrudDefaults.localization.fail_to_delete_message,
+                __deleting: false,
+                __success: false
+            }, () => this.forceUpdate());
         }
     }
 
@@ -122,3 +150,6 @@ class DeletePage extends BaseCrudPage {
 }
 
 export default DeletePage;
+
+
+//TODO : refresh confirmation code

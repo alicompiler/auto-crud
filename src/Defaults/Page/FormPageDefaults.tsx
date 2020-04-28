@@ -3,7 +3,6 @@ import * as React from "react";
 import FormPage from "../../Page/FormPage/FormPage";
 import FormPageSuccessComponent from "./Components/FormPageSuccessComponent";
 import FormPageErrorComponent from "./Components/FormPageErrorComponent";
-import DeletePage from "../../Page/CrudPage/DeletePage/CrudDeletePage";
 import FieldConfig from "react-auto-form-core/dist/Field/FieldConfig";
 import TextField from "raf-tailwind-components/dist/TextField/TextField";
 
@@ -12,7 +11,6 @@ export interface IFormPageDefaults {
     confirmationCodeLength: number;
     confirmationFormWrapperClassName: string;
     confirmationMessageClassName: string;
-    renderDeleteMessage: (page: DeletePage) => any;
 
     renderLoading: ((page: FormPage) => any);
     renderError: ((page: FormPage) => any);
@@ -58,17 +56,6 @@ export interface IFormPageDefaults {
 
 export const FormPageDefault: IFormPageDefaults = {
 
-
-    renderDeleteMessage: (page) => {
-        const loading = page.getState().deleting;
-        return <div className={'mb-4'}>
-            <p className={'text-xl font-bold'}>{FormPageDefault.localization.are_you_sure_of_delete}</p>
-            <button disabled={loading} onClick={() => page.handleDelete()}
-                    className={'rounded py-2 px-4 bg-red-400'}>{FormPageDefault.localization.delete}</button>
-            <button disabled={loading} onClick={() => page.navigateToHome()}
-                    className={'rounded py-2 px-4 bg-gray-400'}>{FormPageDefault.localization.cancel}</button>
-        </div>
-    },
 
     renderLoading: () => <div>TODO : Horizontal Loading Progress</div>,
     renderError: page => <FormPageErrorComponent page={page}/>,
