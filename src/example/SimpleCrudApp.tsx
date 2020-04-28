@@ -25,6 +25,7 @@ class SimpleCrudApp extends Component {
                               },
                               {as: TextArea, name: 'email', placeholder: 'Write Some Description...'},
                           ]}
+                          deletePage={{options: {confirmationRequired: true}}}
                           mainTitle='Books'
                 />
             </div>

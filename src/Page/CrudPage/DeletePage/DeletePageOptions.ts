@@ -1,15 +1,11 @@
-import {BasePageOptions} from "../../PageConfig";
 import {AxiosRequestConfig} from "axios";
-import DeletePage from "./CrudDeletePage";
+import {ConfirmationPageOptions} from "../../Base/ConfirmationPageOptions";
 
-export interface DeletePageOptions extends BasePageOptions {
+export interface DeletePageOptions extends ConfirmationPageOptions {
     deleteRequest?: {
         method?: "get" | "post" | "delete" | "put" | "patch";
         url?: string | (() => string);
         requestConfig?: AxiosRequestConfig;
     };
 
-    confirmationRequired?: boolean;
-    generateConfirmationCode?: (page: DeletePage) => string | null;
-    codeLength? : number;
 }

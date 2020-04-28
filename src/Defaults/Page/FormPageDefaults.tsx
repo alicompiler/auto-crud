@@ -3,14 +3,9 @@ import * as React from "react";
 import FormPage from "../../Page/FormPage/FormPage";
 import FormPageSuccessComponent from "./Components/FormPageSuccessComponent";
 import FormPageErrorComponent from "./Components/FormPageErrorComponent";
-import FieldConfig from "react-auto-form-core/dist/Field/FieldConfig";
-import TextField from "raf-tailwind-components/dist/TextField/TextField";
 
 export interface IFormPageDefaults {
-    confirmationCodeNodeClassName: string;
-    confirmationCodeLength: number;
-    confirmationFormWrapperClassName: string;
-    confirmationMessageClassName: string;
+    
 
     renderLoading: ((page: FormPage) => any);
     renderError: ((page: FormPage) => any);
@@ -49,9 +44,6 @@ export interface IFormPageDefaults {
         update_page: string;
         delete_page: string;
     };
-    defaultConfirmationField: () => FieldConfig;
-
-    renderConfirmationCode: (code: string) => any;
 }
 
 export const FormPageDefault: IFormPageDefaults = {
@@ -106,15 +98,5 @@ export const FormPageDefault: IFormPageDefaults = {
         create_page: 'Create',
         delete_page: 'Delete',
         update_page: 'Edit',
-    },
-    defaultConfirmationField: () => ({
-        name: 'confirmation',
-        as: TextField,
-        placeholder: FormPageDefault.localization.confirmation
-    }),
-    confirmationFormWrapperClassName: 'my-4 w-full',
-    confirmationMessageClassName: 'text-xl my-2',
-    confirmationCodeLength: 6,
-    confirmationCodeNodeClassName: 'p-2 rounded bg-red-400 text-white',
-    renderConfirmationCode: (code) => <span className={FormPageDefault.confirmationCodeNodeClassName}>{code}</span>
+    }
 };
