@@ -1,5 +1,5 @@
 import * as React from "react";
-import {LoadingSpinner} from "../../../UtilsComponents/LoadingSpinner/LoadingSpinner";
+import {LoadingSpinner} from "../../../Components/LoadingSpinner/LoadingSpinner";
 import FormPage from "../../../Page/FormPage/FormPage";
 
 interface Props {

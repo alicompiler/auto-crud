@@ -1,4 +1,4 @@
-import MessageWithActionsComponent from "../../components/MessageWithActionsComponent/MessageWithActionsComponent";
+import MessageWithActionsComponent from "../../Components/MessageWithActionsComponent/MessageWithActionsComponent";
 import React from "react";
 import {AutoCrudDefaults} from "../../Page/AutoCrudDefaults";
 

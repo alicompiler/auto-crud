@@ -1,6 +1,6 @@
 import CollectionPage from "../../../Page/CollectionPage/CollectionPage";
 import * as React from "react";
-import {LoadingSpinner} from "../../../UtilsComponents/LoadingSpinner/LoadingSpinner";
+import {LoadingSpinner} from "../../../Components/LoadingSpinner/LoadingSpinner";
 
 interface Props {
     page: CollectionPage;

@@ -1,6 +1,6 @@
 import {TablePage} from "../../CollectionPage/TablePage/TablePage";
 import React from "react";
-import ToolbarComponent from "../../../components/Toolbar/ToolbarComponent";
+import ToolbarComponent from "../../../Components/Toolbar/ToolbarComponent";
 import ToolbarNavigationAction from "../../../Defaults/Components/ToolbarNavigationAction";
 import {CollectionPageDefaults} from "../../../Defaults/Page/CollectionPageDefaults";
 import {IndexPageOptions} from "./IndexPageOptions";

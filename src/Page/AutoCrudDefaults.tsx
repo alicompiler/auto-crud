@@ -1,8 +1,8 @@
-import {ProgressIndicator} from "../components/ProgressIndicator/ProgressIndicator";
+import {ProgressIndicator} from "../Components/ProgressIndicator/ProgressIndicator";
 import React from "react";
-import {ErrorMessageComponent} from "../components/ErrorMessageComponent/ErrorMessageComponent";
+import {ErrorMessageComponent} from "../Components/ErrorMessageComponent/ErrorMessageComponent";
 import {DefaultDeleteMessageComponent} from "../Defaults/Components/DefaultDeleteMessageComponent";
-import {SuccessMessageComponent} from "../components/SuccessMessageComponent/SuccessMessageComponent";
+import {SuccessMessageComponent} from "../Components/SuccessMessageComponent/SuccessMessageComponent";
 import FieldConfig from "react-auto-form-core/dist/Field/FieldConfig";
 import TextField from "raf-tailwind-components/dist/TextField/TextField";
 
