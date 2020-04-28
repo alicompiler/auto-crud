@@ -9,7 +9,7 @@ class SimpleCrudApp extends Component {
             <div>
                 <AutoCrud name={'books'}
                           routeRoot={'/books'}
-                          endpointRoot={'http://localhost:8080/api/books/'}
+                          endpointRoot={'http://localhost:8080/books/'}
                           fields={[
                               {
                                   as: TextField,
@@ -25,12 +25,6 @@ class SimpleCrudApp extends Component {
                               },
                               {as: TextArea, name: 'email', placeholder: 'Write Some Description...'},
                           ]}
-                          indexPage={{
-                              options: {
-                                  dataSourceUrl: () => 'https://api.npoint.io/214d2378f4c140904eda',
-                                  orderBy: ['id', 'name', 'phone', 'email', 'x', 'live', 'y', '__actions']
-                              }
-                          }}
                           mainTitle='Books'
                 />
             </div>

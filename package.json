@@ -12,7 +12,8 @@
   },
   "scripts": {
     "build:styles": "postcss src/example/style/tailwindcss.css -o src/example/style/compiled-style.css --watch",
-    "start": "npm run build:styles & react-scripts start",
+    "start:server": "node ./test-server/server.js",
+    "start": "npm run start:server & npm run build:styles & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -46,8 +47,10 @@
     "auto-collection": "^0.3.0",
     "autoprefixer": "^9.7.6",
     "axios": "^0.19.2",
+    "cors": "^2.8.5",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
+    "express": "^4.17.1",
     "postcss-cli": "^7.1.0",
     "raf-axios-submitter": "^0.2.0",
     "raf-default-validator": "^0.1.0",
