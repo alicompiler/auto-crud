@@ -1,4 +1,3 @@
-import BaseCrudPage from "../../Base/BaseCrudPage";
 import React from "react";
 import {KeyValueComponent} from "react-keyvalue-ui";
 import {FormPageDefault} from "../../../Defaults/Page/FormPageDefaults";
@@ -7,32 +6,24 @@ import {DeletePageOptions} from "./DeletePageOptions";
 import IForm from "react-auto-form-core/dist/Form/IForm";
 import Form from "react-auto-form-core/dist/Form/Form";
 import {AutoCrudDefaults} from "../../AutoCrudDefaults";
+import BaseCrudPageWithStatus from "../../Base/BaseCrudPageWithStatus";
 
-class DeletePage extends BaseCrudPage {
+class DeletePage extends BaseCrudPageWithStatus {
 
     private confirmationForm: IForm | null = null;
     private currentConfirmationCode: string | null = null;
 
     getDefaultPageTitle = () => FormPageDefault.titles.delete_page;
 
-    protected renderContent(): any {
+
+    protected renderMainContent(): any {
         const item = this.getState().__item ?? {};
         const keyValueProps = this.getOptions().keyValueProps ?? {};
-        const isLoading = this.getState().__deleting;
-        const errorMessage = this.getState().__errorMessage;
 
         return <div>
-
-            {errorMessage && AutoCrudDefaults.errorMessage({message: errorMessage})}
-
-            {isLoading && AutoCrudDefaults.progressIndicator()}
-
             {this.renderConfirmationForm()}
-
             {this.renderDeleteMessage()}
-
             <KeyValueComponent item={item} {...keyValueProps}/>
-
         </div>
     }
 
@@ -107,12 +98,10 @@ class DeletePage extends BaseCrudPage {
 
     public handleDelete = async () => {
 
-        this.updateState({__errorMessage: null, __success: null}, () => this.forceUpdate());
+        this.updateLoadingErrorSuccess(undefined, null, null);
 
         if (!this.confirmationForm || this.currentConfirmationCode !== this.confirmationForm.collect().getData()['confirmation']) {
-            this.updateState({
-                __errorMessage: AutoCrudDefaults.localization.confirmation_fail_message
-            }, () => this.forceUpdate());
+            this.updateLoadingErrorSuccess(undefined, AutoCrudDefaults.localization.confirmation_fail_message, undefined);
             return;
         }
 
@@ -121,15 +110,11 @@ class DeletePage extends BaseCrudPage {
         const config = this.getOptions().deleteRequest?.requestConfig ?? {};
 
         try {
-            this.updateState({__deleting: true, __success: null});
+            this.updateLoadingErrorSuccess(true, null, null);
             await Axios({method: method, url: url, ...config});
-            this.updateState({__deleting: false, __success: true}, () => this.forceUpdate());
-        } catch (e) {
-            this.updateState({
-                __errorMessage: AutoCrudDefaults.localization.fail_to_delete_message,
-                __deleting: false,
-                __success: false
-            }, () => this.forceUpdate());
+            this.updateLoadingErrorSuccess(true, null, AutoCrudDefaults.localization.delete_success_message);
+        } catch {
+            this.updateLoadingErrorSuccess(false, AutoCrudDefaults.localization.fail_to_delete_message, null);
         }
     }
 
@@ -153,3 +138,4 @@ export default DeletePage;
 
 
 //TODO : refresh confirmation code
+//TODO : display delete message
