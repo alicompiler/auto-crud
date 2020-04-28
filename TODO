@@ -1,13 +1,8 @@
-create/edit page
-get initial values callback
-send submit request
-return to index page after store success
-default onFail , onLoad , onSuccess
+test status page
+test confirmation page
+test delete page
+test details page
 
-prevent edit/delete when loading the page from url, it should be go through the index page
 
-delete page
-confirmation code
-send submit request
-return to index page after store success
-default onFail , onLoad , onSuccess
+toggle page
+test toggle page

@@ -11,7 +11,7 @@
     ]
   },
   "scripts": {
-    "build:styles": "postcss src/example/style/tailwindcss.css -o src/example/style/compiled-style.css --watch",
+    "build:styles": "postcss src/example/style/tailwindcss.css -o public/css/tailwind.css --watch",
     "start:server": "node ./test-server/server.js",
     "start": "npm run build:styles & react-scripts start",
     "build": "react-scripts build",
