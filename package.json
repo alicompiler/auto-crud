@@ -7,7 +7,7 @@
   },
   "jest": {
     "transformIgnorePatterns": [
-      "node_modules/(?!(react-auto-form-core|auto-collection)/)"
+      "node_modules/(?!(react-auto-form-core|auto-collection|react-keyvalue-ui|raf-tailwind-components)/)"
     ]
   },
   "scripts": {
