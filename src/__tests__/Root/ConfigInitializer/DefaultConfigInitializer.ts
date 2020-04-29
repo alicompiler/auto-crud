@@ -1,7 +1,7 @@
 import {CrudConfig} from "../../../Root/CrudConfig";
 import {MainConfigInitializer} from "../../../Root/ConfigInitializer/MainConfigInitializer";
-import {PageConfigInitializer} from "../../../Root/ConfigInitializer/PageConfigInitializer";
 import {DefaultConfigInitializer} from "../../../Root/ConfigInitializer/ConfigInitializer";
+import {DefaultPageConfigModifier} from "../../../Page/PageConfigModifier/DefaultPageConfigModifier";
 
 describe('DefaultConfigInitializer', () => {
 
@@ -11,7 +11,7 @@ describe('DefaultConfigInitializer', () => {
         const newConfig = new DefaultConfigInitializer(config).initialize();
 
         let expectedConfig = new MainConfigInitializer().initialize(config);
-        expectedConfig = {...expectedConfig, ...new PageConfigInitializer().initialize(expectedConfig)};
+        expectedConfig = {...expectedConfig, ...new DefaultPageConfigModifier(expectedConfig).modify()};
 
         expect(newConfig).toEqual(expectedConfig);
     });

@@ -1,6 +1,6 @@
 import React from "react";
 import {Route, RouteComponentProps} from "react-router-dom";
-import {CrudContextValue} from "../Root/CrudContext";
+import {CrudContextValue} from "./CrudContext";
 import {PageConfig} from "../Page/PageConfig";
 
 export default class RoutesExtractor {

@@ -1,5 +1,4 @@
-import RoutesExtractor from "../../Layout/RoutesExtractor";
-import {CrudContextValue} from "../../Root/CrudContext";
+import RoutesExtractor from "../../Root/RoutesExtractor";
 import {IndexPage} from "../../Page/CrudPage/Index/IndexPage";
 import CreatePage from "../../Page/CrudPage/Create/CreatePage";
 import UpdatePage from "../../Page/CrudPage/Update/UpdatePage";
@@ -8,7 +7,7 @@ import DetailsPage from "../../Page/CrudPage/Details/DetailsPage";
 
 describe('RouteExtractor', () => {
 
-    const context: CrudContextValue = {
+    const context: any = {
         config: {
             name: 'test', endpointRoot: '', fields: [],
             indexPage: {name: 'index', options: {}, skip: false, pageComponent: IndexPage, route: '/'},
@@ -18,7 +17,7 @@ describe('RouteExtractor', () => {
             detailsPage: {name: 'details', options: {}, skip: false, pageComponent: DetailsPage, route: '/details'},
             pages: []
         },
-        state: {}, ui: {pages: {}, modals: {}}, updateState: () => null
+        state: {}, ui: {pages: {}, modals: {}}, updateState: () => null,
     };
 
     it('should extract routes from context', function () {

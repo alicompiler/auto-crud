@@ -48,7 +48,7 @@ describe('Page Config Initializer', () => {
         const editPageConfig = newConfig.updatePage!;
         expect(editPageConfig.route).toEqual('/root/edit');
         expect(editPageConfig.skip).toEqual(false);
-        expect(editPageConfig.name).toEqual('edit');
+        expect(editPageConfig.name).toEqual('update');
         expect(editPageConfig.pageComponent).toEqual(UpdatePage);
         expect(editPageConfig.options).toEqual({});
     });
@@ -69,7 +69,7 @@ describe('Page Config Initializer', () => {
         const editPageConfig = newConfig.updatePage!;
         expect(editPageConfig.route).toEqual('/root/update');
         expect(editPageConfig.skip).toEqual(true);
-        expect(editPageConfig.name).toEqual('edit');
+        expect(editPageConfig.name).toEqual('update');
         expect(editPageConfig.options).toEqual(testOptions);
         expect(editPageConfig.pageComponent).toBe(MockedPage);
     });

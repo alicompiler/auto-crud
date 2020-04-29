@@ -2,7 +2,7 @@ import * as React from 'react';
 import {CrudContext} from "./CrudContext";
 import {DefaultConfigInitializer} from "./ConfigInitializer/ConfigInitializer";
 import CrudRootHeader from "../Components/CrudRootHeader/CrudRootHeader";
-import CrudLayout from "../Layout/CrudLayout";
+import CrudLayout from "./CrudLayout";
 import {CrudConfig} from "./CrudConfig";
 import {UIStateInitializer} from "./ConfigInitializer/UIStateInitializer";
 import {PageOptionsModifier} from "../Page/PageConfigModifier/PageOptionsModifier";
@@ -23,7 +23,6 @@ class AutoCrud extends React.Component<CrudConfig, any> {
         this.state = {state: {}, uiState: uiState, config: config};
     }
 
-
     render() {
         const layout = this.props.layout!();
         const header = this.props.header!();
@@ -38,7 +37,7 @@ class AutoCrud extends React.Component<CrudConfig, any> {
         );
     }
 
-    private getContextValue = () => {
+    public getContextValue = () => {
         return {
             state: this.state,
             config: this.state.config,

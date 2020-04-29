@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {CrudContext, CrudContextValue} from "../Root/CrudContext";
+import {CrudContext, CrudContextValue} from "./CrudContext";
 import {Switch} from "react-router-dom";
 import RoutesExtractor from "./RoutesExtractor";
 

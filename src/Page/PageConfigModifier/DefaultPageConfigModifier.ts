@@ -46,7 +46,7 @@ export class DefaultPageConfigModifier extends BasePageConfigModifier {
     handleUpdatePage(): PageConfig {
         const defaultRoute = `${this.getConfig().routeRoot}/edit`;
         const defaultPageComponent: any = UpdatePage;
-        return this.getPageConfig(this.getConfig().updatePage, 'edit', defaultRoute, defaultPageComponent);
+        return this.getPageConfig(this.getConfig().updatePage, 'update', defaultRoute, defaultPageComponent);
     }
 
     private getPageConfig(passedConfig: PageConfig | undefined, defaultName: string, defaultRoute: string, defaultComponent: any): PageConfig {
