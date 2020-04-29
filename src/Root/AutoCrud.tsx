@@ -5,6 +5,7 @@ import CrudRootHeader from "../Components/CrudRootHeader/CrudRootHeader";
 import CrudLayout from "../Layout/CrudLayout";
 import {CrudConfig} from "./CrudConfig";
 import {UIStateInitializer} from "./ConfigInitializer/UIStateInitializer";
+import {PageOptionsModifier} from "../Page/PageConfigModifier/PageOptionsModifier";
 
 
 class AutoCrud extends React.Component<CrudConfig, any> {
@@ -52,33 +53,9 @@ class AutoCrud extends React.Component<CrudConfig, any> {
     }
 
     private updatePageOptions = (pageName: string, options: any, afterUpdateCallback?: () => void) => {
-
-
-        const config = {...this.state.config};
-
-        if (config.indexPage.name === pageName) {
-            config.indexPage.options = options;
-        }
-        if (config.createPage.name === pageName) {
-            config.createPage.options = options;
-        }
-        if (config.updatePage.name === pageName) {
-            config.updatePage.options = options;
-        }
-        if (config.deletePage.name === pageName) {
-            config.indexPage.options = options;
-        }
-        if (config.detailsPage.name === pageName) {
-            config.indexPage.options = options;
-        }
-
-        config.pages = config.pages.map((page: any) => {
-            if (page.name === pageName)
-                return {...page, options: options};
-            return {...page};
-        });
-
-        this.setState({config: config}, afterUpdateCallback);
+        const optionsModifier = new PageOptionsModifier(this.state.config, pageName, options);
+        const newConfig = optionsModifier.modify();
+        this.setState({config: newConfig}, afterUpdateCallback);
     }
 }
 
