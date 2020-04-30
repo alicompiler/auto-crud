@@ -4,9 +4,9 @@ import {FormPageDefault} from "../../../Defaults/Page/FormPageDefaults";
 import Axios from "axios";
 import {DeletePageOptions} from "./DeletePageOptions";
 import {AutoCrudDefaults} from "../../AutoCrudDefaults";
-import BaseCrudPageWidthConfirmationAndStatus from "../../Base/BaseCrudPageWidthConfirmationAndStatus";
+import BaseCrudPageWithConfirmationAndStatus from "../../Base/BaseCrudPageWithConfirmationAndStatus";
 
-class DeletePage extends BaseCrudPageWidthConfirmationAndStatus {
+class DeletePage extends BaseCrudPageWithConfirmationAndStatus {
 
 
     getDefaultPageTitle = () => FormPageDefault.titles.delete_page;

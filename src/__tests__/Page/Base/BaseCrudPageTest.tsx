@@ -30,9 +30,9 @@ const context: CrudContextValue = {
         pages: [],
     },
     state: {},
-    ui: {pages: {index: {someKey: 'someValue'}}, modals: {}},
     updateState: () => null,
-    updatePageOptions: () => null
+    updatePageOptions: () => null,
+    getState: () => null
 }
 
 
@@ -141,8 +141,10 @@ describe('BaseCrudPage', () => {
 
     it('should get page state', function () {
 
+        const _context = {...context};
+        _context.getState = jest.fn().mockReturnValue({uiState: {pages: {index: {someKey: 'someValue'}}}});
         const page = mount(<SimpleBaseCrudPage name={'index'}
-                                               context={context}
+                                               context={_context}
                                                history={(() => '') as any}
                                                location={{} as any}
                                                match={{} as any}/>);
@@ -163,10 +165,11 @@ describe('BaseCrudPage', () => {
 
     it('should updatePageState', function (done) {
         const _context = JSON.parse(JSON.stringify(context));
+        _context.getState = jest.fn().mockReturnValue({uiState: {pages: {index: {}}}})
         _context.updateState = (payload: any) => {
-            const uiState = {..._context.ui};
-            uiState.pages.index = {x: 'Y', someKey: 'someValue'};
-            expect(payload).toEqual({ui: uiState});
+            const uiState = {..._context.getState().uiState};
+            uiState.pages.index = {x: 'Y'};
+            expect(payload).toEqual({uiState: uiState});
             done();
         }
 
@@ -180,6 +183,43 @@ describe('BaseCrudPage', () => {
         pageInstance.updateState({x: 'Y'});
     });
 
+    it('should update page options', function (done) {
+        const _context = JSON.parse(JSON.stringify(context));
+        let callback = jest.fn();
+        _context.updatePageOptions = (pageName: string, newOptions: any, afterCallback: () => void) => {
+            expect(pageName).toEqual('index');
+            expect(newOptions).toEqual({x: '1'});
+            expect(afterCallback).toBe(callback);
+            done();
+        }
+
+        const page = mount(<SimpleBaseCrudPage name={'index'}
+                                               context={_context}
+                                               history={(() => '') as any}
+                                               location={{} as any}
+                                               match={{} as any}/>);
+
+        const pageInstance: BaseCrudPage = page.instance() as any;
+        pageInstance.updateOptions({x: '1'}, callback);
+    });
+
+
+    it('should navigate home', function (done) {
+        const history: any = {
+            push: () => {
+                done();
+            }
+        };
+
+
+        const component = mount(<SimpleBaseCrudPage name={'index'}
+                                                    context={context}
+                                                    history={history}
+                                                    location={{} as any}
+                                                    match={{} as any}/>);
+        const page: BaseCrudPage = component.instance() as any;
+        page.navigateToHome();
+    });
 
     it('should render content', function () {
         act(() => {

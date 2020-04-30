@@ -5,7 +5,7 @@ import IForm from "react-auto-form-core/dist/Form/IForm";
 import Form from "react-auto-form-core/dist/Form/Form";
 import {ConfirmationPageOptions} from "./ConfirmationPageOptions";
 
-abstract class BaseCrudPageWidthConfirmationAndStatus extends BaseCrudPageWithStatus {
+abstract class BaseCrudPageWithConfirmationAndStatus extends BaseCrudPageWithStatus {
     protected currentConfirmationCode: string | null = null;
     private confirmationForm: IForm | null = null;
 
@@ -82,4 +82,4 @@ abstract class BaseCrudPageWidthConfirmationAndStatus extends BaseCrudPageWithSt
     }
 }
 
-export default BaseCrudPageWidthConfirmationAndStatus;
+export default BaseCrudPageWithConfirmationAndStatus;

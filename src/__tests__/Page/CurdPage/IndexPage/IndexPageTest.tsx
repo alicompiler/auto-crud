@@ -22,9 +22,9 @@ const context: CrudContextValue = {
         pages: [],
     },
     state: {},
-    ui: {pages: {index: {someKey: 'someValue'}}, modals: {}},
     updateState: () => null,
-    updatePageOptions: () => null
+    updatePageOptions: () => null,
+    getState: () => null
 }
 
 let page: IndexPage | null;
