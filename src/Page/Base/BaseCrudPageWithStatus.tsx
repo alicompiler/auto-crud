@@ -4,7 +4,7 @@ import {AutoCrudDefaults} from "../AutoCrudDefaults";
 
 abstract class BaseCrudPageWithStatus extends BaseCrudPage {
 
-    protected renderContent(): any {
+    public renderContent(): any {
         if (this.getSuccessMessage()) {
             return <div className={'__status-page-wrapper'}>
                 {this.renderSuccessMessageComponent()}
@@ -48,10 +48,7 @@ abstract class BaseCrudPageWithStatus extends BaseCrudPage {
         if (loading !== undefined) payload.__loading = loading;
         if (errorMessage !== undefined) payload.__errorMessage = errorMessage;
         if (successMessage !== undefined) payload.__successMessage = successMessage;
-        this.updateState(payload, () => {
-            this.forceUpdate();
-            afterCallback && afterCallback();
-        });
+        this.updateStateForced(payload, afterCallback);
     }
 
 }

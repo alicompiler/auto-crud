@@ -69,7 +69,7 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
         );
     }
 
-    protected abstract renderContent(): any;
+    public abstract renderContent(): any;
 
     public renderToolbar = (): any => {
         if (this.currentPageConfig.toolbar === null)
@@ -93,6 +93,13 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
 
     public updateState(payload: any, afterCallback?: (state: any) => void): void {
         this.pageConfigUtils.updatePageState(this.props.name, payload, afterCallback);
+    }
+
+    public updateStateForced(payload: any, afterCallback?: (state: any) => void): void {
+        this.updateState(payload, (state: any) => {
+            this.forceUpdate();
+            afterCallback && afterCallback(state);
+        })
     }
 
     public getContext = (): CrudContextValue => {

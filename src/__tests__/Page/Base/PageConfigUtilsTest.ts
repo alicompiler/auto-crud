@@ -19,17 +19,14 @@ describe('PageConfigUtils', () => {
             ]
         },
         state: {},
+        updatePageOptions: () => null,
         updateState: () => null,
         getState: () => null
     }
 
-    let utils: PageConfigUtils;
-
-    beforeEach(() => {
-        utils = new PageConfigUtils(context);
-    })
 
     it('should get page config by name', function () {
+        const utils = new PageConfigUtils(context);
         const indexPageConfig = utils.getPageConfigByName('index');
         const pageOneConfig = utils.getPageConfigByName('page-one');
         expect(indexPageConfig).toEqual(context.config.indexPage);
@@ -37,6 +34,15 @@ describe('PageConfigUtils', () => {
     });
 
     it('should get page state', function () {
+        const mockGetState = jest.fn().mockReturnValue({
+            uiState: {
+                pages: {
+                    update: {x: 'Update'},
+                    'page-two': {x: 'SOME VALUE'}
+                }
+            }
+        });
+        const utils = new PageConfigUtils({...context, getState: mockGetState});
         const updatePageState = utils.getPageState('update');
         const pageTwoState = utils.getPageState('page-two');
         expect(updatePageState).toEqual({x: 'Update'});
@@ -45,10 +51,9 @@ describe('PageConfigUtils', () => {
 
     it('should update page state', function (done) {
         const _context = JSON.parse(JSON.stringify(context));
+        _context.getState = jest.fn().mockReturnValue({uiState: {pages: {create: {}}}})
         _context.updateState = (payload: any) => {
-            // const uiState = _context.ui;
-            // uiState.pages['create'] = {x: 'Create'};
-            // expect(payload).toEqual({ui: uiState});
+            expect(payload).toEqual({uiState: {pages: {create: {x: 'Create'}}}});
             done();
         }
 
