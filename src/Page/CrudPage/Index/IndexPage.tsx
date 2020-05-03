@@ -7,7 +7,7 @@ import {IndexPageOptions} from "./IndexPageOptions";
 
 export class IndexPage extends TablePage {
 
-    protected renderContent(): any {
+    public renderContent(): any {
         return <div>
             {this.renderCollectionContainer()}
         </div>

@@ -1,15 +1,8 @@
 import IForm from "react-auto-form-core/dist/Form/IForm";
 import * as React from "react";
-import FormPage from "../../Page/FormPage/FormPage";
-import FormPageSuccessComponent from "./Components/FormPageSuccessComponent";
-import FormPageErrorComponent from "./Components/FormPageErrorComponent";
 
 export interface IFormPageDefaults {
-    
 
-    renderLoading: ((page: FormPage) => any);
-    renderError: ((page: FormPage) => any);
-    renderSuccess: ((page: FormPage) => any);
 
     form: {
         buttonExtraClasses: string;
@@ -47,11 +40,6 @@ export interface IFormPageDefaults {
 }
 
 export const FormPageDefault: IFormPageDefaults = {
-
-
-    renderLoading: () => <div>TODO : Horizontal Loading Progress</div>,
-    renderError: page => <FormPageErrorComponent page={page}/>,
-    renderSuccess: page => <FormPageSuccessComponent page={page}/>,
 
     form: {
         buttonExtraClasses: '',

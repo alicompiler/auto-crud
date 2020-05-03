@@ -3,7 +3,7 @@ import {KeyValueComponent} from "react-keyvalue-ui";
 import React from "react";
 
 class DetailsPage extends BaseCrudPage {
-    protected renderContent(): any {
+    public renderContent(): any {
         const item = this.getState().__item ?? {};
         return <KeyValueComponent item={item}/>
     }

@@ -7,16 +7,14 @@ import {FormPageDefault} from "../../Defaults/Page/FormPageDefaults";
 import {FormRenderConfigGenerator} from "./FormRenderConfigGenerator";
 import {BaseSubmitConfigGenerator} from "./BaseSubmitConfigGenerator";
 import {SubmitConfig} from "raf-axios-submitter/dist/SubmitConfig"
+import BaseCrudPageWithStatus from "../Base/BaseCrudPageWithStatus";
 
-class FormPage extends BaseCrudPage {
+class FormPage extends BaseCrudPageWithStatus {
 
     protected formRef: Form | null = null;
 
-    protected renderContent(): any {
+    public renderMainContent(): any {
         return <div className={'__curd-form-page'}>
-            {this.getState().loading && this.renderLoading()}
-            {this.getState().error && this.renderError()}
-            {this.getState().success && this.renderSuccess()}
             {this.renderForm()}
         </div>
     }
@@ -31,25 +29,6 @@ class FormPage extends BaseCrudPage {
                      submitConfig={this.getSubmitConfig()}/>
     }
 
-
-    protected renderError = () => {
-        if (this.getOptions().renderError) {
-            return this.getOptions().renderError!(this)
-        }
-        return FormPageDefault.renderError(this);
-    }
-
-    protected renderLoading = () => {
-        if (this.getOptions().renderLoading)
-            return this.getOptions().renderLoading!(this);
-        return FormPageDefault.renderLoading(this);
-    }
-
-    protected renderSuccess = () => {
-        if (this.getOptions().renderSuccess)
-            return this.getOptions().renderSuccess!(this);
-        return FormPageDefault.renderSuccess(this);
-    }
 
     public getFormRef = () => {
         return this.formRef;
@@ -95,14 +74,6 @@ class FormPage extends BaseCrudPage {
 
     public getOptions(): FormPageOptions {
         return super.getOptions();
-    }
-
-    public getLocalizations() {
-        return {
-            success_message: this.getOptions().success_message ?? FormPageDefault.localization.success_message,
-            error_message: this.getOptions().error_message ?? FormPageDefault.localization.error_message,
-            loading_message: this.getOptions().loading_message ?? FormPageDefault.localization.loading_message
-        }
     }
 }
 

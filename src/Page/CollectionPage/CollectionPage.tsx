@@ -9,7 +9,7 @@ abstract class CollectionPage extends BaseCrudPage {
 
     private collectionContainerRef: CollectionContainer | null = null;
 
-    protected renderContent(): any {
+    public renderContent(): any {
         return <div>
             {
                 this.renderCollectionContainer()

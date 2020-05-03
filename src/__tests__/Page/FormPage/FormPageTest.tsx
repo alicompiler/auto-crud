@@ -24,7 +24,8 @@ const context: CrudContextValue = {
     },
     state: {},
     updateState: () => null,
-    updatePageOptions: () => null
+    updatePageOptions: () => null,
+    getState: () => ({uiState: {pages: {index: {}}}})
 }
 
 function getPageJSXComponent(context: any, name: any) {
@@ -38,24 +39,29 @@ function getPageInstance(context: any, name: string = 'index'): FormPage {
     return pageWrapper.instance() as FormPage;
 }
 
+function newContext() {
+    let newContext = JSON.parse(JSON.stringify(context));
+    const {config , ...other} = context;
+    return {...newContext , ...other};
+}
+
 
 describe('FormPage', () => {
 
     it('should get render options from  options', function () {
-        const _context: CrudContextValue = JSON.parse(JSON.stringify(context));
-        const renderOptions: any = {
-            x: 1,
-            y: 2
-        };
+        const _context: CrudContextValue = newContext();
+        const renderOptions: any = {x: 1, y: 2};
         _context.config.indexPage!.options = {
             renderOptions: renderOptions
-        }
+        };
         const page = getPageInstance(_context);
         expect(page.getFormRenderOptions()).toBe(renderOptions);
     });
 
     it('should get render options from defaults', function () {
-        const page = getPageInstance(context);
+        const _context = newContext();
+        const page = getPageInstance(_context);
         expect(page.getFormRenderOptions()).toEqual(FormPageDefault.form.renderOptions);
     });
+
 })
