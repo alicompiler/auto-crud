@@ -6,8 +6,8 @@ import Form from "react-auto-form-core/dist/Form/Form";
 import {ConfirmationPageOptions} from "./ConfirmationPageOptions";
 
 abstract class BaseCrudPageWithConfirmationAndStatus extends BaseCrudPageWithStatus {
-    protected currentConfirmationCode: string | null = null;
-    private confirmationForm: IForm | null = null;
+    public currentConfirmationCode: string | null = null;
+    public confirmationForm: IForm | null = null;
 
 
     public renderConfirmationForm = () => {
@@ -27,7 +27,7 @@ abstract class BaseCrudPageWithConfirmationAndStatus extends BaseCrudPageWithSta
         </div>;
     }
 
-    private getConfirmationFormRenderOptions() {
+    public getConfirmationFormRenderOptions() {
         const field = this.getOptions().confirmationCodeField ?? AutoCrudDefaults.confirmation.field();
         const confirmationFormWrapperClassName = this.getOptions().confirmationWrapperClassName ?? AutoCrudDefaults.confirmation.formWrapperClassName;
         const messageClassName = this.getOptions().confirmationMessageClassName ?? AutoCrudDefaults.confirmation.messageClassName;
@@ -35,7 +35,7 @@ abstract class BaseCrudPageWithConfirmationAndStatus extends BaseCrudPageWithSta
         return {field, confirmationFormWrapperClassName, messageClassName, confirmationMessage};
     }
 
-    private renderConfirmationCodeElement = () => {
+    public renderConfirmationCodeElement = () => {
         const code = this.getConfirmationCode();
         const renderConfirmationElement = this.getOptions().renderConfirmationCodeElement ?? AutoCrudDefaults.confirmation.renderConfirmationCodeElement;
         return renderConfirmationElement(code);
