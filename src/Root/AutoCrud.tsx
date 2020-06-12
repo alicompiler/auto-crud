@@ -7,7 +7,6 @@ import {CrudConfig} from "./CrudConfig";
 import {UIStateInitializer} from "./ConfigInitializer/UIStateInitializer";
 import {PageOptionsModifier} from "../Page/PageConfigModifier/PageOptionsModifier";
 
-
 class AutoCrud extends React.Component<CrudConfig, any> {
 
     static defaultProps = {
@@ -41,14 +40,16 @@ class AutoCrud extends React.Component<CrudConfig, any> {
         return {
             state: this.state,
             config: this.state.config,
-            updateState: (payload: any, afterCallback?: (state: any) => void) => {
-                this.setState(payload, () => {
-                    afterCallback && afterCallback(this.state)
-                });
-            },
+            updateState: this.updateState,
             updatePageOptions: this.updatePageOptions,
             getState: () => this.state
         };
+    }
+
+    private updateState = (payload: any, afterCallback?: (state: any) => void) => {
+        this.setState(payload, () => {
+            afterCallback && afterCallback(this.state)
+        });
     }
 
     private updatePageOptions = (pageName: string, options: any, afterUpdateCallback?: () => void) => {

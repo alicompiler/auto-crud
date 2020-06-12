@@ -51,7 +51,6 @@ describe('RouteExtractor', () => {
         expect(typeof routes[4].props.component).toEqual('function');
     });
 
-
     it('should skip flagged pages', function () {
         const _context: any = JSON.parse(JSON.stringify(context));
         _context.config.indexPage.skip = true;
@@ -65,7 +64,6 @@ describe('RouteExtractor', () => {
         expect(routes[0].key).toEqual('index');
     });
 
-    // noinspection DuplicatedCode
     it('should extract routes for custom pages', function () {
         const _context = JSON.parse(JSON.stringify(context));
         _context.config.pages = [
@@ -75,10 +73,12 @@ describe('RouteExtractor', () => {
         const routes = new RoutesExtractor(_context).getRoutes();
 
         expect(routes).toHaveLength(6);
-        expect(routes[5].key).toEqual('page-1');
         expect(routes[5].props.path).toEqual('/page-one');
         expect(routes[5].props.exact).toEqual(true);
+        expect(routes[5].key).toEqual('page-1');
         expect(typeof routes[5].props.component).toEqual('function');
+
+
     });
 
     // noinspection DuplicatedCode

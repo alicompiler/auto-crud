@@ -28,7 +28,7 @@ export default class RoutesExtractor {
     }
 
     protected getRouteOptions = () => {
-        //note that every optional property for _page Config is available after fixing
+        //note that every optional property for _page Config is available after initialization
         const options: any[] = [];
 
         options.push(this.getRouteOptionForPage(this.context.config.indexPage!));
@@ -51,7 +51,7 @@ export default class RoutesExtractor {
     };
 
     protected getRouteOptionForPage = (pageConfig: PageConfig) => {
-        //note that every optional property for _page Config is available after fixing
+        //note that every optional property for _page Config is available after initialization
         return {
             name: pageConfig.name!,
             path: pageConfig.route!,
