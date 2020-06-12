@@ -1,4 +1,4 @@
-import {ProgressIndicator} from "../Components/ProgressIndicator/ProgressIndicator";
+import {ProgressIndicator} from "../Components/Core/ProgressIndicator/ProgressIndicator";
 import React from "react";
 import {ErrorMessageComponent} from "../Components/ErrorMessageComponent/ErrorMessageComponent";
 import {DefaultDeleteMessageComponent} from "../Defaults/Components/DefaultDeleteMessageComponent";
@@ -35,6 +35,14 @@ export interface IAutoCrudDefaults {
         errorMessage: (props?: any) => any;
         successMessage: (props?: any) => any;
     };
+
+    componentsConfig: {
+        progressIndicator: {
+            height: number,
+            bgColor: string;
+            progressColor: string;
+        }
+    }
 
     confirmation: {
         messageClassName: string;
@@ -75,6 +83,13 @@ export const AutoCrudDefaults: IAutoCrudDefaults = {
         errorMessage: (props: any = {}) => <ErrorMessageComponent {...props} />,
         successMessage: (props: any = {}) => <SuccessMessageComponent {...props}/>
     },
+
+    componentsConfig: {
+        progressIndicator: {
+            height: 5, bgColor: 'rgba(5, 114, 206, 0.2)', progressColor: 'rgba(5, 114, 206)',
+        }
+    },
+
     confirmation: {
         characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
         formWrapperClassName: 'my-4 w-4/12',

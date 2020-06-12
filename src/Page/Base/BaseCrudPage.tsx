@@ -12,7 +12,7 @@ export interface BaseCrudPageProps {
     match: any;
 }
 
-abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> extends Component<BaseCrudPageProps> {
+export default abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> extends Component<BaseCrudPageProps> {
 
     protected pageConfigUtils: PageConfigUtils;
     protected currentPageConfig: PageConfig;
@@ -32,7 +32,6 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
                 afterOnLoadAction(result, this);
             }
         }
-
         this.setPageTitle();
     }
 
@@ -50,7 +49,6 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
     componentWillUnmount(): void {
         const onDestroyAction = this.getOptions().onDestroyAction;
         if (onDestroyAction) {
-            // noinspection JSIgnoredPromiseFromCall
             onDestroyAction(this);
         }
     }
@@ -115,5 +113,3 @@ abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCrudPageProps> ext
         this.props.history.push(indexPageRoute);
     }
 }
-
-export default BaseCrudPage;

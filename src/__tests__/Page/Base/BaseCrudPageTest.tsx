@@ -12,7 +12,7 @@ configure({adapter: new Adapter()});
 
 
 class SimpleBaseCrudPage extends BaseCrudPage {
-    protected renderContent(): any {
+    public renderContent(): any {
         return <div data-testid={"simple-base-crud-page"}/>
     }
 }
@@ -53,23 +53,58 @@ describe('BaseCrudPage', () => {
         container = null;
     });
 
-    it('should call onLoadAction,afterOnLoadAction', function (done) {
-        const _context = JSON.parse(JSON.stringify(context));
-        _context.config.indexPage.options = {
-            onLoadAction: () => {
-                return new Promise<any>(resolve => resolve('some value'));
-            },
-            afterOnLoadAction: (result: any) => {
-                expect(result).toEqual('some value');
-                done();
-            }
-        };
+    describe('actions', () => {
 
-        mount(<SimpleBaseCrudPage name={'index'}
-                                  context={_context}
-                                  history={(() => '') as any}
-                                  location={{} as any}
-                                  match={{} as any}/>);
+        it('should call onLoadAction', function (done) {
+            const _context = JSON.parse(JSON.stringify(context));
+            _context.config.indexPage.options = {
+                onLoadAction: () => {
+                    done();
+                    return new Promise<any>(resolve => resolve('some value'));
+                },
+            };
+
+            mount(<SimpleBaseCrudPage name={'index'}
+                                      context={_context}
+                                      history={(() => '') as any}
+                                      location={{} as any}
+                                      match={{} as any}/>);
+        });
+
+        it('should call afterOnLoadAction', function (done) {
+            const _context = JSON.parse(JSON.stringify(context));
+            _context.config.indexPage.options = {
+                onLoadAction: () => {
+                    return new Promise<any>(resolve => resolve('some value'));
+                },
+                afterOnLoadAction: (result: any) => {
+                    expect(result).toEqual('some value');
+                    done();
+                },
+            };
+
+            mount(<SimpleBaseCrudPage name={'index'}
+                                      context={_context}
+                                      history={(() => '') as any}
+                                      location={{} as any}
+                                      match={{} as any}/>);
+        });
+
+        it('should call onDestroy', function () {
+            const _context = JSON.parse(JSON.stringify(context));
+            const onDestroy = jest.fn();
+            _context.config.indexPage.options = {onDestroyAction: onDestroy};
+
+            const wrapper = mount(<SimpleBaseCrudPage name={'index'}
+                                                      context={_context}
+                                                      history={(() => '') as any}
+                                                      location={{} as any}
+                                                      match={{} as any}/>);
+            const instance = wrapper.instance() as SimpleBaseCrudPage;
+
+            instance.componentWillUnmount();
+            expect(onDestroy).toBeCalled();
+        });
 
     });
 
@@ -92,117 +127,122 @@ describe('BaseCrudPage', () => {
 
     });
 
-    it('should call onDestroyAction', function (done: any) {
-        const _context = JSON.parse(JSON.stringify(context));
-        _context.config.indexPage.options = {
-            onDestroyAction: () => {
-                done();
-            }
-        };
+    describe('state and options', () => {
+        it('should return options as empty object when no options provided in config', function () {
+            const _context = JSON.parse(JSON.stringify(context));
+            _context.config.indexPage.options = undefined;
 
-        act(() => {
-            render(<SimpleBaseCrudPage name={'index'}
-                                       context={_context}
-                                       history={(() => '') as any}
-                                       location={{} as any}
-                                       match={{} as any}/>, container);
+            const page = mount(<SimpleBaseCrudPage name={'index'}
+                                                   context={_context}
+                                                   history={(() => '') as any}
+                                                   location={{} as any}
+                                                   match={{} as any}/>);
+            const pageInstance: BaseCrudPage = page.instance() as any;
+            expect(pageInstance.getOptions()).toEqual({});
         });
 
+        it('should return options defined in config', function () {
+            const _context = JSON.parse(JSON.stringify(context));
+            _context.config.indexPage.options = {x: 'Index'};
 
-        unmountComponentAtNode(container!);
+            const page = mount(<SimpleBaseCrudPage name={'index'}
+                                                   context={_context}
+                                                   history={(() => '') as any}
+                                                   location={{} as any}
+                                                   match={{} as any}/>);
+            const pageInstance: BaseCrudPage = page.instance() as any;
+            expect(pageInstance.getOptions()).toEqual({x: 'Index'});
+        });
 
+        it('should get page state', function () {
+
+            const _context = {...context};
+            _context.getState = jest.fn().mockReturnValue({uiState: {pages: {index: {someKey: 'someValue'}}}});
+            const page = mount(<SimpleBaseCrudPage name={'index'}
+                                                   context={_context}
+                                                   history={(() => '') as any}
+                                                   location={{} as any}
+                                                   match={{} as any}/>);
+            const pageInstance: BaseCrudPage = page.instance() as any;
+            expect(pageInstance.getState()).toEqual({someKey: 'someValue'});
+        });
+
+        it('should return context', function () {
+
+            const page = mount(<SimpleBaseCrudPage name={'index'}
+                                                   context={context}
+                                                   history={(() => '') as any}
+                                                   location={{} as any}
+                                                   match={{} as any}/>);
+            const pageInstance: BaseCrudPage = page.instance() as any;
+            expect(pageInstance.getContext()).toBe(context);
+        });
+
+        it('should updatePageState', function (done) {
+            const _context = JSON.parse(JSON.stringify(context));
+            _context.getState = jest.fn().mockReturnValue({uiState: {pages: {index: {}}}});
+            const afterCallback = jest.fn();
+            _context.updateState = (payload: any, callback: any) => {
+                const uiState = {..._context.getState().uiState};
+                uiState.pages.index = {x: 'Y'};
+                expect(payload).toEqual({uiState: uiState});
+                expect(afterCallback).toEqual(callback);
+                done();
+            }
+
+            const page = mount(<SimpleBaseCrudPage name={'index'}
+                                                   context={_context}
+                                                   history={(() => '') as any}
+                                                   location={{} as any}
+                                                   match={{} as any}/>);
+
+            const pageInstance: BaseCrudPage = page.instance() as any;
+            pageInstance.updateState({x: 'Y'}, afterCallback);
+        });
+
+        it('should updateStateForced', function (done) {
+            const _context = JSON.parse(JSON.stringify(context));
+            _context.getState = jest.fn().mockReturnValue({uiState: {pages: {index: {title: 'Index Page'}}}});
+            const afterCallback = jest.fn();
+            _context.updateState = (payload: any, callback: any) => {
+                const uiState = {..._context.getState().uiState};
+                uiState.pages.index = {x: 'Y', title: 'Index Page'};
+                expect(payload).toEqual({uiState: uiState});
+                callback();
+                expect(afterCallback).toBeCalled();
+                done();
+            }
+
+            const page = mount(<SimpleBaseCrudPage name={'index'}
+                                                   context={_context}
+                                                   history={(() => '') as any}
+                                                   location={{} as any}
+                                                   match={{} as any}/>);
+
+            const pageInstance: BaseCrudPage = page.instance() as any;
+            pageInstance.updateStateForced({x: 'Y'}, afterCallback);
+        });
+
+        it('should update page options', function (done) {
+            const _context = JSON.parse(JSON.stringify(context));
+            let callback = jest.fn();
+            _context.updatePageOptions = (pageName: string, newOptions: any, afterCallback: () => void) => {
+                expect(pageName).toEqual('index');
+                expect(newOptions).toEqual({x: '1'});
+                expect(afterCallback).toBe(callback);
+                done();
+            }
+
+            const page = mount(<SimpleBaseCrudPage name={'index'}
+                                                   context={_context}
+                                                   history={(() => '') as any}
+                                                   location={{} as any}
+                                                   match={{} as any}/>);
+
+            const pageInstance: BaseCrudPage = page.instance() as any;
+            pageInstance.updateOptions({x: '1'}, callback);
+        });
     });
-
-
-    it('should return options as empty object when no options provided in config', function () {
-        const _context = JSON.parse(JSON.stringify(context));
-        _context.config.indexPage.options = undefined;
-
-        const page = mount(<SimpleBaseCrudPage name={'index'}
-                                               context={_context}
-                                               history={(() => '') as any}
-                                               location={{} as any}
-                                               match={{} as any}/>);
-        const pageInstance: BaseCrudPage = page.instance() as any;
-        expect(pageInstance.getOptions()).toEqual({});
-    });
-    it('should return options defined in config', function () {
-        const _context = JSON.parse(JSON.stringify(context));
-        _context.config.indexPage.options = {x: 'Index'};
-
-        const page = mount(<SimpleBaseCrudPage name={'index'}
-                                               context={_context}
-                                               history={(() => '') as any}
-                                               location={{} as any}
-                                               match={{} as any}/>);
-        const pageInstance: BaseCrudPage = page.instance() as any;
-        expect(pageInstance.getOptions()).toEqual({x: 'Index'});
-    });
-
-    it('should get page state', function () {
-
-        const _context = {...context};
-        _context.getState = jest.fn().mockReturnValue({uiState: {pages: {index: {someKey: 'someValue'}}}});
-        const page = mount(<SimpleBaseCrudPage name={'index'}
-                                               context={_context}
-                                               history={(() => '') as any}
-                                               location={{} as any}
-                                               match={{} as any}/>);
-        const pageInstance: BaseCrudPage = page.instance() as any;
-        expect(pageInstance.getState()).toEqual({someKey: 'someValue'});
-    });
-
-    it('should return context', function () {
-
-        const page = mount(<SimpleBaseCrudPage name={'index'}
-                                               context={context}
-                                               history={(() => '') as any}
-                                               location={{} as any}
-                                               match={{} as any}/>);
-        const pageInstance: BaseCrudPage = page.instance() as any;
-        expect(pageInstance.getContext()).toBe(context);
-    });
-
-    it('should updatePageState', function (done) {
-        const _context = JSON.parse(JSON.stringify(context));
-        _context.getState = jest.fn().mockReturnValue({uiState: {pages: {index: {}}}})
-        _context.updateState = (payload: any) => {
-            const uiState = {..._context.getState().uiState};
-            uiState.pages.index = {x: 'Y'};
-            expect(payload).toEqual({uiState: uiState});
-            done();
-        }
-
-        const page = mount(<SimpleBaseCrudPage name={'index'}
-                                               context={_context}
-                                               history={(() => '') as any}
-                                               location={{} as any}
-                                               match={{} as any}/>);
-
-        const pageInstance: BaseCrudPage = page.instance() as any;
-        pageInstance.updateState({x: 'Y'});
-    });
-
-    it('should update page options', function (done) {
-        const _context = JSON.parse(JSON.stringify(context));
-        let callback = jest.fn();
-        _context.updatePageOptions = (pageName: string, newOptions: any, afterCallback: () => void) => {
-            expect(pageName).toEqual('index');
-            expect(newOptions).toEqual({x: '1'});
-            expect(afterCallback).toBe(callback);
-            done();
-        }
-
-        const page = mount(<SimpleBaseCrudPage name={'index'}
-                                               context={_context}
-                                               history={(() => '') as any}
-                                               location={{} as any}
-                                               match={{} as any}/>);
-
-        const pageInstance: BaseCrudPage = page.instance() as any;
-        pageInstance.updateOptions({x: '1'}, callback);
-    });
-
 
     it('should navigate home', function (done) {
         const history: any = {
@@ -259,7 +299,6 @@ describe('BaseCrudPage', () => {
             expect(page.renderToolbar()).toEqual('index');
         });
 
-
         it('should render null as default toolbar renderer', function () {
             const page = mount(<SimpleBaseCrudPage name={'index'}
                                                    context={context}
@@ -268,7 +307,6 @@ describe('BaseCrudPage', () => {
                                                    match={{} as any}/>).instance() as BaseCrudPage;
             expect(page.renderToolbar()).toBeNull();
         });
-    })
-
+    });
 
 });

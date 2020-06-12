@@ -1,11 +1,9 @@
 import BaseCrudPage from "./Base/BaseCrudPage";
 
-
 export interface PageConfig {
     name?: string;
     route?: string;
     pageComponent?: any;
-    // skip used to not include page route in main router switch
     skip?: boolean;
     options?: BasePageOptions;
     toolbar?: ((page: BaseCrudPage) => any) | null
@@ -22,4 +20,3 @@ export interface BasePageOptions {
 
     [propName: string]: any;
 }
-
