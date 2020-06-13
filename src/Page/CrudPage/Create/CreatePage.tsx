@@ -1,7 +1,7 @@
 import FormPage from "../../FormPage/FormPage";
 import {SubmitConfig} from "raf-axios-submitter/dist/SubmitConfig"
 import {AxiosResponse} from "axios";
-import {FormPageDefault} from "../../../Defaults/Page/FormPageDefaults";
+import {AutoCrudDefaults} from "../../AutoCrudDefaults";
 
 class CreatePage extends FormPage {
 
@@ -10,33 +10,29 @@ class CreatePage extends FormPage {
         const onSuccess = this.getOptions().onSuccess;
         return {
             onFail: (e: any) => {
-                let stop = undefined;
-                onFail && (stop = onFail(this, e));
-                if (stop === false) {
+                let hookResult = undefined;
+                onFail && (hookResult = onFail(this, e));
+                if (hookResult === false) {
                     return;
                 }
-                this.updateState({error: e});
-                setTimeout(() => {
-                    this.forceUpdate();
-                }, 1000);
+                this.updateStateForced({error: e});
             },
             onSuccess: (response: AxiosResponse) => {
-                let stop = undefined;
-                onSuccess && (stop = onSuccess(this, response));
-                if (stop === false) {
+                let hookResult = undefined;
+                onSuccess && (hookResult = onSuccess(this, response));
+                if (hookResult === false) {
                     return;
                 }
                 this.getFormRef()!.clear();
-                this.updateState({error: null});
-                this.forceUpdate()
+                this.updateStateForced({error: null});
             },
             changeLoadingStatus: true,
         }
     }
 
-    public getDefaultHttpMethod = (): string => this.getOptions().httpMethod ?? FormPageDefault.form.methods.create;
+    public getDefaultHttpMethod = (): string => this.getOptions().httpMethod ?? AutoCrudDefaults.httpMethods.createRequest;
 
-    public getDefaultPageTitle = () => FormPageDefault.titles.create_page
+    public getDefaultPageTitle = () => AutoCrudDefaults.pageTitles.create;
 
 }
 

@@ -13,7 +13,7 @@
   "scripts": {
     "build:styles": "postcss src/__example/style/tailwindcss.css -o public/css/tailwind.css --watch",
     "start:server": "node ./test-server/server.js",
-    "start": "npm run build:styles & react-scripts start",
+    "start": "node test-server/server.js & npm run build:styles & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

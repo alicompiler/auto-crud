@@ -17,3 +17,6 @@ export function ProgressIndicator(props: Props) {
         <div className="__progress-bar-value" style={{backgroundColor: progressColor}}/>
     </div>
 }
+
+
+//many thanks to : https://codepen.io/tmac/pen/QgVRKb

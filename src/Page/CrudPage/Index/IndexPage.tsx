@@ -2,8 +2,8 @@ import {TablePage} from "../../CollectionPage/TablePage/TablePage";
 import React from "react";
 import ToolbarComponent from "../../../Components/Toolbar/ToolbarComponent";
 import ToolbarNavigationAction from "../../../Defaults/Components/ToolbarNavigationAction";
-import {CollectionPageDefaults} from "../../../Defaults/Page/CollectionPageDefaults";
 import {IndexPageOptions} from "./IndexPageOptions";
+import {AutoCrudDefaults} from "../../AutoCrudDefaults";
 
 export class IndexPage extends TablePage {
 
@@ -13,8 +13,7 @@ export class IndexPage extends TablePage {
         </div>
     }
 
-
-    getDefaultPageTitle = () => 'Main';
+    getDefaultPageTitle = () => AutoCrudDefaults.pageTitles.index;
 
     protected renderDefaultToolbar = () => {
         return <ToolbarComponent onSearch={this.onSearch}
@@ -22,7 +21,7 @@ export class IndexPage extends TablePage {
                                  searchInputClassName={this.getOptions().searchInputClassName}
                                  wrapperClassName={this.getOptions().toolbarWrapperClassName}
                                  page={this}
-                                 searchInputPlaceholder={this.getOptions().searchInputPlaceholder ?? CollectionPageDefaults.localization.search}
+                                 searchInputPlaceholder={this.getOptions().searchInputPlaceholder ?? AutoCrudDefaults.localization.search}
                                  actions={this.getToolbarAction()}/>
     }
 
@@ -32,7 +31,8 @@ export class IndexPage extends TablePage {
     };
 
     public defaultOnSearch(value: string): void {
-        const url = this.getContext().config.endpointRoot + "search?query=" + encodeURI(value)
+        let endpointRoot = this.getContext().config.endpointRoot;
+        const url = AutoCrudDefaults.endpoints.search(value, endpointRoot);
         this.updateDataSourceUrl(url);
     }
 
@@ -48,12 +48,13 @@ export class IndexPage extends TablePage {
             return toolbarActions.map(action => () => action(this));
         }
         return [
-            () => <ToolbarNavigationAction icon={'fas fa-plus text-white'}
-                                           buttonClassName={'bg-green-500 mx-2 rounded px-4 py-2 text-xl'}
+            () => <ToolbarNavigationAction icon={AutoCrudDefaults.classNames.toolbarActions.createNavigationIcon}
+                                           buttonClassName={AutoCrudDefaults.classNames.toolbarActions.createButtonClassName}
                                            navigateTo={this.pageConfigUtils.getPageConfigByName('create').route!}/>,
-            () => <button className={'bg-blue-500 mx-2 rounded px-4 py-2 text-xl'}
+
+            () => <button className={AutoCrudDefaults.classNames.toolbarActions.refreshButtonClassName}
                           onClick={() => this.getCollectionRef()?.startDataFetch()}>
-                <i className={'fas text-white fa-sync'}/>
+                <i className={AutoCrudDefaults.classNames.toolbarActions.refreshButtonIcon}/>
             </button>
         ];
     };

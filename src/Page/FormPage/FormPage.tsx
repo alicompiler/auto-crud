@@ -1,5 +1,4 @@
 import React from 'react';
-import BaseCrudPage from "../Base/BaseCrudPage";
 import Form from "react-auto-form-core/dist/Form/Form";
 import {RenderConfig} from "react-auto-form-core/dist/Form/FormProps";
 import {FormPageOptions} from "./FormPageOptions";

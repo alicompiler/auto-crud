@@ -102,13 +102,11 @@ describe('IndexPage', () => {
 
         getMountedPage(_context);
         expect(page!.getToolbarAction()).toHaveLength(4);
-        //todo call these actions
     });
 
     it('should get default toolbar actions', function () {
         getMountedPage(context);
         expect(page!.getToolbarAction()).toHaveLength(2);
-        //todo call these actions
     });
 
 

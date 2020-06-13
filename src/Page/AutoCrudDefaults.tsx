@@ -5,13 +5,16 @@ import {DefaultDeleteMessageComponent} from "../Defaults/Components/DefaultDelet
 import {SuccessMessageComponent} from "../Components/SuccessMessageComponent/SuccessMessageComponent";
 import FieldConfig from "react-auto-form-core/dist/Field/FieldConfig";
 import TextField from "raf-tailwind-components/dist/TextField/TextField";
+import {classNameDefaults, IDefaultsClassName} from "../Defaults/New/DefaultsClassName";
+import {endpointDefaults, IDefaultsEndpoint} from "../Defaults/New/DefaultsEndpoint";
+import {IDefaultsPageTitle, pageTitleDefaults} from "../Defaults/New/DefaultsPageTitle";
+import {httpMethodDefaults, IDefaultsHttpMethod} from "../Defaults/New/DefaultsHttpMethod";
 
 export interface IAutoCrudDefaults {
-    classNames: {
-        main_action: string;
-        cancel_action: string;
-        delete_action: string;
-    };
+    classNames: IDefaultsClassName;
+    endpoints: IDefaultsEndpoint;
+    pageTitles: IDefaultsPageTitle;
+    httpMethods: IDefaultsHttpMethod,
 
     localization: {
         confirmation_fail_message: string;
@@ -26,6 +29,12 @@ export interface IAutoCrudDefaults {
         delete: string;
         main: string;
         confirmation: string;
+
+        loading_data: string,
+        fail_to_fetch_data: string,
+        data_empty: string,
+        try_again: string,
+        search: string;
     };
 
 
@@ -66,19 +75,26 @@ export const AutoCrudDefaults: IAutoCrudDefaults = {
         cancel: 'Cancel',
         delete: 'Delete',
         main: 'Main',
-        confirmation: 'Confirmation'
+        confirmation: 'Confirmation',
+        data_empty: 'Data Empty',
+        fail_to_fetch_data: 'Fail To Fetch Data',
+        loading_data: 'Loading Data...',
+        try_again: 'Try Again',
+        search: 'Search',
     },
-    classNames: {
-        main_action: 'rounded py-2 px-4 bg-gray-700 text-white',
-        cancel_action: 'rounded py-2 px-4 bg-gray-200 text-black',
-        delete_action: 'rounded py-2 px-4 bg-red-400 text-white',
-    },
+
+
+    httpMethods: httpMethodDefaults,
+    classNames: classNameDefaults,
+    endpoints: endpointDefaults,
+    pageTitles: pageTitleDefaults,
 
 
     components: {
         deleteMessage: (props: any) => <DefaultDeleteMessageComponent disabled={props.disabled}
                                                                       handleCancel={props.handleCancel}
                                                                       handleDelete={props.handleDelete}/>,
+        
         progressIndicator: (props: any = {}) => <ProgressIndicator {...props}/>,
         errorMessage: (props: any = {}) => <ErrorMessageComponent {...props} />,
         successMessage: (props: any = {}) => <SuccessMessageComponent {...props}/>
