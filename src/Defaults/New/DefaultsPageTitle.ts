@@ -1,7 +1,7 @@
 export interface IDefaultsPageTitle {
     index: string;
     create: string;
-    edit: string;
+    update: string;
     delete: string;
     details: string;
 }
@@ -9,7 +9,7 @@ export interface IDefaultsPageTitle {
 export const pageTitleDefaults: IDefaultsPageTitle = {
     index: 'Main',
     create: 'Create',
-    edit: 'Edit',
+    update: 'Edit',
     delete: 'Delete',
     details: 'Details',
 }

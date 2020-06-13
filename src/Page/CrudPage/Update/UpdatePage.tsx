@@ -1,15 +1,14 @@
 import CreatePage from "../Create/CreatePage";
-import {FormPageDefault} from "../../../Defaults/Page/FormPageDefaults";
+import {AutoCrudDefaults} from "../../AutoCrudDefaults";
 
 class UpdatePage extends CreatePage {
 
-    public getDefaultHttpMethod = (): string => this.getOptions().httpMethod ?? FormPageDefault.form.methods.update;
+    public getDefaultHttpMethod = (): string => this.getOptions().httpMethod ?? AutoCrudDefaults.httpMethods.updateRequest;
 
-    public getDefaultPageTitle = () => FormPageDefault.titles.update_page;
-
+    public getDefaultPageTitle = () => AutoCrudDefaults.pageTitles.update;
 
     public getInitialValues = () => {
-        const item = this.getState().__item;
+        const item = this.getState().__item ?? {};
         return {...item};
     }
 

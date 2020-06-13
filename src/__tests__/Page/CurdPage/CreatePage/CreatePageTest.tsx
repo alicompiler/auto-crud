@@ -1,53 +1,20 @@
-import React from "react";
-import {CrudContextValue} from "../../../../Root/CrudContext";
-import {IndexPage} from "../../../../Page/CrudPage/Index/IndexPage";
-import {MemoryRouter} from "react-router-dom";
-import {configure, mount} from "enzyme";
+import {configure} from "enzyme";
 import CreatePage from "../../../../Page/CrudPage/Create/CreatePage";
 import Adapter from "enzyme-adapter-react-16";
-import TextField from "react-auto-form-core/dist/DefaultElement/TextField";
 import {FormPageOptions} from "../../../../Page/FormPage/FormPageOptions";
 import {AutoCrudDefaults} from "../../../../Page/AutoCrudDefaults";
+import {TestingPageUtils} from "../../../TestingUtils/TestingPageUtils";
 
 configure({adapter: new Adapter()});
 
-
-const context: CrudContextValue = {
-    config: {
-        name: 'text',
-        fields: [],
-        endpointRoot: '/base-api/',
-        indexPage: {name: 'index'},
-        createPage: {name: 'create'},
-        updatePage: {name: 'update'},
-        deletePage: {name: 'delete'},
-        detailsPage: {name: 'details'},
-        pages: [],
-    },
-    state: {},
-    updateState: () => null,
-    updatePageOptions: () => null,
-    getState: () => null
-}
-
-
 let pageRef: CreatePage | null;
 
-function getPageJSXComponent(context: any, name: any) {
-    return <MemoryRouter>
-        <CreatePage ref={ref => pageRef = ref} name={name} context={context} history={(() => null) as any}
-                    location={{} as any}
-                    match={{} as any}/>
-    </MemoryRouter>
+function getMountedPage(context?: any) {
+    return TestingPageUtils.getMountedPage('createPage', 'create', CreatePage, 'CreatePage', (ref: any) => pageRef = ref, context);
 }
 
-function getMountedPage(context: any, name: string = 'create') {
-    const pageWrapper = mount(getPageJSXComponent(context, name));
-    const page: any = pageWrapper.find('CreatePage').getElement();
-    return {
-        wrapper: pageWrapper,
-        page: page as IndexPage
-    };
+function getNewContext(options?: FormPageOptions) {
+    return TestingPageUtils.cloneContextForFormPage('createPage' , undefined , undefined , options);
 }
 
 describe('CreatePageTest', () => {
@@ -129,7 +96,7 @@ describe('CreatePageTest', () => {
                 }
             });
 
-            _context.updateState = (payload: any) => {
+            _context.updateState = () => {
                 //SHOULD NEVER BE CALLED
                 expect(1).toEqual(2);
             }
@@ -170,24 +137,18 @@ describe('CreatePageTest', () => {
     });
 
     it('should return default page title', function () {
-        getMountedPage(getNewContext());
+        getMountedPage();
         expect(pageRef?.getDefaultPageTitle()).toEqual(AutoCrudDefaults.pageTitles.create);
     });
 
     it('should return default http method', function () {
-        getMountedPage(getNewContext());
+        getMountedPage();
         expect(pageRef?.getDefaultHttpMethod()).toEqual(AutoCrudDefaults.httpMethods.createRequest);
     });
 
-    function getNewContext(options?: FormPageOptions) {
-        const _context = JSON.parse(JSON.stringify(context));
-        let pageOptions = {pageTitle: ''};
-        if (options) {
-            pageOptions = {...pageOptions, ...options};
-        }
-        _context.config.createPage.options = pageOptions;
-        _context.config.fields = [{as: TextField, name: 'test'}];
-        _context.getState = () => ({uiState: {pages: {}}});
-        return _context;
-    }
+    it('should return http method from options', function () {
+        getMountedPage(getNewContext({httpMethod : 'put'}));
+        expect(pageRef?.getDefaultHttpMethod()).toEqual('put');
+    });
+
 });
