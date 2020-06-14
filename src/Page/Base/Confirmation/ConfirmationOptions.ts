@@ -7,6 +7,7 @@ export interface ConfirmationOptions extends BasePageOptions {
     confirmationCodeField?: FieldConfig;
     confirmationWrapperClassName?: string;
     confirmationMessage?: string;
+    confirmationMessageClassName?: string;
     generateConfirmationCode?: (page: BaseCrudPage) => string | null;
     confirmationCodeLength?: number;
     confirmationCharacters?: string;

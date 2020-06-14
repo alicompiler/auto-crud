@@ -8,8 +8,8 @@ import Form from "react-auto-form-core/dist/Form/Form";
 export class ConfirmationUtils {
 
     private readonly page: BaseCrudPage;
-    private currentConfirmationCode: string | null = null;
-    private confirmationForm: IForm | null = null;
+    public currentConfirmationCode: string | null = null;
+    public confirmationForm: IForm | null = null;
 
     constructor(page: BaseCrudPage) {
         this.page = page;
