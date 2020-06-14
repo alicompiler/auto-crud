@@ -1,5 +1,6 @@
 import {AxiosRequestConfig} from "axios";
 import {ConfirmationPageOptions} from "../../Base/ConfirmationPageOptions";
+import DeletePage from "./CrudDeletePage";
 
 export interface DeletePageOptions extends ConfirmationPageOptions {
     deleteRequest?: {
@@ -7,5 +8,10 @@ export interface DeletePageOptions extends ConfirmationPageOptions {
         url?: string | (() => string);
         requestConfig?: AxiosRequestConfig;
     };
+
+    keyValueProps?: any;
+
+    renderMessage?: (page: DeletePage) => any;
+    renderNoItem?: (page: DeletePage) => any;
 
 }

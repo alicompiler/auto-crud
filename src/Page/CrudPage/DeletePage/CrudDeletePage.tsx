@@ -1,6 +1,5 @@
 import React from "react";
 import {KeyValueComponent} from "react-keyvalue-ui";
-import {FormPageDefault} from "../../../Defaults/Page/FormPageDefaults";
 import Axios from "axios";
 import {DeletePageOptions} from "./DeletePageOptions";
 import {AutoCrudDefaults} from "../../AutoCrudDefaults";
@@ -8,13 +7,15 @@ import BaseCrudPageWithConfirmationAndStatus from "../../Base/BaseCrudPageWithCo
 
 class DeletePage extends BaseCrudPageWithConfirmationAndStatus {
 
-
-    getDefaultPageTitle = () => FormPageDefault.titles.delete_page;
-
+    getDefaultPageTitle = () => AutoCrudDefaults.pageTitles.delete;
 
     protected renderMainContent(): any {
-        const item = this.getState().__item ?? {};
-        const keyValueProps = this.getOptions().keyValueProps ?? {};
+        const item = this.getState().__item;
+        const keyValueProps = this.getKeyValueProps();
+
+        if (!item) {
+            return this.renderNoItemMessage();
+        }
 
         return <div>
             {this.renderConfirmationForm()}
@@ -23,6 +24,19 @@ class DeletePage extends BaseCrudPageWithConfirmationAndStatus {
         </div>
     }
 
+    public getKeyValueProps = () => {
+        return this.getOptions().keyValueProps ?? {};
+    }
+
+    public renderNoItemMessage = () => {
+        const render = this.getOptions().renderNoItem;
+        if (render) {
+            return render(this);
+        }
+        return AutoCrudDefaults.components.noItem({
+            onAction: () => this.navigateToHome()
+        });
+    }
 
     private renderDeleteMessage = () => {
         const render = this.getOptions().renderMessage;
@@ -31,8 +45,8 @@ class DeletePage extends BaseCrudPageWithConfirmationAndStatus {
         }
 
         return AutoCrudDefaults.components.deleteMessage({
-            disabled: this.getState().__deleting,
-            handleDelete: this.handleDelete,
+            disabled: this.getState().__loading,
+            handleDelete: () => this.handleDelete(),
             handleCancel: () => this.navigateToHome()
         });
     }
@@ -45,22 +59,26 @@ class DeletePage extends BaseCrudPageWithConfirmationAndStatus {
             return;
         }
 
-        const method = this.getOptions().deleteRequest?.method ?? FormPageDefault.form.methods.delete;
-        const url = this.getDeleteUrl();
-        const config = this.getOptions().deleteRequest?.requestConfig ?? {};
-
         try {
             this.updateLoadingErrorSuccess(true, null, null);
-            await Axios({method: method, url: url, ...config});
-            this.updateLoadingErrorSuccess(true, null, AutoCrudDefaults.localization.delete_success_message);
+            await Axios({method: this.getMethod(), url: this.getDeleteUrl(), ...this.getConfig()});
+            this.updateLoadingErrorSuccess(false, null, AutoCrudDefaults.localization.delete_success_message);
         } catch {
             this.updateLoadingErrorSuccess(false, AutoCrudDefaults.localization.fail_to_delete_message, null);
         }
     }
 
+    public getConfig = () => {
+        return this.getOptions().deleteRequest?.requestConfig ?? {};
+    }
+
+    public getMethod = () => {
+        return this.getOptions().deleteRequest?.method ?? AutoCrudDefaults.httpMethods.deleteRequest;
+    }
+
     public getDeleteUrl = () => {
         const root = this.getContext().config.endpointRoot;
-        const url = this.getOptions().url;
+        const url = this.getOptions().deleteRequest?.url;
         if (typeof url === "string") {
             return `${root}${url}`;
         } else if (typeof url === "function") {
@@ -75,7 +93,3 @@ class DeletePage extends BaseCrudPageWithConfirmationAndStatus {
 }
 
 export default DeletePage;
-
-
-//TODO : refresh confirmation code
-//TODO : display delete message

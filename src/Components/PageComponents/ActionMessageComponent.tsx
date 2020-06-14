@@ -20,14 +20,14 @@ interface Props {
     }
 }
 
-class MessageWithActionsComponent extends Component<Props> {
+class ActionMessageComponent extends Component<Props> {
     render() {
         const {message, wrapperClassName, disabled, cancelAction, mainAction} = this.props;
 
         return (
             <div className={wrapperClassName ?? ''}>
 
-                <p className={'text-xl font-bold mb-4'}>{message}</p>
+                <p className={AutoCrudDefaults.classNames.components.messageWithActions.message}>{message}</p>
 
                 <button disabled={disabled} onClick={mainAction.handle}
                         className={mainAction.className ?? AutoCrudDefaults.classNames.main_action}>{mainAction.text}</button>
@@ -47,4 +47,4 @@ class MessageWithActionsComponent extends Component<Props> {
     }
 }
 
-export default MessageWithActionsComponent;
+export default ActionMessageComponent;

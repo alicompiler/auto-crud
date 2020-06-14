@@ -4,5 +4,7 @@ test delete page
 test details page
 
 
+refactor DeletePage to ActionPage
+
 toggle page
 test toggle page

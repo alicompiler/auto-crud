@@ -39,9 +39,18 @@ abstract class BaseCrudPageWithStatus extends BaseCrudPage {
     }
     public getSuccessMessageComponentProps = () => ({
         message: this.getSuccessMessage(),
-        action: {text: AutoCrudDefaults.localization.main, onClick: () => this.navigateToHome()}
+        action: {
+            text: AutoCrudDefaults.localization.main, onClick: () => {
+                this.resetState();
+                this.navigateToHome();
+            }
+        }
     });
 
+
+    private resetState() {
+        this.updateStateForced({__successMessage: undefined, __loading: undefined, __errorMessage: undefined});
+    }
 
     public updateLoadingErrorSuccess = (loading?: boolean | null, errorMessage?: string | null, successMessage?: string | null, afterCallback?: () => void) => {
         const payload: any = {};
