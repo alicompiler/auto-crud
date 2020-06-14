@@ -30,9 +30,10 @@ describe('DetailsPage', () => {
 
     it('should render noItem when __item is not set', function () {
         const {wrapper} = getMountedPage();
-        //todo : fix h1 to NoItemComponent
-        let h1 = wrapper.find('h1').getElement();
-        expect(h1).toBeTruthy();
+        pageRef.navigateToHome = jest.fn();
+        let noItemComponent = wrapper.find('NoItemMessageComponent').getElement();
+        noItemComponent.props.onAction();
+        expect(pageRef.navigateToHome).toBeCalled();
     });
 
     it('should use custom render for noItem from options', function () {
