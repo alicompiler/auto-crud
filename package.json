@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react-keyvalue-ui": "^1.0.0"
+    "react-keyvalue-ui": "^1.1.0"
   },
   "jest": {
     "transformIgnorePatterns": [
