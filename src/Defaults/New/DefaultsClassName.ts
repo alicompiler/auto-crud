@@ -11,6 +11,9 @@ export interface IDefaultsClassName {
     },
 
     components: {
+        successMessage: {
+            wrapper: string;
+        };
         messageWithActions: {
             message: string;
         },
@@ -39,6 +42,9 @@ export const classNameDefaults: IDefaultsClassName = {
 
 
     components: {
+        successMessage: {
+            wrapper: 'p-4 bg-teal-400 text-white flex items-center flex-col justify-center'
+        },
         messageWithActions: {
             message: 'text-xl font-bold mb-4'
         },

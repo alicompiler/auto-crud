@@ -39,12 +39,11 @@ abstract class StatefulCrudPage extends BaseCrudPage {
     }
     public getSuccessMessageComponentProps = () => ({
         message: this.getSuccessMessage(),
-        action: {
-            text: AutoCrudDefaults.localization.main, onClick: () => {
-                this.resetState();
-                this.navigateToHome();
-            }
-        }
+        actionText : AutoCrudDefaults.localization.main,
+        onAction: () => {
+            this.resetState();
+            this.navigateToHome();
+        },
     });
 
 
