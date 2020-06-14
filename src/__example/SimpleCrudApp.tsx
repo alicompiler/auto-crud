@@ -8,7 +8,6 @@ class SimpleCrudApp extends Component {
         return (
             <div>
                 <AutoCrud name={'books'}
-                          routeRoot={'/books'}
                           endpointRoot={'http://localhost:8080/books/'}
                           fields={[
                               {
@@ -25,8 +24,6 @@ class SimpleCrudApp extends Component {
                               },
                               {as: TextArea, name: 'email', placeholder: 'Write Some Description...'},
                           ]}
-                          deletePage={{options: {confirmationRequired: true}}}
-                          mainTitle='Books'
                 />
             </div>
         );
