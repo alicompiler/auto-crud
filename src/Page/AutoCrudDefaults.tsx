@@ -15,6 +15,8 @@ export interface IAutoCrudDefaults {
     components: IDefaultsComponent;
 
     localization: {
+        toggle: string;
+        are_you_sure: string;
         operation_failed: string;
         operation_done_successfully: string;
         confirmation_fail_message: string;
@@ -62,6 +64,8 @@ export interface IAutoCrudDefaults {
 
 export const AutoCrudDefaults: IAutoCrudDefaults = {
     localization: {
+        toggle : "Toggle",
+        are_you_sure : "Are You Sure",
         confirmation_fail_message: 'confirmation code is not correct',
         confirmation_message: 'enter confirmation code',
         fail_to_delete_message: 'delete action failed, check your internet connection and try again',

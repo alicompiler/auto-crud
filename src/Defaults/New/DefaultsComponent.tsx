@@ -5,9 +5,11 @@ import {SuccessMessageComponent} from "../../Components/SuccessMessageComponent/
 import React from "react";
 import {NoItemMessageComponent} from "../../Components/PageComponents/NoItemMessageComponent";
 import {AutoCrudDefaults} from "../../Page/AutoCrudDefaults";
+import {ToggleMessageComponent} from "../../Components/PageComponents/ToggleMessageComponent";
 
 export interface IDefaultsComponent {
     deleteMessage: (props: any) => any;
+    toggleMessage: (props: any) => any;
     progressIndicator: (props?: any) => any;
     errorMessage: (props?: any) => any;
     successMessage: (props?: any) => any;
@@ -18,6 +20,10 @@ export const componentsDefault: IDefaultsComponent = {
     deleteMessage: (props: any) => <DeleteMessageComponent disabled={props.disabled}
                                                            handleCancel={props.handleCancel}
                                                            handleDelete={props.handleDelete}/>,
+
+    toggleMessage: (props: any) => <ToggleMessageComponent disabled={props.disabled}
+                                                           handleCancel={props.handleCancel}
+                                                           handleToggle={props.handleToggle}/>,
 
     progressIndicator: (props: any = {}) => <ProgressIndicator {...props}/>,
     errorMessage: (props: any = {}) => <ErrorMessageComponent {...props} />,
