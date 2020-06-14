@@ -6,7 +6,7 @@ import React from "react";
 
 export class TestingPageUtils {
 
-    public static cloneContextForPage(context: any, pageIndexName: string, fields: any[], options?: any): CrudContextValue {
+    public static cloneContextForCrudPage(context: any, pageIndexName: string, fields: any[], options?: any): CrudContextValue {
         const _context = JSON.parse(JSON.stringify(context));
         let pageOptions = {pageTitle: ''};
         if (options) {
@@ -18,6 +18,18 @@ export class TestingPageUtils {
         return _context;
     }
 
+    public static cloneContextForExtraPage(page: any, context?: any, fields: any[] = []): CrudContextValue {
+        let _context = context;
+        if (!_context) {
+            _context = JSON.parse(JSON.stringify(TestingPageUtils.contextTemplate));
+        }
+        _context.config.fields = fields ?? [];
+        _context.config.pages = [{...page}];
+        _context.getState = () => ({uiState: {pages: {}}});
+        return _context;
+    }
+
+
     public static cloneContextForFormPage(pageIndexName: string, fields?: any[], context?: any, options?: any, fieldName: string = "test"): CrudContextValue {
         if (!context) {
             context = TestingPageUtils.contextTemplate;
@@ -25,7 +37,7 @@ export class TestingPageUtils {
         if (!fields) {
             fields = [{as: TextField, name: fieldName}];
         }
-        return TestingPageUtils.cloneContextForPage(context, pageIndexName, fields, options);
+        return TestingPageUtils.cloneContextForCrudPage(context, pageIndexName, fields, options);
     }
 
     public static contextTemplate: CrudContextValue = {
@@ -59,6 +71,18 @@ export class TestingPageUtils {
     public static getMountedPage(pageIndexName: string, pageName: string, component: any, componentNameAsString: string, ref?: any, context?: any,) {
         if (!context) {
             context = TestingPageUtils.cloneContextForFormPage(pageIndexName);
+        }
+        const pageWrapper = mount(TestingPageUtils.getPageJSXComponent(context, component, pageName, ref));
+        const page: any = pageWrapper.find(componentNameAsString).getElement();
+        return {
+            wrapper: pageWrapper,
+            page: page
+        };
+    }
+
+    public static mountExtraPage(component: any, componentNameAsString: string, pageName: string, pageConfig?: any, ref?: any, context?: any,) {
+        if (!context) {
+            context = TestingPageUtils.cloneContextForExtraPage(pageConfig, context, []);
         }
         const pageWrapper = mount(TestingPageUtils.getPageJSXComponent(context, component, pageName, ref));
         const page: any = pageWrapper.find(componentNameAsString).getElement();

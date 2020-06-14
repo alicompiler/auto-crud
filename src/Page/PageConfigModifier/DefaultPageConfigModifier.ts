@@ -3,7 +3,7 @@ import {PageConfig} from "../PageConfig";
 import {IndexPage} from "../CrudPage/Index/IndexPage";
 import CreatePage from "../CrudPage/Create/CreatePage";
 import UpdatePage from "../CrudPage/Update/UpdatePage";
-import DeletePage from "../CrudPage/DeletePage/CrudDeletePage";
+import DeletePage from "../CrudPage/DeletePage/DeletePage";
 import DetailsPage from "../CrudPage/Details/DetailsPage";
 
 export class DefaultPageConfigModifier extends BasePageConfigModifier {

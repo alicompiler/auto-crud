@@ -15,6 +15,8 @@ export interface IAutoCrudDefaults {
     components: IDefaultsComponent;
 
     localization: {
+        operation_failed: string;
+        operation_done_successfully: string;
         confirmation_fail_message: string;
         confirmation_message: string;
 
@@ -74,7 +76,9 @@ export const AutoCrudDefaults: IAutoCrudDefaults = {
         loading_data: 'Loading Data...',
         try_again: 'Try Again',
         search: 'Search',
-        no_item_selected: 'No Item Selected'
+        no_item_selected: 'No Item Selected',
+        operation_done_successfully : 'Operation Done Successfully',
+        operation_failed : 'Operation Failed'
     },
 
 

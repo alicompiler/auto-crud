@@ -9,7 +9,7 @@ let pageRef: DetailsPage = null as any;
 
 function getMountedPage(context?: any, state: any = {}, options?: DetailsPageOptions) {
     if (!context) {
-        context = TestingPageUtils.cloneContextForPage(TestingPageUtils.contextTemplate, 'detailsPage', [], options);
+        context = TestingPageUtils.cloneContextForCrudPage(TestingPageUtils.contextTemplate, 'detailsPage', [], options);
     }
     context.getState = () => ({uiState: {pages: {details: state}}})
     return TestingPageUtils.getMountedPage('detailsPage',
