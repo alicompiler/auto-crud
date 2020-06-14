@@ -2,6 +2,7 @@ import BaseCrudPage from "../../Base/BaseCrudPage";
 import {KeyValueComponent} from "react-keyvalue-ui";
 import React from "react";
 import {DetailsPageOptions} from "./DetailsPageOptions";
+import {AutoCrudDefaults} from "../../AutoCrudDefaults";
 
 class DetailsPage extends BaseCrudPage {
     public renderContent(): any {
@@ -17,8 +18,7 @@ class DetailsPage extends BaseCrudPage {
         if (customRender) {
             return customRender(this);
         }
-        //TODO : CLEANUP , RENDER NO ITEM FROM AUTO CRUD DEFAULTS
-        return <h1>NO ITEM (TODO : NoItemComponent)</h1>
+        return AutoCrudDefaults.components.noItem({onAction: () => this.navigateToHome()});
     }
 
     public getItem = () => {

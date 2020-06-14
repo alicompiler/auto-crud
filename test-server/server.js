@@ -28,7 +28,7 @@ app.get('/books', (_, res) => {
 
 
 app.delete('/books', (_, res) => {
-    setTimeout(() => res.send('DELETE'), 2000);
+    setTimeout(() => res.send('DELETE'), 100);
 });
 
 app.listen(8080, () => console.log('AutoCrud express test server started on port : 8080'));

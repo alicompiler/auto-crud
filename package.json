@@ -47,6 +47,7 @@
     "auto-collection": "^0.3.0",
     "autoprefixer": "^9.7.6",
     "axios": "^0.19.2",
+    "axios-mock-adapter": "^1.18.1",
     "cors": "^2.8.5",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",

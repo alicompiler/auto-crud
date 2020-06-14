@@ -1,20 +1,18 @@
-import {ProgressIndicator} from "../Components/Core/ProgressIndicator/ProgressIndicator";
 import React from "react";
-import {ErrorMessageComponent} from "../Components/ErrorMessageComponent/ErrorMessageComponent";
-import {DefaultDeleteMessageComponent} from "../Defaults/Components/DefaultDeleteMessageComponent";
-import {SuccessMessageComponent} from "../Components/SuccessMessageComponent/SuccessMessageComponent";
 import FieldConfig from "react-auto-form-core/dist/Field/FieldConfig";
 import TextField from "raf-tailwind-components/dist/TextField/TextField";
 import {classNameDefaults, IDefaultsClassName} from "../Defaults/New/DefaultsClassName";
 import {endpointDefaults, IDefaultsEndpoint} from "../Defaults/New/DefaultsEndpoint";
 import {IDefaultsPageTitle, pageTitleDefaults} from "../Defaults/New/DefaultsPageTitle";
 import {httpMethodDefaults, IDefaultsHttpMethod} from "../Defaults/New/DefaultsHttpMethod";
+import {componentsDefault, IDefaultsComponent} from "../Defaults/New/DefaultsComponent";
 
 export interface IAutoCrudDefaults {
     classNames: IDefaultsClassName;
     endpoints: IDefaultsEndpoint;
     pageTitles: IDefaultsPageTitle;
     httpMethods: IDefaultsHttpMethod,
+    components: IDefaultsComponent;
 
     localization: {
         confirmation_fail_message: string;
@@ -23,6 +21,8 @@ export interface IAutoCrudDefaults {
         fail_to_delete_message: string;
         are_you_sure_of_delete: string;
         delete_success_message: string;
+
+        no_item_selected: string;
 
 
         cancel: string;
@@ -37,13 +37,6 @@ export interface IAutoCrudDefaults {
         search: string;
     };
 
-
-    components: {
-        deleteMessage: (props: any) => any;
-        progressIndicator: (props?: any) => any;
-        errorMessage: (props?: any) => any;
-        successMessage: (props?: any) => any;
-    };
 
     componentsConfig: {
         progressIndicator: {
@@ -81,6 +74,7 @@ export const AutoCrudDefaults: IAutoCrudDefaults = {
         loading_data: 'Loading Data...',
         try_again: 'Try Again',
         search: 'Search',
+        no_item_selected: 'No Item Selected'
     },
 
 
@@ -88,17 +82,7 @@ export const AutoCrudDefaults: IAutoCrudDefaults = {
     classNames: classNameDefaults,
     endpoints: endpointDefaults,
     pageTitles: pageTitleDefaults,
-
-
-    components: {
-        deleteMessage: (props: any) => <DefaultDeleteMessageComponent disabled={props.disabled}
-                                                                      handleCancel={props.handleCancel}
-                                                                      handleDelete={props.handleDelete}/>,
-        
-        progressIndicator: (props: any = {}) => <ProgressIndicator {...props}/>,
-        errorMessage: (props: any = {}) => <ErrorMessageComponent {...props} />,
-        successMessage: (props: any = {}) => <SuccessMessageComponent {...props}/>
-    },
+    components: componentsDefault,
 
     componentsConfig: {
         progressIndicator: {
