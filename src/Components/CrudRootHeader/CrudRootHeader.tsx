@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {CrudContextValue, CrudContext} from "../../Root/CrudContext";
-import TitleComponent from "../TitleComponent/TitleComponent";
+import TitleComponent from "../ModuleComponent/TitleComponent";
 import {CrudRootHeaderDefault as Defaults} from "../../Defaults/Components/CrudRootHeaderDefautlts";
 import {withRouter} from 'react-router-dom';
 

@@ -8,6 +8,7 @@ class SimpleCrudApp extends Component {
         return (
             <div>
                 <AutoCrud name={'books'}
+                          mainTitle={'Books'}
                           endpointRoot={'http://localhost:8080/books/'}
                           fields={[
                               {

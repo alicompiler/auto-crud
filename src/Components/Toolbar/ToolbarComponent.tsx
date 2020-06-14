@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {ToolbarDefaults} from "../../Defaults/Components/ToolbarDefault";
+import {AutoCrudDefaults} from "../../Page/AutoCrudDefaults";
 
 interface ToolbarComponentProps {
     noSearch?: boolean;
     wrapperClassName?: string;
     searchInputClassName?: string;
-    searchInputPlaceholder: string;
+    searchInputPlaceholder?: string;
     onSearch?: (value: string) => void;
     page: any;
     actions?: any[];
@@ -19,9 +19,8 @@ class ToolbarComponent extends Component<ToolbarComponentProps, State> {
 
     static defaultProps: Partial<ToolbarComponentProps> = {
         noSearch: false,
-        wrapperClassName: ToolbarDefaults.wrapperClassName,
-        searchInputClassName: ToolbarDefaults.searchInputClassName,
-        searchInputPlaceholder: ToolbarDefaults.searchInputPlaceholder,
+        wrapperClassName: AutoCrudDefaults.classNames.toolbar.wrapper,
+        searchInputClassName: AutoCrudDefaults.classNames.toolbar.searchInput
     };
 
     constructor(props: ToolbarComponentProps) {
@@ -60,7 +59,7 @@ class ToolbarComponent extends Component<ToolbarComponentProps, State> {
     };
 
 
-    protected renderActions = () => {
+    public renderActions = () => {
         if (!this.props.actions)
             return null;
         return this.props.actions.map((action: any, index: number) => {
