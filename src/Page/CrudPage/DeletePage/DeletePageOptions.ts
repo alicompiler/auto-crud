@@ -1,7 +1,7 @@
 import {AxiosRequestConfig} from "axios";
-import {ConfirmationPageOptions} from "../../Base/ConfirmationPageOptions";
+import {ConfirmationOptions} from "../../Base/Confirmation/ConfirmationOptions";
 
-export interface DeletePageOptions extends ConfirmationPageOptions {
+export interface DeletePageOptions extends ConfirmationOptions {
     deleteRequest?: {
         method?: "get" | "post" | "delete" | "put" | "patch";
         url?: string | (() => string);

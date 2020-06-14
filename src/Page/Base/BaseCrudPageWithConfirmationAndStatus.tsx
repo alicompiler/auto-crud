@@ -1,11 +1,11 @@
 import React from 'react';
-import BaseCrudPageWithStatus from "./BaseCrudPageWithStatus";
+import StatefulCrudPage from "./StatefulCrudPage";
 import {AutoCrudDefaults} from "../AutoCrudDefaults";
 import IForm from "react-auto-form-core/dist/Form/IForm";
 import Form from "react-auto-form-core/dist/Form/Form";
-import {ConfirmationPageOptions} from "./ConfirmationPageOptions";
+import {ConfirmationOptions} from "./Confirmation/ConfirmationOptions";
 
-abstract class BaseCrudPageWithConfirmationAndStatus extends BaseCrudPageWithStatus {
+abstract class BaseCrudPageWithConfirmationAndStatus extends StatefulCrudPage {
     public currentConfirmationCode: string | null = null;
     public confirmationForm: IForm | null = null;
 
@@ -77,7 +77,7 @@ abstract class BaseCrudPageWithConfirmationAndStatus extends BaseCrudPageWithSta
         return true;
     }
 
-    public getOptions(): ConfirmationPageOptions {
+    public getOptions(): ConfirmationOptions {
         return super.getOptions();
     }
 }

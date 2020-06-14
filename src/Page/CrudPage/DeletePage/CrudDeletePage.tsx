@@ -4,9 +4,9 @@ import {FormPageDefault} from "../../../Defaults/Page/FormPageDefaults";
 import Axios from "axios";
 import {DeletePageOptions} from "./DeletePageOptions";
 import {AutoCrudDefaults} from "../../AutoCrudDefaults";
-import BaseCrudPageWithConfirmationAndStatus from "../../Base/BaseCrudPageWithConfirmationAndStatus";
+import StatefulCrudPage from "../../Base/StatefulCrudPage";
 
-class DeletePage extends BaseCrudPageWithConfirmationAndStatus {
+class DeletePage extends StatefulCrudPage {
 
 
     getDefaultPageTitle = () => FormPageDefault.titles.delete_page;
@@ -17,7 +17,7 @@ class DeletePage extends BaseCrudPageWithConfirmationAndStatus {
         const keyValueProps = this.getOptions().keyValueProps ?? {};
 
         return <div>
-            {this.renderConfirmationForm()}
+            {this.confirmationUtils.renderConfirmationForm()}
             {this.renderDeleteMessage()}
             <KeyValueComponent item={item} {...keyValueProps}/>
         </div>
@@ -41,7 +41,7 @@ class DeletePage extends BaseCrudPageWithConfirmationAndStatus {
 
         this.updateLoadingErrorSuccess(undefined, null, null);
 
-        if (!this.confirm()) {
+        if (!this.confirmationUtils.confirm()) {
             return;
         }
 

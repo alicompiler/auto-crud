@@ -6,9 +6,9 @@ import {FormPageDefault} from "../../Defaults/Page/FormPageDefaults";
 import {FormRenderConfigGenerator} from "./FormRenderConfigGenerator";
 import {BaseSubmitConfigGenerator} from "./BaseSubmitConfigGenerator";
 import {SubmitConfig} from "raf-axios-submitter/dist/SubmitConfig"
-import BaseCrudPageWithStatus from "../Base/BaseCrudPageWithStatus";
+import StatefulCrudPage from "../Base/StatefulCrudPage";
 
-class FormPage extends BaseCrudPageWithStatus {
+class FormPage extends StatefulCrudPage {
 
     protected formRef: Form | null = null;
 

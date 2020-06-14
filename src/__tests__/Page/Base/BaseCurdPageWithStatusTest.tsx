@@ -1,12 +1,12 @@
 import {CrudContextValue} from "../../../Root/CrudContext";
 import {configure, mount} from "enzyme";
-import BaseCrudPageWithStatus from "../../../Page/Base/BaseCrudPageWithStatus";
+import StatefulCrudPage from "../../../Page/Base/StatefulCrudPage";
 import React from "react";
 import Adapter from "enzyme-adapter-react-16";
 
 configure({adapter: new Adapter()});
 
-class SimpleCrudPageWithStatus extends BaseCrudPageWithStatus {
+class SimpleCrudPageWithStatus extends StatefulCrudPage {
     protected renderMainContent(): any {
         return null;
     }
@@ -53,7 +53,7 @@ describe('BaseCrudPageWithStatus', () => {
                                                      history={null as any}
                                                      location={null as any}
                                                      match={null}/>);
-        const instance: BaseCrudPageWithStatus = page.instance() as any;
+        const instance: StatefulCrudPage = page.instance() as any;
 
         expect(instance.isLoading()).toEqual(true);
         expect(instance.getSuccessMessage()).toEqual('success message');
@@ -83,7 +83,7 @@ describe('BaseCrudPageWithStatus', () => {
                                                          history={null as any}
                                                          location={null as any}
                                                          match={null}/>);
-            const instance: BaseCrudPageWithStatus = page.instance() as any;
+            const instance: StatefulCrudPage = page.instance() as any;
             instance.updateLoadingErrorSuccess(false, 'E', 'S', callback);
         });
 
@@ -102,7 +102,7 @@ describe('BaseCrudPageWithStatus', () => {
                                                          history={null as any}
                                                          location={null as any}
                                                          match={null}/>);
-            const instance: BaseCrudPageWithStatus = page.instance() as any;
+            const instance: StatefulCrudPage = page.instance() as any;
             instance.updateLoadingErrorSuccess(undefined, undefined, undefined);
         });
 
@@ -121,7 +121,7 @@ describe('BaseCrudPageWithStatus', () => {
                                                          history={null as any}
                                                          location={null as any}
                                                          match={null}/>);
-            const instance: BaseCrudPageWithStatus = page.instance() as any;
+            const instance: StatefulCrudPage = page.instance() as any;
             instance.updateLoadingErrorSuccess(null, null, null);
         });
 
@@ -146,7 +146,7 @@ describe('BaseCrudPageWithStatus', () => {
                                                          history={null as any}
                                                          location={null as any}
                                                          match={null}/>);
-            const instance: BaseCrudPageWithStatus = page.instance() as any;
+            const instance: StatefulCrudPage = page.instance() as any;
             mockStatusMethodsAndCallRenderContent(instance);
 
             expect(instance.renderErrorMessageComponent).not.toBeCalled();
@@ -172,7 +172,7 @@ describe('BaseCrudPageWithStatus', () => {
                                                          history={null as any}
                                                          location={null as any}
                                                          match={null}/>);
-            const instance: BaseCrudPageWithStatus = page.instance() as any;
+            const instance: StatefulCrudPage = page.instance() as any;
             mockStatusMethodsAndCallRenderContent(instance);
 
             expect(instance.renderErrorMessageComponent).toBeCalled();
@@ -197,7 +197,7 @@ describe('BaseCrudPageWithStatus', () => {
                                                          history={null as any}
                                                          location={null as any}
                                                          match={null}/>);
-            const instance: BaseCrudPageWithStatus = page.instance() as any;
+            const instance: StatefulCrudPage = page.instance() as any;
             instance.navigateToHome = jest.fn();
 
             const button = page.find('button').getElement();
@@ -205,7 +205,7 @@ describe('BaseCrudPageWithStatus', () => {
             expect(instance.navigateToHome).toBeCalled();
         });
 
-        function mockStatusMethodsAndCallRenderContent(instance: BaseCrudPageWithStatus) {
+        function mockStatusMethodsAndCallRenderContent(instance: StatefulCrudPage) {
             instance.renderSuccessMessageComponent = jest.fn().mockReturnValue(null);
             instance.renderErrorMessageComponent = jest.fn().mockReturnValue(null);
             instance.renderLoadingComponent = jest.fn().mockReturnValue(null);

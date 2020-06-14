@@ -3,6 +3,7 @@ import PageConfigUtils from "./PageConfigUtils";
 import H from "history";
 import {CrudContextValue} from "../../Root/CrudContext";
 import {BasePageOptions, PageConfig} from "../PageConfig";
+import {ConfirmationUtils} from "./Confirmation/ConfirmationUtils";
 
 export interface BaseCrudPageProps {
     name: string;
@@ -16,11 +17,17 @@ export default abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCru
 
     protected pageConfigUtils: PageConfigUtils;
     protected currentPageConfig: PageConfig;
+    protected confirmationUtils : ConfirmationUtils;
 
     protected constructor(props: BaseCrudPageProps) {
         super(props);
         this.pageConfigUtils = new PageConfigUtils(this.props.context);
         this.currentPageConfig = this.pageConfigUtils.getPageConfigByName(this.props.name);
+        this.confirmationUtils = new ConfirmationUtils(this);
+    }
+
+    protected getConfirmationUtils() : ConfirmationUtils {
+        return this.confirmationUtils;
     }
 
     async componentDidMount(): Promise<void> {

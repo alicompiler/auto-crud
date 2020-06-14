@@ -2,7 +2,7 @@ import React from 'react';
 import BaseCrudPage from "./BaseCrudPage";
 import {AutoCrudDefaults} from "../AutoCrudDefaults";
 
-abstract class BaseCrudPageWithStatus extends BaseCrudPage {
+abstract class StatefulCrudPage extends BaseCrudPage {
 
     public renderContent(): any {
         if (this.getSuccessMessage()) {
@@ -53,4 +53,4 @@ abstract class BaseCrudPageWithStatus extends BaseCrudPage {
 
 }
 
-export default BaseCrudPageWithStatus;
+export default StatefulCrudPage;

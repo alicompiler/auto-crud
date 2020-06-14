@@ -1,4 +1,5 @@
 import BaseCrudPage from "./Base/BaseCrudPage";
+import {ConfirmationOptions} from "./Base/Confirmation/ConfirmationOptions";
 
 export interface PageConfig {
     name?: string;
@@ -17,6 +18,8 @@ export interface BasePageOptions {
 
     initialState?: any;
     pageTitle?: string;
+
+    confirmation? : ConfirmationOptions;
 
     [propName: string]: any;
 }
