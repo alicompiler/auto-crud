@@ -11,7 +11,7 @@ describe('SuccessMessageComponent', () => {
     it('should use default class name', function () {
         const component = mount(<SuccessMessageComponent message={'test'} actionText={''} onAction={() => undefined}/>);
         const message = component.find('SingleActionMessage').getElement();
-        expect(message.props.actionClassName).toEqual(AutoCrudDefaults.classNames.main_action);
+        expect(message.props.actionClassName).toEqual(AutoCrudDefaults.classNames.components.successMessage.action);
     });
 
     it('should use passed class name', function () {

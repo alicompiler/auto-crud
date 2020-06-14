@@ -1,4 +1,10 @@
 export interface IDefaultsClassName {
+    divider: string;
+    curdRootHeader: {
+        homeButton: string;
+        homeButtonIcon: string;
+        wrapper: string;
+    };
     toolbar: {
         searchInput: string;
         wrapper: string;
@@ -20,8 +26,13 @@ export interface IDefaultsClassName {
     },
 
     components: {
+        errorMessage: {
+            action: string;
+            wrapper: string
+        };
         successMessage: {
             wrapper: string;
+            action: string;
         };
         messageWithActions: {
             message: string;
@@ -38,6 +49,14 @@ export interface IDefaultsClassName {
 
 
 export const classNameDefaults: IDefaultsClassName = {
+
+    divider: 'my-2 h-px w-full bg-gray-300',
+
+    curdRootHeader: {
+        homeButton: 'px-4 py-2 text-xl text-white bg-blue-500 rounded',
+        homeButtonIcon: 'fas fa-home',
+        wrapper: 'flex justify-between items-center p-2',
+    },
 
     toolbar: {
         searchInput: 'p-2 rounded border',
@@ -62,8 +81,13 @@ export const classNameDefaults: IDefaultsClassName = {
 
 
     components: {
+        errorMessage: {
+            wrapper: 'p-4 bg-red-400 text-white flex items-center flex-col justify-center',
+            action: 'rounded bg-red-200 px-4 py-2'
+        },
         successMessage: {
-            wrapper: 'p-4 bg-teal-400 text-white flex items-center flex-col justify-center'
+            wrapper: 'p-4 bg-teal-400 text-white flex items-center flex-col justify-center',
+            action: 'rounded bg-teal-200 px-4 py-2',
         },
         messageWithActions: {
             message: 'text-xl font-bold mb-4'

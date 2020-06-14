@@ -1,4 +1,5 @@
 import React from "react";
+import {AutoCrudDefaults} from "../../Page/AutoCrudDefaults";
 
 interface Props {
     message: string;
@@ -12,13 +13,14 @@ interface Props {
 export function ErrorMessageComponent(props: Props) {
     const {message} = props;
     const {action} = props;
-    return <div className={'p-4 bg-red-400 text-white flex items-center flex-col justify-center'}>
+    let actionClassName = action?.className ?? AutoCrudDefaults.classNames.components.errorMessage.action;
+    return <div className={AutoCrudDefaults.classNames.components.errorMessage.wrapper}>
         <p className={'text-xl'}>{message}</p>
         {
             action &&
-            <button onClick={action.onClick} className={action.className ?? 'rounded bg-red-200 px-4 py-2'}>
+            <button onClick={action.onClick} className={actionClassName}>
                 {action.text}
             </button>
         }
-    </div>
+    </div>;
 }

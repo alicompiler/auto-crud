@@ -1,7 +1,7 @@
 import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import React from "react";
-import ToolbarComponent from "../../../Components/Toolbar/ToolbarComponent";
+import ToolbarComponent from "../../../Components/PageComponents/ToolbarComponent";
 
 configure({adapter: new Adapter()});
 

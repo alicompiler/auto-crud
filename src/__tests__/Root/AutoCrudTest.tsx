@@ -8,7 +8,7 @@ import UpdatePage from "../../Page/CrudPage/Update/UpdatePage";
 import DeletePage from "../../Page/CrudPage/DeletePage/DeletePage";
 import DetailsPage from "../../Page/CrudPage/Details/DetailsPage";
 import {MemoryRouter} from "react-router-dom";
-import CrudRootHeader from "../../Components/CrudRootHeader/CrudRootHeader";
+import CrudRootHeader from "../../Components/ModuleComponents/CrudRootHeaderComponent";
 import CrudLayout from "../../Root/CrudLayout";
 
 

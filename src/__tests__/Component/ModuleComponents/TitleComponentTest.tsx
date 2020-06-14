@@ -1,7 +1,7 @@
 import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import React from "react";
-import TitleComponent from "../../../Components/ModuleComponent/TitleComponent";
+import TitleComponent from "../../../Components/ModuleComponents/TitleComponent";
 import {CrudContext} from "../../../Root/CrudContext";
 
 configure({adapter: new Adapter()});
