@@ -11,6 +11,8 @@ interface Props {
     match: any;
 }
 
+//TODO : move components folder
+
 function ToolbarNavigationAction(props: Props) {
     const buttonClassName: string = props.buttonClassName ?? 'p-2 rounded';
     return <button className={buttonClassName} onClick={() => props.history.push(props.navigateTo)}>

@@ -19,7 +19,6 @@ const data = [
     {id: 1, name: 'Clean Code', author: 'Martin', publisher: "O'reilly", category: 'Code', date: '2020-09-10'},
 ];
 
-
 //list all request
 
 app.get('/books', (_, res) => {

@@ -4,6 +4,8 @@ import {CrudContext, CrudContextValue} from "../../Root/CrudContext";
 import {PageConfig} from "../../Page/PageConfig";
 import PageConfigUtils from "../../Page/Base/PageConfigUtils";
 
+//TODO : move to components folder && cleanup
+
 class DefaultActionColumn extends React.Component<any> {
     render(): React.ReactNode {
         return <CrudContext.Consumer>
@@ -17,8 +19,7 @@ class DefaultActionColumn extends React.Component<any> {
                     return <td className={'p-2 flex justify-end items-center'}>
                         {
                             (!detailsPage.skip) &&
-                            <button
-                                className={'inline-flex items-center justify-center bg-blue-400 px-4 py-2 rounded w-16 text-white'}
+                            <button className={'inline-flex items-center justify-center bg-blue-400 px-4 py-2 rounded w-16 text-white'}
                                 onClick={() => this.navigateCallback(value, detailsPage)}>
                                 <i className={'fas fa-info text-xl'}/>
                             </button>
