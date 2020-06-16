@@ -1,4 +1,4 @@
-import {TestingPageUtils} from "../../../TestingUtils/TestingPageUtils";
+import {TestingPageUtils} from "../../../../Utils/TestingPageUtils";
 import {configure} from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import AxiosAdapter from "axios-mock-adapter";

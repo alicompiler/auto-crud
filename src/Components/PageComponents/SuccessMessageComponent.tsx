@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function SuccessMessageComponent(props: Props) {
-    const actionClassName = props.actionClassName ?? AutoCrudDefaults.classNames.main_action;
+    const actionClassName = props.actionClassName ?? AutoCrudDefaults.classNames.components.successMessage.action;
     return <SingleActionMessage message={props.message}
                                 wrapperClassName={AutoCrudDefaults.classNames.components.successMessage.wrapper}
                                 actionClassName={actionClassName}

@@ -4,7 +4,7 @@ import React from "react";
 import {TablePage} from "../../../../Page/CollectionPage/TablePage/TablePage";
 import Adapter from "enzyme-adapter-react-16";
 import {TableRenderOptions} from "auto-collection";
-import {TestingPageUtils} from "../../../TestingUtils/TestingPageUtils";
+import {TestingPageUtils} from "../../../../Utils/TestingPageUtils";
 import {AutoCrudDefaults} from "../../../../Page/AutoCrudDefaults";
 import {TablePageOptions} from "../../../../Page/CollectionPage/TablePage/TablePageOptions";
 

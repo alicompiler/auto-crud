@@ -1,4 +1,4 @@
-import {CrudContextValue} from "../../Root/CrudContext";
+import {CrudContextValue} from "../Root/CrudContext";
 import TextField from "react-auto-form-core/dist/DefaultElement/TextField";
 import {MemoryRouter} from "react-router-dom";
 import {mount} from "enzyme";
@@ -71,6 +71,9 @@ export class TestingPageUtils {
     public static getMountedPage(pageIndexName: string, pageName: string, component: any, componentNameAsString: string, ref?: any, context?: any,) {
         if (!context) {
             context = TestingPageUtils.cloneContextForFormPage(pageIndexName);
+        }
+        if (!context.updateState){
+            context.updateState = () => undefined;
         }
         const pageWrapper = mount(TestingPageUtils.getPageJSXComponent(context, component, pageName, ref));
         const page: any = pageWrapper.find(componentNameAsString).getElement();
