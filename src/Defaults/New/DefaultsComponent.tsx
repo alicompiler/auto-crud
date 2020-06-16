@@ -7,12 +7,14 @@ import {NoItemMessageComponent} from "../../Components/PageComponents/NoItemMess
 import {AutoCrudDefaults} from "../../Page/AutoCrudDefaults";
 import {ToggleMessageComponent} from "../../Components/PageComponents/ToggleMessageComponent";
 import {CrudContextValue} from "../../Root/CrudContext";
+import {EmptyMessageComponent} from "../../Components/PageComponents/EmptyMessageComponent";
 
 export interface IDefaultsComponent {
     deleteMessage: (props: any) => any;
     toggleMessage: (props: any) => any;
     progressIndicator: (props?: any) => any;
     errorMessage: (props?: any) => any;
+    emptyMessage: (props?: any) => any;
     successMessage: (props?: any) => any;
     noItem: (props: any) => any;
 
@@ -30,6 +32,8 @@ export const componentsDefault: IDefaultsComponent = {
 
     progressIndicator: (props: any = {}) => <ProgressIndicator {...props}/>,
     errorMessage: (props: any = {}) => <ErrorMessageComponent {...props} />,
+    emptyMessage: (props: any = {}) => <EmptyMessageComponent {...props} />,
+
     successMessage: (props: any = {}) => <SuccessMessageComponent {...props}/>,
 
     noItem: (props: any) => <NoItemMessageComponent message={AutoCrudDefaults.localization.no_item_selected}

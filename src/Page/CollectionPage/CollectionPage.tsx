@@ -1,8 +1,8 @@
 import React from 'react';
 import {AxiosDataSource, CollectionContainer, DataSource, IndexedKeyExtractor, KeyExtractor} from "auto-collection";
 import BaseCrudPage from "../Base/BaseCrudPage";
-import {CollectionPageDefaults} from "../../Defaults/Page/CollectionPageDefaults";
 import {CollectionPageOptions} from "./CollectionPageOptions";
+import {AutoCrudDefaults} from "../AutoCrudDefaults";
 
 
 abstract class CollectionPage extends BaseCrudPage {
@@ -10,7 +10,7 @@ abstract class CollectionPage extends BaseCrudPage {
     private collectionContainerRef: CollectionContainer | null = null;
 
     public renderContent(): any {
-        return <div>
+        return <div className={'__collection-page'}>
             {
                 this.renderCollectionContainer()
             }
@@ -19,8 +19,12 @@ abstract class CollectionPage extends BaseCrudPage {
 
     protected abstract renderCollectionContainer(): any;
 
-    protected setCollectionContainerRef(ref: CollectionContainer | null): void {
+    public setCollectionContainerRef(ref: CollectionContainer | null): void {
         this.collectionContainerRef = ref;
+    };
+
+    public getCollectionContainerRef = (): CollectionContainer | null => {
+        return this.collectionContainerRef;
     };
 
     public getDataSource(): DataSource<any, any> {
@@ -32,7 +36,7 @@ abstract class CollectionPage extends BaseCrudPage {
     protected getDefaultDataSource(): DataSource<any, any> {
         const overrideOptions = this.getOptions().dataSourceOptions ?? {};
         return new AxiosDataSource({
-            method: 'get',
+            method: AutoCrudDefaults.httpMethods.collectionRequest as any,
             url: this.getDataSourceUrl(),
             ...overrideOptions
         });
@@ -45,10 +49,10 @@ abstract class CollectionPage extends BaseCrudPage {
         else if (typeof url === "function")
             return url(this);
 
-        return this.getUrlWhenNoAnyMatchFound();
+        return this.getDefaultDataSourceUrl();
     }
 
-    protected getUrlWhenNoAnyMatchFound(): string {
+    protected getDefaultDataSourceUrl(): string {
         return this.getContext().config.endpointRoot;
     }
 
@@ -56,47 +60,62 @@ abstract class CollectionPage extends BaseCrudPage {
         const keyExtractor = this.getOptions().keyExtractor;
         if (keyExtractor)
             return keyExtractor;
+        return this.getDefaultKeyExtractor();
+    }
+
+    protected getDefaultKeyExtractor(): KeyExtractor {
         return new IndexedKeyExtractor();
     }
 
-    private renderCallback = (optionRender: any, defaultRender: any): any => {
-        if (optionRender) {
-            return optionRender(this);
+    public renderErrorMessage = (): any => {
+        const customRender = this.getOptions().renderErrorMessage;
+        if (customRender) {
+            return customRender(this);
         }
-        if (defaultRender) {
-            return defaultRender(this);
+        return AutoCrudDefaults.components.errorMessage({
+            message: this.getLocalization().fail_to_fetch_data,
+            action: {
+                text: this.getLocalization().try_again,
+                onClick: () => this.restart(),
+            }
+        })
+    };
+
+    public renderLoading = (): any => {
+        const customRender = this.getOptions().renderLoading;
+        if (customRender) {
+            return customRender(this);
         }
-        return undefined;
+        return AutoCrudDefaults.components.progressIndicator()
     };
 
-    public renderErrorMessage = (): (() => any) | undefined => {
-        return this.renderCallback(this.getOptions().renderError, CollectionPageDefaults.renderError);
-    };
-
-    public renderLoading = (): (() => any) | undefined => {
-        return this.renderCallback(this.getOptions().renderLoading, CollectionPageDefaults.renderLoading);
-    };
-
-    public renderEmpty = (): (() => any) | undefined => {
-        return this.renderCallback(this.getOptions().renderEmpty, CollectionPageDefaults.renderEmpty);
+    public renderEmpty = (): any => {
+        const customRender = this.getOptions().renderEmpty;
+        if (customRender) {
+            return customRender(this);
+        }
+        return AutoCrudDefaults.components.emptyMessage({
+            message: this.getLocalization().data_empty,
+            action: {
+                onClick: () => this.restart(),
+                text: this.getLocalization().refresh
+            }
+        });
     };
 
     public getLocalization = () => {
         const localization = this.getOptions().localization ?? {};
         return {
-            loading_data: localization.loading_data ?? CollectionPageDefaults.localization.loading_data,
-            fail_to_fetch_data: localization.fail_to_fetch_data ?? CollectionPageDefaults.localization.fail_to_fetch_data,
-            data_empty: localization.data_empty ?? CollectionPageDefaults.localization.data_empty,
-            try_again: localization.try_again ?? CollectionPageDefaults.localization.try_again,
+            loading_data: localization.loading_data ?? AutoCrudDefaults.localization.loading_data,
+            fail_to_fetch_data: localization.fail_to_fetch_data ?? AutoCrudDefaults.localization.fail_to_fetch_data,
+            data_empty: localization.data_empty ?? AutoCrudDefaults.localization.data_empty,
+            try_again: localization.try_again ?? AutoCrudDefaults.localization.try_again,
+            refresh: localization.refresh ?? AutoCrudDefaults.localization.refresh,
         }
     };
 
-    public getCollectionRef = (): CollectionContainer | null => {
-        return this.collectionContainerRef;
-    };
-
     public restart = (): void => {
-        this.getCollectionRef()?.startDataFetch();
+        this.getCollectionContainerRef()?.startDataFetch();
     }
 
     public getOptions(): CollectionPageOptions {

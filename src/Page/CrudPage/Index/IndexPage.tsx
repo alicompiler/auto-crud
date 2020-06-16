@@ -38,7 +38,7 @@ export class IndexPage extends TablePage {
 
     public updateDataSourceUrl = (url: string) => {
         this.updateOptions({...this.getOptions(), dataSourceUrl: () => url}, () => {
-            this.forceUpdate(() => this.getCollectionRef()!.startDataFetch());
+            this.forceUpdate(() => this.getCollectionContainerRef()!.startDataFetch());
         });
     }
 
@@ -53,7 +53,7 @@ export class IndexPage extends TablePage {
                                            navigateTo={this.pageConfigUtils.getPageConfigByName('create').route!}/>,
 
             () => <button className={AutoCrudDefaults.classNames.toolbarActions.refreshButtonClassName}
-                          onClick={() => this.getCollectionRef()?.startDataFetch()}>
+                          onClick={() => this.getCollectionContainerRef()?.startDataFetch()}>
                 <i className={AutoCrudDefaults.classNames.toolbarActions.refreshButtonIcon}/>
             </button>
         ];

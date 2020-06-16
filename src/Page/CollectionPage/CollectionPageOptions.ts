@@ -6,9 +6,9 @@ export interface CollectionPageOptions extends BasePageOptions {
     onFetchFail?: () => void;
     onFetchStart?: () => void;
     onFetchDone?: () => void;
-    renderErrorMessage?: () => any;
-    renderLoading?: () => any;
-    renderEmpty?: () => any;
+    renderErrorMessage?: (page: CollectionPage) => any;
+    renderLoading?: (page: CollectionPage) => any;
+    renderEmpty?: (page: CollectionPage) => any;
     keyExtractor?: KeyExtractor;
     renderOptionsConfig?: any;
 
@@ -17,4 +17,12 @@ export interface CollectionPageOptions extends BasePageOptions {
     dataSourceOptions?: AxiosFetchOption;
 
     collectionRenderOptions?: any;
+
+    localization?: {
+        loading_data?: string;
+        fail_to_fetch_data?: string;
+        data_empty?: string;
+        try_again?: string;
+        refresh?: string;
+    }
 }

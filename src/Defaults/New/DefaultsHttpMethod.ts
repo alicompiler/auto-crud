@@ -1,6 +1,7 @@
 export type HttpMethod = "get" | "post" | "delete" | "put" | "patch"
 
 export interface IDefaultsHttpMethod {
+    collectionRequest: HttpMethod;
     actionPageMethod: HttpMethod;
     createRequest: HttpMethod,
     updateRequest: HttpMethod,
@@ -9,6 +10,7 @@ export interface IDefaultsHttpMethod {
 
 
 export const httpMethodDefaults: IDefaultsHttpMethod = {
+    collectionRequest : "get",
     actionPageMethod : "post",
     createRequest: "post",
     deleteRequest: "delete",

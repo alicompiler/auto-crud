@@ -26,6 +26,11 @@ export interface IDefaultsClassName {
     },
 
     components: {
+        emptyMessage: {
+            message: string;
+            wrapper: string;
+            action: string;
+        };
         errorMessage: {
             action: string;
             wrapper: string
@@ -81,6 +86,13 @@ export const classNameDefaults: IDefaultsClassName = {
 
 
     components: {
+
+        emptyMessage: {
+            wrapper: 'p-4 bg-blue-400 text-white flex items-center flex-col justify-center',
+            action: 'rounded bg-blue-200 text-black px-4 py-2',
+            message: 'text-xl'
+        },
+
         errorMessage: {
             wrapper: 'p-4 bg-red-400 text-white flex items-center flex-col justify-center',
             action: 'rounded bg-red-200 px-4 py-2'

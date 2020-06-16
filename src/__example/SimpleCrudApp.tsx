@@ -23,7 +23,11 @@ class SimpleCrudApp extends Component {
                                   placeholder: 'Phone',
                                   validationRules: {length: {minimum: 2}}
                               },
-                              {as: TextArea, name: 'email', placeholder: 'Write Some Description...'},
+                              {
+                                  as: TextArea,
+                                  name: 'email',
+                                  placeholder: 'Write Some Description...'
+                              },
                           ]}
                 />
             </div>

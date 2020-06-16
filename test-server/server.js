@@ -22,7 +22,15 @@ const data = [
 //list all request
 
 app.get('/books', (_, res) => {
-    res.json(data);
+    let random = Math.ceil(Math.random() * 10);
+    if (random === 3) {
+        res.json([]);
+        return;
+    }
+    if (random > 7) {
+        throw Error();
+    }
+    setTimeout(() => res.json(data), 2000);
 });
 
 

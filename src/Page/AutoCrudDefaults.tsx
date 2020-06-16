@@ -15,6 +15,7 @@ export interface IAutoCrudDefaults {
     components: IDefaultsComponent;
 
     localization: {
+        refresh: string;
         toggle: string;
         are_you_sure: string;
         operation_failed: string;
@@ -64,6 +65,7 @@ export interface IAutoCrudDefaults {
 
 export const AutoCrudDefaults: IAutoCrudDefaults = {
     localization: {
+        refresh : 'Refresh',
         toggle : "Toggle",
         are_you_sure : "Are You Sure",
         confirmation_fail_message: 'confirmation code is not correct',
