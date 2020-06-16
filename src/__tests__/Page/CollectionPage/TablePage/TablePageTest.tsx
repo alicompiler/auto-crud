@@ -3,27 +3,13 @@ import {configure, mount} from "enzyme";
 import React from "react";
 import {TablePage} from "../../../../Page/CollectionPage/TablePage/TablePage";
 import Adapter from "enzyme-adapter-react-16";
-import {CollectionPageDefaults} from "../../../../Defaults/Page/CollectionPageDefaults";
 import {TableRenderOptions} from "auto-collection";
+import {TestingPageUtils} from "../../../TestingUtils/TestingPageUtils";
+import {AutoCrudDefaults} from "../../../../Page/AutoCrudDefaults";
+import {TablePageOptions} from "../../../../Page/CollectionPage/TablePage/TablePageOptions";
 
 configure({adapter: new Adapter()});
 
-const context: CrudContextValue = {
-    config: {
-        name: 'text',
-        fields: [],
-        endpointRoot: '/base-api/',
-        indexPage: {name: 'index'},
-        createPage: {name: 'create'},
-        updatePage: {name: 'update'},
-        deletePage: {name: 'delete'},
-        detailsPage: {name: 'details'},
-        pages: [],
-    },
-    state: {},
-    updateState: () => null,
-    updatePageOptions: () => null
-}
 
 function getPageJSXComponent(context: any, name: any) {
     return <TablePage name={name} context={context} history={(() => null) as any}
@@ -31,31 +17,66 @@ function getPageJSXComponent(context: any, name: any) {
                       match={{} as any}/>
 }
 
-function getPageInstance(context: any, name: string = 'index'): TablePage {
-    const pageWrapper = mount(getPageJSXComponent(context, name));
+function mountPage(context?: CrudContextValue, options?: TablePageOptions, state?: any, updateState?: any): TablePage {
+    if (!context) {
+        context = JSON.parse(JSON.stringify(TestingPageUtils.contextTemplate));
+    }
+    context!.updateState = updateState;
+    context!.getState = () => ({uiState: {pages: {index: state ?? {}}}});
+    context!.config.indexPage!.options = options ?? {}
+
+    const pageWrapper = mount(getPageJSXComponent(context, 'index'));
     return pageWrapper.instance() as TablePage;
 }
 
 
 describe('TablePageTest', () => {
 
+    it('should use render options from page options', function () {
+        const page = mountPage(undefined , {collectionRenderOptions : {}});
+        expect(page.getRenderOptions()).toEqual({});
+    });
+
     it('should return render options from defaults', function () {
-        const page = getPageInstance(context);
+        const page = mountPage();
+        page.getDefaultExtraColumns = jest.fn().mockReturnValue([]);
         const renderOptions = page.getRenderOptions();
-        expect(renderOptions).toEqual(new TableRenderOptions(CollectionPageDefaults.renderOptionsConfig));
+        const config = {...AutoCrudDefaults.components.tableRenderOptionsConfig, orderBy: undefined, extraColumns: []};
+        expect(renderOptions).toEqual(new TableRenderOptions(config));
+    });
+
+    it('should return render options from defaults with overriding options', function () {
+        const page = mountPage(undefined, {
+            renderOptionsConfig: {x: 1, y: 2}
+        });
+        page.getDefaultExtraColumns = jest.fn().mockReturnValue([]);
+        const renderOptions = page.getRenderOptions();
+        const config = {
+            ...AutoCrudDefaults.components.tableRenderOptionsConfig,
+            orderBy: undefined,
+            extraColumns: [],
+            x: 1,
+            y: 2
+        };
+        expect(renderOptions).toEqual(new TableRenderOptions(config));
     });
 
     it('should return render options from defaults overriding passed config from options', function () {
-        const _context = JSON.parse(JSON.stringify(context));
-        _context.config.indexPage.options = {
-            renderOptionsConfig: {rowClassName: 'class-name'}
-        };
-        const page = getPageInstance(_context);
+        const page = mountPage(undefined, {renderOptionsConfig: {rowClassName: 'class-name'}});
+        page.getDefaultExtraColumns = jest.fn().mockReturnValue([]);
         const renderOptions = page.getRenderOptions();
         expect(renderOptions).toEqual(new TableRenderOptions({
-            ...CollectionPageDefaults.renderOptionsConfig,
+            ...AutoCrudDefaults.components.tableRenderOptionsConfig,
+            orderBy : undefined,
+            extraColumns : [],
             rowClassName: 'class-name'
         }));
+    });
+
+    it('should return default actions column', function () {
+        const page = mountPage();
+        const extraColumns = page.getDefaultExtraColumns();
+        expect(String(extraColumns)).toEqual(String([AutoCrudDefaults.components.tableActionsColumn()]))
     });
 
 

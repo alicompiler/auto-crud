@@ -20,24 +20,6 @@ class SimpleCollectionPage extends CollectionPage {
     }
 }
 
-const context: CrudContextValue = {
-    config: {
-        name: 'text',
-        fields: [],
-        endpointRoot: '/base-api/',
-        indexPage: {name: 'index'},
-        createPage: {name: 'create'},
-        updatePage: {name: 'update'},
-        deletePage: {name: 'delete'},
-        detailsPage: {name: 'details'},
-        pages: [],
-    },
-    state: {},
-    updateState: () => null,
-    updatePageOptions: () => null,
-    getState: () => null
-}
-
 function getPageJSXComponent(context: any, name: any) {
     return <SimpleCollectionPage name={name} context={context} history={(() => null) as any}
                                  location={{} as any}
@@ -71,7 +53,7 @@ describe('CollectionContainer', () => {
             const dataSource = page.getDataSource();
             expect(dataSource.getOptions()).toEqual({
                 method: AutoCrudDefaults.httpMethods.collectionRequest,
-                url: context.config.endpointRoot
+                url: TestingPageUtils.contextTemplate.config.endpointRoot
             });
         });
 
@@ -81,7 +63,7 @@ describe('CollectionContainer', () => {
             const dataSource = page.getDataSource();
             expect(dataSource.getOptions()).toEqual({
                 method: AutoCrudDefaults.httpMethods.collectionRequest,
-                url: context.config.endpointRoot,
+                url: TestingPageUtils.contextTemplate.config.endpointRoot,
                 ...overrideOptions
             });
 
@@ -117,7 +99,7 @@ describe('CollectionContainer', () => {
         });
 
         it('should get default key extractor', function () {
-            const page = mountPage(context);
+            const page = mountPage();
             expect(page.getKeyExtractor()).toBeInstanceOf(IndexedKeyExtractor);
         });
     });
@@ -144,7 +126,6 @@ describe('CollectionContainer', () => {
         });
 
         it('should get default localizations', function () {
-            const _context = JSON.parse(JSON.stringify(context));
             const localization = {
                 try_again: AutoCrudDefaults.localization.try_again,
                 data_empty: AutoCrudDefaults.localization.data_empty,
@@ -152,15 +133,14 @@ describe('CollectionContainer', () => {
                 loading_data: AutoCrudDefaults.localization.loading_data,
                 refresh: AutoCrudDefaults.localization.refresh
             };
-            _context.config.indexPage.options = {localization: {...localization}}
-            const page = mountPage(_context);
+            const page = mountPage(undefined , {localization : localization});
             expect(page.getLocalization()).toEqual(localization);
         });
     });
 
     describe('render callbacks', () => {
         it('should get default renderError', function () {
-            const page = mountPage(context);
+            const page = mountPage();
             const rendered = page.renderErrorMessage();
             page.restart = jest.fn();
             // noinspection TypeScriptValidateJSTypes
@@ -180,7 +160,7 @@ describe('CollectionContainer', () => {
         });
 
         it('should get default renderLoading', function () {
-            const page = mountPage(context);
+            const page = mountPage();
             const expected = AutoCrudDefaults.components.progressIndicator();
             const rendered = page.renderLoading();
             expect(rendered).toEqual(expected);
@@ -219,8 +199,7 @@ describe('CollectionContainer', () => {
     });
 
     it('should set/get collectionContainerRef', function () {
-        const _context = JSON.parse(JSON.stringify(context));
-        const page = mountPage(_context);
+        const page = mountPage();
         const mockedRef: any = {};
         page.setCollectionContainerRef(mockedRef);
         expect(page.getCollectionContainerRef()).toEqual(mockedRef);

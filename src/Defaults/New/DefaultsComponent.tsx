@@ -8,6 +8,8 @@ import {AutoCrudDefaults} from "../../Page/AutoCrudDefaults";
 import {ToggleMessageComponent} from "../../Components/PageComponents/ToggleMessageComponent";
 import {CrudContextValue} from "../../Root/CrudContext";
 import {EmptyMessageComponent} from "../../Components/PageComponents/EmptyMessageComponent";
+import {ColumnConfig, TableRenderOptionsConfig} from "auto-collection";
+import DefaultActionColumn from "../Components/DefaultActionColumn";
 
 export interface IDefaultsComponent {
     deleteMessage: (props: any) => any;
@@ -19,6 +21,9 @@ export interface IDefaultsComponent {
     noItem: (props: any) => any;
 
     renderCrudHeaderHomeButton: (pushFunc: any, context: CrudContextValue) => any;
+
+    tableActionsColumn: () => ColumnConfig;
+    tableRenderOptionsConfig: TableRenderOptionsConfig;
 }
 
 export const componentsDefault: IDefaultsComponent = {
@@ -39,8 +44,22 @@ export const componentsDefault: IDefaultsComponent = {
     noItem: (props: any) => <NoItemMessageComponent message={AutoCrudDefaults.localization.no_item_selected}
                                                     onAction={props.onAction}/>,
 
-    renderCrudHeaderHomeButton: (pushFunc, context) => <button className={AutoCrudDefaults.classNames.curdRootHeader.homeButton}
-                                                               onClick={() => pushFunc(context.config.routeRoot)}>
+    renderCrudHeaderHomeButton: (pushFunc, context) => <button
+        className={AutoCrudDefaults.classNames.curdRootHeader.homeButton}
+        onClick={() => pushFunc(context.config.routeRoot)}>
         <i className={AutoCrudDefaults.classNames.curdRootHeader.homeButtonIcon}/>
-    </button>
+    </button>,
+
+    tableActionsColumn: () => ({
+        name: "__actions",
+        title: "",
+        renderCell: (_: any, item: any) => <DefaultActionColumn item={item}/>
+    }),
+    tableRenderOptionsConfig: {
+        collectionClassName: 'table-auto w-full',
+        headerRowClassName: 'bg-gray-200 text-gray-700',
+        rowClassName: 'border border-gray-200',
+        cellClassName: 'p-2 border-r-2',
+        headerCellClassName: 'p-2 text-lg border border-gray-100'
+    }
 }
