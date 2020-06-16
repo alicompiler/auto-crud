@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {CrudContext, CrudContextValue} from "../../Root/CrudContext";
 import TitleComponent from "./TitleComponent";
 import {withRouter} from 'react-router-dom';
-import {AutoCrudDefaults} from "../../Page/AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
 
 
 interface Props {

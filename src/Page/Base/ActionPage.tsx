@@ -1,6 +1,6 @@
 import StatefulCrudPage from "./StatefulCrudPage";
 import {KeyValueComponent} from "react-keyvalue-ui";
-import {AutoCrudDefaults} from "../AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
 import React from "react";
 import {ActionPageOptions} from "./ActionPageOptions";
 import Axios from "axios";

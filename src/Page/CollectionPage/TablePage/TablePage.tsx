@@ -3,7 +3,7 @@ import React from "react";
 import {TableRenderOptions} from "auto-collection";
 import SimpleTableContainer from "auto-collection/dist/Container/SimpleTableContainer";
 import {TablePageOptions} from "./TablePageOptions";
-import {AutoCrudDefaults} from "../../AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 
 export class TablePage extends CollectionPage {
     protected renderCollectionContainer(): any {

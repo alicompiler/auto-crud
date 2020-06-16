@@ -1,5 +1,5 @@
 import {ActionPage} from "./ActionPage";
-import {AutoCrudDefaults} from "../AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
 
 export default class ToggleActionPage extends ActionPage {
     

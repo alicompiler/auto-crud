@@ -3,7 +3,7 @@ import {configure} from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import AxiosAdapter from "axios-mock-adapter";
 import Axios from "axios";
-import {AutoCrudDefaults} from "../../../../Page/AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../../Defaults/AutoCrudDefaults";
 import {ActionPage} from "../../../../Page/Base/ActionPage";
 import {ActionPageOptions} from "../../../../Page/Base/ActionPageOptions";
 

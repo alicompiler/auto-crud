@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {CrudContext, CrudContextValue} from "../../Root/CrudContext";
-import {AutoCrudDefaults} from "../../Page/AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
 
 class TitleComponent extends Component {
 

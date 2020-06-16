@@ -1,6 +1,6 @@
 import * as React from "react";
 import "./style.css";
-import {AutoCrudDefaults} from "../../../Page/AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 
 interface Props {
     height?: number;

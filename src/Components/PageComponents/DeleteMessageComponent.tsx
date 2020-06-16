@@ -1,6 +1,6 @@
 import ActionMessageComponent from "./ActionMessageComponent";
 import React from "react";
-import {AutoCrudDefaults} from "../../Page/AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
 
 export function DeleteMessageComponent(props: { disabled: boolean, handleDelete: () => any, handleCancel: () => any }) {
     const {disabled, handleCancel, handleDelete} = props;

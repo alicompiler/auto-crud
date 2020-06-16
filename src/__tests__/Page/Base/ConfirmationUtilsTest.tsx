@@ -1,7 +1,7 @@
 import React from "react";
 import {ConfirmationUtils} from "../../../Page/Base/Confirmation/ConfirmationUtils";
 import {ConfirmationOptions} from "../../../Page/Base/Confirmation/ConfirmationOptions";
-import {AutoCrudDefaults} from "../../../Page/AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 
 function getMockedPage(options: ConfirmationOptions = {}): any {
     return {

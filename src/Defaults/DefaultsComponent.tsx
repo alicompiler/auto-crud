@@ -1,15 +1,15 @@
-import {DeleteMessageComponent} from "../../Components/PageComponents/DeleteMessageComponent";
-import {ProgressIndicator} from "../../Components/Core/ProgressIndicator/ProgressIndicator";
-import {ErrorMessageComponent} from "../../Components/PageComponents/ErrorMessageComponent";
-import {SuccessMessageComponent} from "../../Components/PageComponents/SuccessMessageComponent";
+import {DeleteMessageComponent} from "../Components/PageComponents/DeleteMessageComponent";
+import {ProgressIndicator} from "../Components/Core/ProgressIndicator/ProgressIndicator";
+import {ErrorMessageComponent} from "../Components/PageComponents/ErrorMessageComponent";
+import {SuccessMessageComponent} from "../Components/PageComponents/SuccessMessageComponent";
 import React from "react";
-import {NoItemMessageComponent} from "../../Components/PageComponents/NoItemMessageComponent";
-import {AutoCrudDefaults} from "../../Page/AutoCrudDefaults";
-import {ToggleMessageComponent} from "../../Components/PageComponents/ToggleMessageComponent";
-import {CrudContextValue} from "../../Root/CrudContext";
-import {EmptyMessageComponent} from "../../Components/PageComponents/EmptyMessageComponent";
+import {NoItemMessageComponent} from "../Components/PageComponents/NoItemMessageComponent";
+import {AutoCrudDefaults} from "./AutoCrudDefaults";
+import {ToggleMessageComponent} from "../Components/PageComponents/ToggleMessageComponent";
+import {CrudContextValue} from "../Root/CrudContext";
+import {EmptyMessageComponent} from "../Components/PageComponents/EmptyMessageComponent";
 import {ColumnConfig, TableRenderOptionsConfig} from "auto-collection";
-import DefaultActionColumn from "../Components/DefaultActionColumn";
+import DefaultActionColumn from "./Components/DefaultActionColumn";
 
 export interface IDefaultsComponent {
     deleteMessage: (props: any) => any;

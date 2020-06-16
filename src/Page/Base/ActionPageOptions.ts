@@ -1,6 +1,6 @@
 import {ActionPage} from "./ActionPage";
 import {BasePageOptions} from "../PageConfig";
-import {HttpMethod} from "../../Defaults/New/DefaultsHttpMethod";
+import {HttpMethod} from "../../Defaults/DefaultsHttpMethod";
 import {AxiosRequestConfig} from "axios";
 
 export interface ActionPageOptions extends BasePageOptions {

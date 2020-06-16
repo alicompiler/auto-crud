@@ -3,7 +3,7 @@ import React from "react";
 import ToolbarComponent from "../../../Components/PageComponents/ToolbarComponent";
 import ToolbarNavigationAction from "../../../Defaults/Components/ToolbarNavigationAction";
 import {IndexPageOptions} from "./IndexPageOptions";
-import {AutoCrudDefaults} from "../../AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 
 export class IndexPage extends TablePage {
 

@@ -1,7 +1,7 @@
 import FormPage from "../../FormPage/FormPage";
 import {SubmitConfig} from "raf-axios-submitter/dist/SubmitConfig"
 import {AxiosResponse} from "axios";
-import {AutoCrudDefaults} from "../../AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 
 class CreatePage extends FormPage {
 

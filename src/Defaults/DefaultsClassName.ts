@@ -1,3 +1,5 @@
+import {AutoCrudDefaults} from "./AutoCrudDefaults";
+
 export interface IDefaultsClassName {
     divider: string;
     curdRootHeader: {
@@ -49,6 +51,12 @@ export interface IDefaultsClassName {
             action: string;
             wrapper: string;
         }
+    },
+
+    formPage : {
+        button : () => string;
+        buttonColoring : string;
+        extra : string;
     }
 }
 
@@ -112,6 +120,16 @@ export const classNameDefaults: IDefaultsClassName = {
             wrapper: 'rounded bg-red-400 text-white text-center p-4'
         }
     },
+
+    formPage : {
+        button : () => `rounded px-4 py-2 w-24 border text-lg
+                          hover:text-xl hover:font-bold 
+                          transition duration-500 ease-in-out 
+                          disabled:bg-gray-100 disabled:text-gray-400 
+                          ${AutoCrudDefaults.classNames.formPage.buttonColoring} ${AutoCrudDefaults.classNames.formPage.extra}`,
+        extra : '',
+        buttonColoring : 'bg-gray-400 text-gray-900'
+    }
 
 }
 

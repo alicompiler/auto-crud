@@ -2,11 +2,11 @@ import React from 'react';
 import Form from "react-auto-form-core/dist/Form/Form";
 import {RenderConfig} from "react-auto-form-core/dist/Form/FormProps";
 import {FormPageOptions} from "./FormPageOptions";
-import {FormPageDefault} from "../../Defaults/Page/FormPageDefaults";
 import {FormRenderConfigGenerator} from "./FormRenderConfigGenerator";
 import {BaseSubmitConfigGenerator} from "./BaseSubmitConfigGenerator";
 import {SubmitConfig} from "raf-axios-submitter/dist/SubmitConfig"
 import StatefulCrudPage from "../Base/StatefulCrudPage";
+import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
 
 class FormPage extends StatefulCrudPage {
 
@@ -41,7 +41,7 @@ class FormPage extends StatefulCrudPage {
     public getFormRenderOptions = () => {
         if (this.getOptions().renderOptions)
             return this.getOptions().renderOptions;
-        return FormPageDefault.form.renderOptions;
+        return AutoCrudDefaults.pages.formPage.renderOptions;
     };
 
     public getInitialValues = () => {
@@ -65,7 +65,7 @@ class FormPage extends StatefulCrudPage {
         return generator.generate();
     };
 
-    public getDefaultHttpMethod = (): string => FormPageDefault.form.httpMethod;
+    public getDefaultHttpMethod = (): string => AutoCrudDefaults.httpMethods.actionPageMethod;
 
     public getDefaultSubmitConfig(): Partial<SubmitConfig> {
         return {};

@@ -2,7 +2,7 @@ import {configure} from "enzyme";
 import CreatePage from "../../../../Page/CrudPage/Create/CreatePage";
 import Adapter from "enzyme-adapter-react-16";
 import {FormPageOptions} from "../../../../Page/FormPage/FormPageOptions";
-import {AutoCrudDefaults} from "../../../../Page/AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../../Defaults/AutoCrudDefaults";
 import {TestingPageUtils} from "../../../TestingUtils/TestingPageUtils";
 
 configure({adapter: new Adapter()});

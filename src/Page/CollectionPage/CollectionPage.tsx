@@ -2,7 +2,7 @@ import React from 'react';
 import {AxiosDataSource, CollectionContainer, DataSource, IndexedKeyExtractor, KeyExtractor} from "auto-collection";
 import BaseCrudPage from "../Base/BaseCrudPage";
 import {CollectionPageOptions} from "./CollectionPageOptions";
-import {AutoCrudDefaults} from "../AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
 
 
 abstract class CollectionPage extends BaseCrudPage {

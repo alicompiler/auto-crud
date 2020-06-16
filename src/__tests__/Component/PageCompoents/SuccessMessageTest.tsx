@@ -2,7 +2,7 @@ import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import {SuccessMessageComponent} from "../../../Components/PageComponents/SuccessMessageComponent";
 import React from "react";
-import {AutoCrudDefaults} from "../../../Page/AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 
 configure({adapter: new Adapter()});
 

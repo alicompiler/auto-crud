@@ -1,6 +1,6 @@
 import React from "react";
 import {SingleActionMessage} from "./SingleActionMessage";
-import {AutoCrudDefaults} from "../../Page/AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
 
 interface Props {
     message: string;

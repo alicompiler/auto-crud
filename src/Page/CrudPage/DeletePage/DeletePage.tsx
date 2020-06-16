@@ -1,4 +1,4 @@
-import {AutoCrudDefaults} from "../../AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 import {ActionPage, ActionPageLocalization} from "../../Base/ActionPage";
 
 class DeletePage extends ActionPage {

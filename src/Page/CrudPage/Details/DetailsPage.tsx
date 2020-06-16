@@ -2,7 +2,7 @@ import BaseCrudPage from "../../Base/BaseCrudPage";
 import {KeyValueComponent} from "react-keyvalue-ui";
 import React from "react";
 import {DetailsPageOptions} from "./DetailsPageOptions";
-import {AutoCrudDefaults} from "../../AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 
 class DetailsPage extends BaseCrudPage {
     public renderContent(): any {

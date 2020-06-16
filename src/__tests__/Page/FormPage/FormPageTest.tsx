@@ -4,7 +4,7 @@ import {CrudContextValue} from "../../../Root/CrudContext";
 import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16"
 import FormPage from "../../../Page/FormPage/FormPage";
-import {FormPageDefault} from "../../../Defaults/Page/FormPageDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 
 
 configure({adapter: new Adapter()});
@@ -61,7 +61,7 @@ describe('FormPage', () => {
     it('should get render options from defaults', function () {
         const _context = newContext();
         const page = getPageInstance(_context);
-        expect(page.getFormRenderOptions()).toEqual(FormPageDefault.form.renderOptions);
+        expect(page.getFormRenderOptions()).toEqual(AutoCrudDefaults.pages.formPage.renderOptions);
     });
 
 })

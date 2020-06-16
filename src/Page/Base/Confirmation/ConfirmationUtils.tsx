@@ -1,5 +1,5 @@
 import BaseCrudPage from "../BaseCrudPage";
-import {AutoCrudDefaults} from "../../AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 import React from "react";
 import {ConfirmationOptions} from "./ConfirmationOptions";
 import IForm from "react-auto-form-core/dist/Form/IForm";

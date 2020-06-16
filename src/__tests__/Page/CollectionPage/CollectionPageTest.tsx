@@ -5,7 +5,7 @@ import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16"
 import CollectionPage from "../../../Page/CollectionPage/CollectionPage";
 import {IndexedKeyExtractor, PropertyKeyExtractor, SimpleDataSource} from "auto-collection";
-import {AutoCrudDefaults} from "../../../Page/AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 import {CollectionPageOptions} from "../../../Page/CollectionPage/CollectionPageOptions";
 import {TestingPageUtils} from "../../TestingUtils/TestingPageUtils";
 

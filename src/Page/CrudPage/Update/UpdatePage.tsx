@@ -1,5 +1,5 @@
 import CreatePage from "../Create/CreatePage";
-import {AutoCrudDefaults} from "../../AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 
 class UpdatePage extends CreatePage {
 
