@@ -1,4 +1,4 @@
-import {TestingPageUtils} from "../../../TestingUtils/TestingPageUtils";
+import {TestingPageUtils} from "../../../../Utils/TestingPageUtils";
 import DeletePage from "../../../../Page/CrudPage/DeletePage/DeletePage";
 import {CrudContextValue} from "../../../../Root/CrudContext";
 import EnzymeAdapter from "enzyme-adapter-react-16";

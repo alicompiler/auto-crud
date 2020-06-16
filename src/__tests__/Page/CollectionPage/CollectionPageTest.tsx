@@ -7,7 +7,7 @@ import CollectionPage from "../../../Page/CollectionPage/CollectionPage";
 import {IndexedKeyExtractor, PropertyKeyExtractor, SimpleDataSource} from "auto-collection";
 import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 import {CollectionPageOptions} from "../../../Page/CollectionPage/CollectionPageOptions";
-import {TestingPageUtils} from "../../TestingUtils/TestingPageUtils";
+import {TestingPageUtils} from "../../../Utils/TestingPageUtils";
 
 
 configure({adapter: new Adapter()});

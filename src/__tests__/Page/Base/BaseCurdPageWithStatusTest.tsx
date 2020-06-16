@@ -34,7 +34,8 @@ describe('BaseCrudPageWithStatus', () => {
 
     it('should return loading/error/success state', function () {
         const _context = {
-            ...context, getState: () => {
+            updateState : () => undefined,
+            ...context,  getState: () => {
                 return {
                     uiState: {
                         pages: {

@@ -1,7 +1,7 @@
 import {configure} from "enzyme";
 import Adapter from "enzyme-adapter-react-16"
 import {IndexPage} from "../../../../Page/CrudPage/Index/IndexPage";
-import {TestingPageUtils} from "../../../TestingUtils/TestingPageUtils";
+import {TestingPageUtils} from "../../../../Utils/TestingPageUtils";
 
 
 configure({adapter: new Adapter()});
@@ -11,6 +11,10 @@ let pageRef: IndexPage | null;
 
 
 function getMountedPage(context?: any) {
+    if (!context){
+        context = TestingPageUtils.contextTemplate;
+    }
+    context!.updateState = () => undefined;
     return TestingPageUtils.getMountedPage('indexPage', 'index', IndexPage, 'IndexPage', (ref: any) => pageRef = ref, context);
 }
 

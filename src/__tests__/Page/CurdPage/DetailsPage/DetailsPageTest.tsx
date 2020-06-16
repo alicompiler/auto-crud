@@ -1,4 +1,4 @@
-import {TestingPageUtils} from "../../../TestingUtils/TestingPageUtils";
+import {TestingPageUtils} from "../../../../Utils/TestingPageUtils";
 import DetailsPage from "../../../../Page/CrudPage/Details/DetailsPage";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import {configure} from "enzyme";

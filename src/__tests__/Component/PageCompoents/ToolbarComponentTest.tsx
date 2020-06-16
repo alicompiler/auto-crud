@@ -24,6 +24,7 @@ describe('ToolbarComponent', () => {
         it('should handle change of input', function () {
             const wrapper = mount(<ToolbarComponent/>);
             const input = wrapper.find('input').getElement();
+            // noinspection TypeScriptValidateJSTypes
             input.props.onChange({target: {value: 'test'}});
             expect(wrapper.state()).toEqual({searchValue: 'test'});
         });
