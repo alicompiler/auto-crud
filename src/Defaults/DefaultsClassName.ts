@@ -1,6 +1,7 @@
 import {AutoCrudDefaults} from "./AutoCrudDefaults";
 
 export interface IDefaultsClassName {
+    span_horizontal_divider: string;
     divider: string;
     curdRootHeader: {
         homeButton: string;
@@ -62,6 +63,7 @@ export interface IDefaultsClassName {
 
 
 export const classNameDefaults: IDefaultsClassName = {
+    span_horizontal_divider : 'h-px inline-block w-2 px-4',
 
     divider: 'my-2 h-px w-full bg-gray-300',
 

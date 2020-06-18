@@ -32,7 +32,7 @@ class ActionMessageComponent extends Component<Props> {
                 <button disabled={disabled} onClick={mainAction.handle}
                         className={mainAction.className ?? AutoCrudDefaults.classNames.main_action}>{mainAction.text}</button>
 
-                <span className={'h-px inline-block w-2 px-4'}/>
+                <span className={AutoCrudDefaults.classNames.span_horizontal_divider}/>
 
                 {
                     cancelAction &&

@@ -1,5 +1,7 @@
 import React from "react";
 import {AutoCrudDefaults} from "./AutoCrudDefaults";
+import FieldConfig from "react-auto-form-core/dist/Field/FieldConfig";
+import TextField from "raf-tailwind-components/dist/TextField/TextField";
 
 export interface IConfirmationDefaults {
     messageClassName: string;

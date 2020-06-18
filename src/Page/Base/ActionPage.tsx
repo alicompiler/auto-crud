@@ -20,7 +20,7 @@ export abstract class ActionPage extends StatefulCrudPage {
         }
 
         return <div>
-            {this.confirmationUtils.renderConfirmationForm()}
+            {this.getConfirmationUtils().renderConfirmationForm()}
             {this.renderMessageComponent()}
             {this.renderAfterMessage()}
         </div>
@@ -81,7 +81,7 @@ export abstract class ActionPage extends StatefulCrudPage {
     }
 
     public confirm() {
-        return this.confirmationUtils.confirm();
+        return this.getConfirmationUtils().confirm();
     }
 
     public getHandleAction(): any {

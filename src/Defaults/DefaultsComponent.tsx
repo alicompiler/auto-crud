@@ -9,7 +9,7 @@ import {ToggleMessageComponent} from "../Components/PageComponents/ToggleMessage
 import {CrudContextValue} from "../Root/CrudContext";
 import {EmptyMessageComponent} from "../Components/PageComponents/EmptyMessageComponent";
 import {ColumnConfig, TableRenderOptionsConfig} from "auto-collection";
-import DefaultActionColumn from "./Components/DefaultActionColumn";
+import DefaultActionColumn from "../Components/ModuleComponents/DefaultActionColumn";
 
 export interface IDefaultsComponent {
     deleteMessage: (props: any) => any;
@@ -38,7 +38,6 @@ export const componentsDefault: IDefaultsComponent = {
     progressIndicator: (props: any = {}) => <ProgressIndicator {...props}/>,
     errorMessage: (props: any = {}) => <ErrorMessageComponent {...props} />,
     emptyMessage: (props: any = {}) => <EmptyMessageComponent {...props} />,
-
     successMessage: (props: any = {}) => <SuccessMessageComponent {...props}/>,
 
     noItem: (props: any) => <NoItemMessageComponent message={AutoCrudDefaults.localization.no_item_selected}
