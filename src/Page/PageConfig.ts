@@ -19,7 +19,18 @@ export interface BasePageOptions {
     initialState?: any;
     pageTitle?: string;
 
-    confirmation? : ConfirmationOptions;
+    confirmation?: ConfirmationOptions;
+
+    action?: {
+        hideInTable?: boolean;
+        hideInDetailsPage?: boolean;
+        render?: (page: BaseCrudPage, item: any) => any;
+        renderInDetailsPage?: (page: BaseCrudPage, item: any) => any;
+        renderInTable?: (page: BaseCrudPage, item: any) => any;
+        handleAction?: (page: BaseCrudPage, item: any) => void;
+        icon?: string;
+        text?: string;
+    }
 
     [propName: string]: any;
 }
