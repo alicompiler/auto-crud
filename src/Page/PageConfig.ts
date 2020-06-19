@@ -1,5 +1,6 @@
 import BaseCrudPage from "./Base/BaseCrudPage";
 import {ConfirmationOptions} from "./Base/Confirmation/ConfirmationOptions";
+import {CrudContextValue} from "../Root/CrudContext";
 
 export interface PageConfig {
     name?: string;
@@ -21,16 +22,20 @@ export interface BasePageOptions {
 
     confirmation?: ConfirmationOptions;
 
-    action?: {
-        hideInTable?: boolean;
-        hideInDetailsPage?: boolean;
-        render?: (page: BaseCrudPage, item: any) => any;
-        renderInDetailsPage?: (page: BaseCrudPage, item: any) => any;
-        renderInTable?: (page: BaseCrudPage, item: any) => any;
-        handleAction?: (page: BaseCrudPage, item: any) => void;
-        icon?: string;
-        text?: string;
-    }
+    action?: ActionConfig;
 
     [propName: string]: any;
+}
+
+export interface ActionConfig {
+    hideInTable?: boolean;
+    hideInPage?: boolean;
+    render?: (context: CrudContextValue, page: PageConfig, item: any) => any;
+    renderInPage?: (context: CrudContextValue, page: PageConfig, item: any) => any;
+    renderInTable?: (context: CrudContextValue, page: PageConfig, item: any) => any;
+    handleAction?: (context: CrudContextValue, page: PageConfig, item: any) => void;
+    icon?: string;
+    text?: string;
+    colorClass?: string;
+    className?: string;
 }

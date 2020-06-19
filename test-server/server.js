@@ -22,6 +22,8 @@ const data = [
 //list all request
 
 app.get('/books', (_, res) => {
+    res.json(data);
+    return;
     let random = Math.ceil(Math.random() * 10);
     if (random === 3) {
         res.json([]);
@@ -30,7 +32,7 @@ app.get('/books', (_, res) => {
     if (random > 7) {
         throw Error();
     }
-    setTimeout(() => res.json(data), 2000);
+    setTimeout(() => res.json(data), 100);
 });
 
 

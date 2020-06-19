@@ -2,7 +2,7 @@ import RoutesExtractor from "../../Root/RoutesExtractor";
 import {IndexPage} from "../../Page/CrudPage/Index/IndexPage";
 import CreatePage from "../../Page/CrudPage/Create/CreatePage";
 import UpdatePage from "../../Page/CrudPage/Update/UpdatePage";
-import DeletePage from "../../Page/CrudPage/DeletePage/DeletePage";
+import DeletePage from "../../Page/CrudPage/Delete/DeletePage";
 import DetailsPage from "../../Page/CrudPage/Details/DetailsPage";
 
 describe('RouteExtractor', () => {

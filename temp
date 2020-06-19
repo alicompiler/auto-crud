@@ -1,0 +1,38 @@
+import React from "react";
+import {withRouter} from "react-router-dom";
+import {CrudContext, CrudContextValue} from "../../Root/CrudContext";
+import H from "history";
+import {ActionRenderer} from "../../Page/ActionRenderer/ActionRenderer";
+
+interface Props {
+    item: any;
+    history: H.History;
+    location: H.Location;
+    match: any;
+}
+
+class DefaultActionColumn extends React.Component<Props> {
+
+    render(): React.ReactNode {
+        return <CrudContext.Consumer>
+            {
+                (value: CrudContextValue) => {
+
+                    const actionRenderer = new ActionRenderer(value, this.props.item, this.props.history.push);
+
+                    return <td className={'p-2 flex justify-end items-center'}>
+                        {
+                            actionRenderer.render()
+                        }
+                    </td>
+
+                }
+            }
+        </CrudContext.Consumer>
+    }
+
+
+}
+
+
+export default withRouter(DefaultActionColumn);

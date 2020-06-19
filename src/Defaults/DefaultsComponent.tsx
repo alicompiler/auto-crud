@@ -22,7 +22,7 @@ export interface IDefaultsComponent {
 
     renderCrudHeaderHomeButton: (pushFunc: any, context: CrudContextValue) => any;
 
-    tableActionsColumn: () => ColumnConfig;
+    tableActionsColumn: (context : CrudContextValue) => ColumnConfig;
     tableRenderOptionsConfig: TableRenderOptionsConfig;
 }
 
@@ -49,10 +49,10 @@ export const componentsDefault: IDefaultsComponent = {
         <i className={AutoCrudDefaults.classNames.curdRootHeader.homeButtonIcon}/>
     </button>,
 
-    tableActionsColumn: () => ({
+    tableActionsColumn: (context : CrudContextValue) => ({
         name: "__actions",
         title: "",
-        renderCell: (_: any, item: any) => <DefaultActionColumn item={item}/>
+        renderCell: (_: any, item: any) => <DefaultActionColumn item={item} context={context}/>
     }),
     tableRenderOptionsConfig: {
         collectionClassName: 'table-auto w-full',

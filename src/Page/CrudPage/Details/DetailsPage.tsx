@@ -3,6 +3,7 @@ import {KeyValueComponent} from "react-keyvalue-ui";
 import React from "react";
 import {DetailsPageOptions} from "./DetailsPageOptions";
 import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
+import {PageActionRenderer} from "../../ActionRenderer/PageActionRenderer";
 
 class DetailsPage extends BaseCrudPage {
     public renderContent(): any {
@@ -10,7 +11,25 @@ class DetailsPage extends BaseCrudPage {
         if (!item) {
             return this.renderNoItem();
         }
-        return <KeyValueComponent item={item}/>;
+
+
+        return <div>
+
+            {this.renderActions()}
+
+            <KeyValueComponent item={item}/>
+
+        </div>;
+    }
+
+    private renderActions = () => {
+        const actionRenderer = new PageActionRenderer(this.getContext(), this.getItem(), this.props.history.push, ["details"]);
+        return <div>
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
+                {actionRenderer.render()}
+            </div>
+            <div className={AutoCrudDefaults.classNames.divider}/>
+        </div>
     }
 
     private renderNoItem = () => {

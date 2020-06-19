@@ -26,6 +26,10 @@ export default abstract class BaseCrudPage<T extends BaseCrudPageProps = BaseCru
         this.confirmationUtils = new ConfirmationUtils(this);
     }
 
+    public getConfig(): PageConfig {
+        return this.currentPageConfig;
+    }
+
     protected getConfirmationUtils() : ConfirmationUtils {
         return this.confirmationUtils;
     }

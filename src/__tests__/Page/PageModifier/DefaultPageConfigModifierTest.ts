@@ -1,7 +1,7 @@
 import CreatePage from "../../../Page/CrudPage/Create/CreatePage";
 import {CrudConfig} from "../../../Root/CrudConfig";
 import UpdatePage from "../../../Page/CrudPage/Update/UpdatePage";
-import DeletePage from "../../../Page/CrudPage/DeletePage/DeletePage";
+import DeletePage from "../../../Page/CrudPage/Delete/DeletePage";
 import DetailsPage from "../../../Page/CrudPage/Details/DetailsPage";
 import {DefaultPageConfigModifier} from "../../../Page/PageConfigModifier/DefaultPageConfigModifier";
 

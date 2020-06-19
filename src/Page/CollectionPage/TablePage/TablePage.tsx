@@ -39,7 +39,7 @@ export class TablePage extends CollectionPage {
 
     public getDefaultExtraColumns = () => {
         return [
-            AutoCrudDefaults.components.tableActionsColumn(),
+            AutoCrudDefaults.components.tableActionsColumn(this.getContext()),
         ]
     }
 

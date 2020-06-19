@@ -5,7 +5,7 @@ import Adapter from "enzyme-adapter-react-16"
 import {IndexPage} from "../../Page/CrudPage/Index/IndexPage";
 import CreatePage from "../../Page/CrudPage/Create/CreatePage";
 import UpdatePage from "../../Page/CrudPage/Update/UpdatePage";
-import DeletePage from "../../Page/CrudPage/DeletePage/DeletePage";
+import DeletePage from "../../Page/CrudPage/Delete/DeletePage";
 import DetailsPage from "../../Page/CrudPage/Details/DetailsPage";
 import {MemoryRouter} from "react-router-dom";
 import CrudRootHeader from "../../Components/ModuleComponents/CrudRootHeaderComponent";
