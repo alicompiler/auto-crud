@@ -10,4 +10,5 @@ export default class ToggleActionPage extends ActionPage {
             handleCancel: () => this.navigateToHome()
         });
     };
+
 }

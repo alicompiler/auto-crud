@@ -220,7 +220,7 @@ describe('BaseCrudPage', () => {
                                                    match={{} as any}/>);
 
             const pageInstance: BaseCrudPage = page.instance() as any;
-            pageInstance.updateStateForced({x: 'Y'}, afterCallback);
+            pageInstance.updateState({x: 'Y'}, afterCallback);
         });
 
         it('should update page options', function (done) {

@@ -121,7 +121,7 @@ export abstract class ActionPage extends StatefulCrudPage {
     public getDefaultHttpRequestConfig = () => ({});
 
     public getHttpMethod = () => {
-        return this.getOptions().deleteRequest?.method ?? this.getDefaultHttpMethod();
+        return this.getOptions().httpRequest?.method ?? this.getDefaultHttpMethod();
     }
 
     protected getDefaultHttpMethod = () => AutoCrudDefaults.httpMethods.actionPageMethod;

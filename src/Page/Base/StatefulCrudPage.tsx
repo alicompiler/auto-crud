@@ -37,9 +37,10 @@ abstract class StatefulCrudPage extends BaseCrudPage {
     public renderSuccessMessageComponent = () => {
         return AutoCrudDefaults.components.successMessage(this.getSuccessMessageComponentProps());
     }
+
     public getSuccessMessageComponentProps = () => ({
         message: this.getSuccessMessage(),
-        actionText : AutoCrudDefaults.localization.main,
+        actionText: AutoCrudDefaults.localization.main,
         onAction: () => {
             this.resetState();
             this.navigateToHome();
@@ -47,8 +48,8 @@ abstract class StatefulCrudPage extends BaseCrudPage {
     });
 
 
-    private resetState() {
-        this.updateStateForced({__successMessage: undefined, __loading: undefined, __errorMessage: undefined});
+    protected resetState() {
+        this.updateState({__successMessage: undefined, __loading: undefined, __errorMessage: undefined});
     }
 
     public updateLoadingErrorSuccess = (loading?: boolean | null, errorMessage?: string | null, successMessage?: string | null, afterCallback?: () => void) => {
@@ -56,7 +57,7 @@ abstract class StatefulCrudPage extends BaseCrudPage {
         if (loading !== undefined) payload.__loading = loading;
         if (errorMessage !== undefined) payload.__errorMessage = errorMessage;
         if (successMessage !== undefined) payload.__successMessage = successMessage;
-        this.updateStateForced(payload, afterCallback);
+        this.updateState(payload, afterCallback);
     }
 
 }

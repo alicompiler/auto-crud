@@ -15,7 +15,7 @@ class CreatePage extends FormPage {
                 if (hookResult === false) {
                     return;
                 }
-                this.updateStateForced({error: e});
+                this.updateState({error: e});
             },
             onSuccess: (response: AxiosResponse) => {
                 let hookResult = undefined;
@@ -24,7 +24,7 @@ class CreatePage extends FormPage {
                     return;
                 }
                 this.getFormRef()!.clear();
-                this.updateStateForced({error: null});
+                this.updateState({error: null});
             },
             changeLoadingStatus: true,
         }
