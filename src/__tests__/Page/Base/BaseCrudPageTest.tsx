@@ -1,11 +1,9 @@
-import BaseCrudPage from "../../../Page/Base/BaseCrudPage";
+import BaseCrudPage from "../../../Page/Base/BaseCrudPage/BaseCrudPage";
 import React from "react";
-import {CrudContextValue} from "../../../Root/CrudContext";
 
-import {configure, mount} from "enzyme";
+import {configure} from "enzyme";
 import Adapter from "enzyme-adapter-react-16"
-import {render, unmountComponentAtNode} from "react-dom";
-import {act} from "react-dom/test-utils";
+import TestingPageBuilder from "../../../Utils/TestingPageBuilder";
 
 
 configure({adapter: new Adapter()});
@@ -17,230 +15,168 @@ class SimpleBaseCrudPage extends BaseCrudPage {
     }
 }
 
-const context: CrudContextValue = {
-    config: {
-        name: 'text',
-        fields: [],
-        endpointRoot: '',
-        indexPage: {name: 'index'},
-        createPage: {name: 'create'},
-        updatePage: {name: 'update'},
-        deletePage: {name: 'delete'},
-        detailsPage: {name: 'details'},
-        pages: [],
-    },
-    state: {},
-    updateState: () => null,
-    updatePageOptions: () => null,
-    getState: () => null
-}
-
-
 describe('BaseCrudPage', () => {
 
-    // noinspection DuplicatedCode
-    let container: Element | null = null;
-    beforeEach(() => {
-        // setup a DOM element as a render target
-        container = document.createElement("div");
-        document.body.appendChild(container);
-    });
+    let ref: SimpleBaseCrudPage = null as any;
 
-    afterEach(() => {
-        // cleanup on exiting
-        unmountComponentAtNode(container!);
-        container!.remove();
-        container = null;
-    });
-
-    describe('actions', () => {
+    describe('hooks', () => {
 
         it('should call onLoadAction', function (done) {
-            const _context = JSON.parse(JSON.stringify(context));
-            _context.config.indexPage.options = {
-                onLoadAction: () => {
-                    done();
-                    return new Promise<any>(resolve => resolve('some value'));
-                },
-            };
 
-            mount(<SimpleBaseCrudPage name={'index'}
-                                      context={_context}
-                                      history={(() => '') as any}
-                                      location={{} as any}
-                                      match={{} as any}/>);
+            new TestingPageBuilder()
+                .setPageIndex('indexPage')
+                .setPageName('index')
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .setOptions({
+                    onLoadAction: () => {
+                        done();
+                        return new Promise<any>(resolve => resolve('some value'));
+                    },
+                })
+                .mount();
+
         });
 
         it('should call afterOnLoadAction', function (done) {
-            const _context = JSON.parse(JSON.stringify(context));
-            _context.config.indexPage.options = {
-                onLoadAction: () => {
-                    return new Promise<any>(resolve => resolve('some value'));
-                },
-                afterOnLoadAction: (result: any) => {
-                    expect(result).toEqual('some value');
-                    done();
-                },
-            };
 
-            mount(<SimpleBaseCrudPage name={'index'}
-                                      context={_context}
-                                      history={(() => '') as any}
-                                      location={{} as any}
-                                      match={{} as any}/>);
+            new TestingPageBuilder()
+                .setPageIndex('indexPage')
+                .setPageName('index')
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .setOptions({
+                    onLoadAction: () => {
+                        return new Promise<any>(resolve => resolve('some value'));
+                    },
+                    afterOnLoadAction: (result: any) => {
+                        expect(result).toEqual('some value');
+                        done();
+                    },
+                })
+                .mount();
         });
 
         it('should call onDestroy', function () {
-            const _context = JSON.parse(JSON.stringify(context));
             const onDestroy = jest.fn();
-            _context.config.indexPage.options = {onDestroyAction: onDestroy};
-
-            const wrapper = mount(<SimpleBaseCrudPage name={'index'}
-                                                      context={_context}
-                                                      history={(() => '') as any}
-                                                      location={{} as any}
-                                                      match={{} as any}/>);
-            const instance = wrapper.instance() as SimpleBaseCrudPage;
-
-            instance.componentWillUnmount();
+            new TestingPageBuilder()
+                .setPageIndex('indexPage')
+                .setPageName('index')
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .setOptions({onDestroyAction: onDestroy})
+                .mount();
+            ref.componentWillUnmount();
             expect(onDestroy).toBeCalled();
         });
 
     });
 
     it('should set page title', function (done) {
-        const _context = JSON.parse(JSON.stringify(context));
-        _context.updateState = (payload: any) => {
+        const updateState = (payload: any) => {
             expect(payload).toEqual({pageTitle: 'Index Page'});
             done();
-        }
-        _context.config.indexPage.options = {
-            pageTitle: 'Index Page'
         };
-
-        mount(<SimpleBaseCrudPage name={'index'}
-                                  context={_context}
-                                  history={(() => '') as any}
-                                  location={{} as any}
-                                  match={{} as any}/>);
-
-
+        new TestingPageBuilder()
+            .setUpdateState(updateState)
+            .setOptions({pageTitle: 'Index Page'})
+            .setPageName('index')
+            .setPageIndex('indexPage')
+            .setComponent(SimpleBaseCrudPage)
+            .mount();
     });
 
     describe('state and options', () => {
-        it('should return options as empty object when no options provided in config', function () {
-            const _context = JSON.parse(JSON.stringify(context));
-            _context.config.indexPage.options = undefined;
 
-            const page = mount(<SimpleBaseCrudPage name={'index'}
-                                                   context={_context}
-                                                   history={(() => '') as any}
-                                                   location={{} as any}
-                                                   match={{} as any}/>);
-            const pageInstance: BaseCrudPage = page.instance() as any;
-            expect(pageInstance.getOptions()).toEqual({});
+        it('should return options as empty object when no options provided in config', function () {
+            new TestingPageBuilder()
+                .setPageIndex("indexPage")
+                .setPageName('index')
+                .setOptions(undefined as any)
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .mount();
+            expect(ref.getOptions()).toEqual({});
         });
 
         it('should return options defined in config', function () {
-            const _context = JSON.parse(JSON.stringify(context));
-            _context.config.indexPage.options = {x: 'Index'};
-
-            const page = mount(<SimpleBaseCrudPage name={'index'}
-                                                   context={_context}
-                                                   history={(() => '') as any}
-                                                   location={{} as any}
-                                                   match={{} as any}/>);
-            const pageInstance: BaseCrudPage = page.instance() as any;
-            expect(pageInstance.getOptions()).toEqual({x: 'Index'});
+            new TestingPageBuilder()
+                .setPageIndex("indexPage")
+                .setPageName('index')
+                .setOptions({test: 'test'})
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .mount();
+            expect(ref.getOptions()).toEqual({test: 'test'});
         });
 
         it('should get page state', function () {
-
-            const _context = {...context};
-            _context.getState = jest.fn().mockReturnValue({uiState: {pages: {index: {someKey: 'someValue'}}}});
-            const page = mount(<SimpleBaseCrudPage name={'index'}
-                                                   context={_context}
-                                                   history={(() => '') as any}
-                                                   location={{} as any}
-                                                   match={{} as any}/>);
-            const pageInstance: BaseCrudPage = page.instance() as any;
-            expect(pageInstance.getState()).toEqual({someKey: 'someValue'});
+            const mockedGetState = jest.fn().mockReturnValue({uiState: {pages: {index: {someKey: 'someValue'}}}});
+            new TestingPageBuilder()
+                .setPageIndex("indexPage")
+                .setPageName('index')
+                .setGetState(mockedGetState)
+                .setOptions(undefined as any)
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .mount();
+            expect(ref.getOptions()).toEqual({});
+            expect(ref.getState()).toEqual({someKey: 'someValue'});
         });
 
         it('should return context', function () {
-
-            const page = mount(<SimpleBaseCrudPage name={'index'}
-                                                   context={context}
-                                                   history={(() => '') as any}
-                                                   location={{} as any}
-                                                   match={{} as any}/>);
-            const pageInstance: BaseCrudPage = page.instance() as any;
-            expect(pageInstance.getContext()).toBe(context);
+            new TestingPageBuilder()
+                .setContext(TestingPageBuilder.contextTemplate)
+                .setPageIndex("indexPage")
+                .setPageName('index')
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .mount();
+            expect(ref.getContext()).toEqual(TestingPageBuilder.contextTemplate);
         });
 
         it('should updatePageState', function (done) {
-            const _context = JSON.parse(JSON.stringify(context));
-            _context.getState = jest.fn().mockReturnValue({uiState: {pages: {index: {}}}});
+
             const afterCallback = jest.fn();
-            _context.updateState = (payload: any, callback: any) => {
-                const uiState = {..._context.getState().uiState};
-                uiState.pages.index = {x: 'Y'};
-                expect(payload).toEqual({uiState: uiState});
-                expect(afterCallback).toEqual(callback);
-                done();
-            }
-
-            const page = mount(<SimpleBaseCrudPage name={'index'}
-                                                   context={_context}
-                                                   history={(() => '') as any}
-                                                   location={{} as any}
-                                                   match={{} as any}/>);
-
-            const pageInstance: BaseCrudPage = page.instance() as any;
-            pageInstance.updateState({x: 'Y'}, afterCallback);
-        });
-
-        it('should updateStateForced', function (done) {
-            const _context = JSON.parse(JSON.stringify(context));
-            _context.getState = jest.fn().mockReturnValue({uiState: {pages: {index: {title: 'Index Page'}}}});
-            const afterCallback = jest.fn();
-            _context.updateState = (payload: any, callback: any) => {
-                const uiState = {..._context.getState().uiState};
-                uiState.pages.index = {x: 'Y', title: 'Index Page'};
-                expect(payload).toEqual({uiState: uiState});
+            const mockedGetState = jest.fn().mockReturnValue({uiState: {pages: {index: {}}}});
+            const mockedUpdateState = (payload: any, callback: any) => {
+                const uiState = mockedGetState();
+                uiState.uiState.pages.index = {test: 'test'};
+                expect(payload).toEqual(uiState);
                 callback();
                 expect(afterCallback).toBeCalled();
                 done();
             }
 
-            const page = mount(<SimpleBaseCrudPage name={'index'}
-                                                   context={_context}
-                                                   history={(() => '') as any}
-                                                   location={{} as any}
-                                                   match={{} as any}/>);
+            new TestingPageBuilder()
+                .setPageIndex("indexPage")
+                .setUpdateState(mockedUpdateState)
+                .setGetState(mockedGetState)
+                .setPageName('index')
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .mount();
+            ref.updateState({test: 'test'}, afterCallback);
 
-            const pageInstance: BaseCrudPage = page.instance() as any;
-            pageInstance.updateState({x: 'Y'}, afterCallback);
         });
 
         it('should update page options', function (done) {
-            const _context = JSON.parse(JSON.stringify(context));
-            let callback = jest.fn();
-            _context.updatePageOptions = (pageName: string, newOptions: any, afterCallback: () => void) => {
+            const afterCallback = jest.fn();
+            const mockedUpdatePageOptions = (pageName: string, newOptions: any, callback: () => void) => {
                 expect(pageName).toEqual('index');
-                expect(newOptions).toEqual({x: '1'});
-                expect(afterCallback).toBe(callback);
+                expect(newOptions).toEqual({test: 'test'});
+                expect(callback).toBe(afterCallback);
                 done();
             }
 
-            const page = mount(<SimpleBaseCrudPage name={'index'}
-                                                   context={_context}
-                                                   history={(() => '') as any}
-                                                   location={{} as any}
-                                                   match={{} as any}/>);
-
-            const pageInstance: BaseCrudPage = page.instance() as any;
-            pageInstance.updateOptions({x: '1'}, callback);
+            new TestingPageBuilder()
+                .setPageIndex("indexPage")
+                .setUpdatePageOptions(mockedUpdatePageOptions)
+                .setPageName('index')
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .mount();
+            ref.updateOptions({test: 'test'}, afterCallback);
         });
     });
 
@@ -250,62 +186,47 @@ describe('BaseCrudPage', () => {
                 done();
             }
         };
-
-
-        const component = mount(<SimpleBaseCrudPage name={'index'}
-                                                    context={context}
-                                                    history={history}
-                                                    location={{} as any}
-                                                    match={{} as any}/>);
-        const page: BaseCrudPage = component.instance() as any;
-        page.navigateToHome();
-    });
-
-    it('should render content', function () {
-        act(() => {
-            render(<SimpleBaseCrudPage name={'index'}
-                                       context={context}
-                                       history={(() => '') as any}
-                                       location={{} as any}
-                                       match={{} as any}/>, container);
-        });
-
-        const content = container!.querySelector('div[data-testid="simple-base-crud-page"]');
-        expect(content).toBeTruthy();
+        new TestingPageBuilder()
+            .setPageIndex("indexPage")
+            .setPageName('index')
+            .setComponent(SimpleBaseCrudPage)
+            .setRefCallback((r: any) => ref = r)
+            .setHistoryProp(history)
+            .mount();
+        ref.navigateToHome();
     });
 
     describe('Toolbar', () => {
         it('should render null for toolbar when set to null in config', function () {
-            const _context = JSON.parse(JSON.stringify(context));
-            _context.config.indexPage.toolbar = null;
-            const page = mount(<SimpleBaseCrudPage name={'index'}
-                                                   context={_context}
-                                                   history={(() => '') as any}
-                                                   location={{} as any}
-                                                   match={{} as any}/>).instance() as BaseCrudPage;
-
-            expect(page.renderToolbar()).toBeNull();
+            new TestingPageBuilder()
+                .setPageIndex("indexPage")
+                .setPageName('index')
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .setToolbar(null)
+                .mount();
+            expect(ref.renderToolbar()).toBeNull();
         });
 
         it('should render toolbar using function in config', function () {
-            const _context = JSON.parse(JSON.stringify(context));
-            _context.config.indexPage.toolbar = (page: BaseCrudPage) => page.props.name;
-            const page = mount(<SimpleBaseCrudPage name={'index'}
-                                                   context={_context}
-                                                   history={(() => '') as any}
-                                                   location={{} as any}
-                                                   match={{} as any}/>).instance() as BaseCrudPage;
-
-            expect(page.renderToolbar()).toEqual('index');
+            new TestingPageBuilder()
+                .setPageIndex("indexPage")
+                .setPageName('index')
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .setToolbar(() => 'toolbar')
+                .mount();
+            expect(ref.renderToolbar()).toEqual('toolbar');
         });
 
         it('should render null as default toolbar renderer', function () {
-            const page = mount(<SimpleBaseCrudPage name={'index'}
-                                                   context={context}
-                                                   history={(() => '') as any}
-                                                   location={{} as any}
-                                                   match={{} as any}/>).instance() as BaseCrudPage;
-            expect(page.renderToolbar()).toBeNull();
+            new TestingPageBuilder()
+                .setPageIndex("indexPage")
+                .setPageName('index')
+                .setComponent(SimpleBaseCrudPage)
+                .setRefCallback((r: any) => ref = r)
+                .mount();
+            expect(ref.renderToolbar()).toBeNull();
         });
     });
 

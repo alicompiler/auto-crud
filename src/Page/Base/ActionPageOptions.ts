@@ -1,7 +1,7 @@
 import {ActionPage} from "./ActionPage";
-import {BasePageOptions} from "../PageConfig";
 import {HttpMethod} from "../../Defaults/DefaultsHttpMethod";
 import {AxiosRequestConfig} from "axios";
+import {BasePageOptions} from "./BaseCrudPage/BasePageOptions";
 
 export interface ActionPageOptions extends BasePageOptions {
     handleAction?: (page: ActionPage) => Promise<any>;

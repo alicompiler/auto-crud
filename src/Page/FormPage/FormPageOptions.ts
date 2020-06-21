@@ -1,10 +1,10 @@
 import IField from "react-auto-form-core/dist/Field/IField";
 import IForm from "react-auto-form-core/dist/Form/IForm";
 import {FormServices, RenderConfig} from "react-auto-form-core/dist/Form/FormProps";
-import {BasePageOptions} from "../PageConfig";
 import {CrudContextValue} from "../../Root/CrudContext";
 import FormPage from "./FormPage";
 import {AxiosResponse} from "axios";
+import {BasePageOptions} from "../Base/BaseCrudPage/BasePageOptions";
 
 export interface FormPageOptions extends BasePageOptions {
     initialValues?: any;

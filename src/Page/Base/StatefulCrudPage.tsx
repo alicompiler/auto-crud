@@ -1,5 +1,5 @@
 import React from 'react';
-import BaseCrudPage from "./BaseCrudPage";
+import BaseCrudPage from "./BaseCrudPage/BaseCrudPage";
 import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
 
 abstract class StatefulCrudPage extends BaseCrudPage {

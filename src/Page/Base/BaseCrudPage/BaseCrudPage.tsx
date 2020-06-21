@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import PageConfigUtils from "./PageConfigUtils";
+import PageConfigUtils from "../PageConfigUtils";
 import H from "history";
-import {CrudContextValue} from "../../Root/CrudContext";
-import {BasePageOptions, PageConfig} from "../PageConfig";
-import {ConfirmationUtils} from "./Confirmation/ConfirmationUtils";
+import {CrudContextValue} from "../../../Root/CrudContext";
+import {PageConfig} from "../../PageConfig";
+import {ConfirmationUtils} from "../Confirmation/ConfirmationUtils";
+import {BasePageOptions} from "./BasePageOptions";
 
 export interface PageProps {
     name: string;

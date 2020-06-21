@@ -12,7 +12,7 @@ configure({adapter: new Adapter()});
 let pageRef: CreatePage | null;
 
 function getMountedPage(context?: any) {
-    return TestingPageUtils.getMountedPage('updatePage', 'update', UpdatePage, 'UpdatePage', (ref: any) => pageRef = ref, context);
+    return TestingPageUtils.mountPage('updatePage', 'update', UpdatePage, 'UpdatePage', (ref: any) => pageRef = ref, context);
 }
 
 function getNewContext(options?: FormPageOptions) {

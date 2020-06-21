@@ -1,4 +1,4 @@
-import BaseCrudPage from "../BaseCrudPage";
+import BaseCrudPage from "../BaseCrudPage/BaseCrudPage";
 import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 import React from "react";
 import {ConfirmationOptions} from "./ConfirmationOptions";

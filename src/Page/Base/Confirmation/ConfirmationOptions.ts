@@ -1,6 +1,6 @@
-import {BasePageOptions} from "../../PageConfig";
 import FieldConfig from "react-auto-form-core/dist/Field/FieldConfig";
-import BaseCrudPage from "../BaseCrudPage";
+import BaseCrudPage from "../BaseCrudPage/BaseCrudPage";
+import {BasePageOptions} from "../BaseCrudPage/BasePageOptions";
 
 export interface ConfirmationOptions extends BasePageOptions {
     confirmationRequired?: boolean;

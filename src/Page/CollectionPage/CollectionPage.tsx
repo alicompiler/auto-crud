@@ -1,6 +1,6 @@
 import React from 'react';
 import {AxiosDataSource, CollectionContainer, DataSource, IndexedKeyExtractor, KeyExtractor} from "auto-collection";
-import BaseCrudPage from "../Base/BaseCrudPage";
+import BaseCrudPage from "../Base/BaseCrudPage/BaseCrudPage";
 import {CollectionPageOptions} from "./CollectionPageOptions";
 import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
 

@@ -15,7 +15,7 @@ function getMountedPage(context?: any) {
         context = TestingPageUtils.contextTemplate;
     }
     context!.updateState = () => undefined;
-    return TestingPageUtils.getMountedPage('indexPage', 'index', IndexPage, 'IndexPage', (ref: any) => pageRef = ref, context);
+    return TestingPageUtils.mountPage('indexPage', 'index', IndexPage, 'IndexPage', (ref: any) => pageRef = ref, context);
 }
 
 function getNewContext(options?: any) {

@@ -1,6 +1,6 @@
 import {AxiosFetchOption, DataSource, KeyExtractor} from "auto-collection";
-import {BasePageOptions} from "../PageConfig";
 import CollectionPage from "./CollectionPage";
+import {BasePageOptions} from "../Base/BaseCrudPage/BasePageOptions";
 
 export interface CollectionPageOptions extends BasePageOptions {
     onFetchFail?: () => void;

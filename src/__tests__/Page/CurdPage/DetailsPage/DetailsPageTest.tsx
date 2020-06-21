@@ -12,7 +12,7 @@ function getMountedPage(context?: any, state: any = {}, options?: DetailsPageOpt
         context = TestingPageUtils.cloneContextForCrudPage(TestingPageUtils.contextTemplate, 'detailsPage', [], options);
     }
     context.getState = () => ({uiState: {pages: {details: state}}})
-    return TestingPageUtils.getMountedPage('detailsPage',
+    return TestingPageUtils.mountPage('detailsPage',
         'details',
         DetailsPage,
         'DetailsPage',

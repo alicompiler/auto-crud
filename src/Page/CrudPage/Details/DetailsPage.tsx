@@ -1,4 +1,4 @@
-import BaseCrudPage from "../../Base/BaseCrudPage";
+import BaseCrudPage from "../../Base/BaseCrudPage/BaseCrudPage";
 import {KeyValueComponent} from "react-keyvalue-ui";
 import React from "react";
 import {DetailsPageOptions} from "./DetailsPageOptions";

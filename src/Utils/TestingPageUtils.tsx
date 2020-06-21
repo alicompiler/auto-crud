@@ -68,7 +68,7 @@ export class TestingPageUtils {
         </MemoryRouter>
     }
 
-    public static getMountedPage(pageIndexName: string, pageName: string, component: any, componentNameAsString: string, ref?: any, context?: any,) {
+    public static mountPage(pageIndexName: string, pageName: string, component: any, componentNameAsString: string, ref?: any, context?: any,) {
         if (!context) {
             context = TestingPageUtils.cloneContextForFormPage(pageIndexName);
         }

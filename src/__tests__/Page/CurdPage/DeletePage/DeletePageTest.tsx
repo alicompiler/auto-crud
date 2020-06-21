@@ -16,7 +16,7 @@ function mountPage(context?: CrudContextValue, options: any = {}, state: any = {
     context.config.deletePage!.options = options;
     context.getState = () => ({uiState: {pages: {delete: state}}});
 
-    return TestingPageUtils.getMountedPage('deletePage',
+    return TestingPageUtils.mountPage('deletePage',
         'delete',
         DeletePage,
         'DeletePage',

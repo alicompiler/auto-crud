@@ -10,7 +10,7 @@ export class IndexPage extends TablePage {
     public renderContent(): any {
         return <div>
             {this.renderCollectionContainer()}
-        </div>
+        </div>;
     }
 
     getDefaultPageTitle = () => AutoCrudDefaults.pageTitles.index;
