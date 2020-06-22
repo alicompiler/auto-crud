@@ -1,7 +1,7 @@
 import {TestingPageUtils} from "../../../../Utils/TestingPageUtils";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import {configure} from "enzyme";
-import {ActionPageOptions} from "../../../../Page/Base/ActionPageOptions";
+import {ActionPageOptions} from "../../../../Page/Base/ActionPage/ActionPageOptions";
 import ToggleActionPage from "../../../../Page/Base/ToggleActionPage";
 
 configure({adapter: new EnzymeAdapter()});

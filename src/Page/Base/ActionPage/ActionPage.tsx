@@ -1,6 +1,6 @@
-import StatefulCrudPage from "./StatefulCrudPage";
+import StatefulCrudPage from "../StatefulCrudPage";
 import {KeyValueComponent} from "react-keyvalue-ui";
-import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 import React from "react";
 import {ActionPageOptions} from "./ActionPageOptions";
 import Axios from "axios";
@@ -39,7 +39,7 @@ export abstract class ActionPage extends StatefulCrudPage {
     public renderMessageComponent = () => {
         const render = this.getOptions().renderMessage;
         if (render) {
-            return render(this);
+            return render(this.getItem(), this);
         }
         return this.renderDefaultMessageComponent();
     }
