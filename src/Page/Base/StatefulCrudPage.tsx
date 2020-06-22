@@ -49,7 +49,7 @@ abstract class StatefulCrudPage extends BaseCrudPage {
 
 
     protected resetState() {
-        this.updateState({__successMessage: undefined, __loading: undefined, __errorMessage: undefined});
+        this.updateLoadingErrorSuccess(null, null, null);
     }
 
     public updateLoadingErrorSuccess = (loading?: boolean | null, errorMessage?: string | null, successMessage?: string | null, afterCallback?: () => void) => {

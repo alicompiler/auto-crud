@@ -19,6 +19,7 @@ export default class TestingPageBuilder<T extends BasePageOptions = BasePageOpti
     private refCallback?: (ref: any) => any;
     private fields?: any[];
     private toolbar?: any;
+    private pageState?: any;
 
 
     public static contextTemplate: CrudContextValue = {
@@ -90,7 +91,7 @@ export default class TestingPageBuilder<T extends BasePageOptions = BasePageOpti
         return this;
     }
 
-    public setRefCallback(func: any): TestingPageBuilder {
+    public setRefCallback(func: (ref  :any) => any): TestingPageBuilder {
         this.refCallback = func;
         return this;
     }
@@ -143,6 +144,9 @@ export default class TestingPageBuilder<T extends BasePageOptions = BasePageOpti
                 context.config[this.pageIndexName].toolbar = this.toolbar;
             }
         }
+        if (this.pageName && this.pageState) {
+            context.getState = () => ({uiState: {pages: {[this.pageName!]: this.pageState}}})
+        }
         if (this.fields) {
             context.config.fileds = this.fields;
         }
@@ -156,5 +160,10 @@ export default class TestingPageBuilder<T extends BasePageOptions = BasePageOpti
             context.updatePageOptions = this.updatePageOptions;
         }
         return context;
+    }
+
+    public setPageState(pageState: any): TestingPageBuilder {
+        this.pageState = pageState;
+        return this;
     }
 }
