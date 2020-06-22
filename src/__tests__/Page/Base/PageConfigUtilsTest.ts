@@ -1,5 +1,5 @@
 import {CrudContextValue} from "../../../Root/CrudContext";
-import PageConfigUtils from "../../../Page/Base/PageConfigUtils";
+import PageConfigUtils from "../../../Page/PageConfigUtils";
 
 describe('PageConfigUtils', () => {
 

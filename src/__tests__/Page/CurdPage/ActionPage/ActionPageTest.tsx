@@ -10,7 +10,6 @@ configure({adapter: new EnzymeAdapter()});
 
 let ref: ActionPage = null as any;
 
-
 describe('ActionPage', () => {
 
     describe('rendering', () => {

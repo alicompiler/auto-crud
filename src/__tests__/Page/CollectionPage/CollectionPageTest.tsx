@@ -1,13 +1,11 @@
 import React from "react";
-import {CrudContextValue} from "../../../Root/CrudContext";
 
-import {configure, mount} from "enzyme";
+import {configure} from "enzyme";
 import Adapter from "enzyme-adapter-react-16"
 import CollectionPage from "../../../Page/CollectionPage/CollectionPage";
-import {IndexedKeyExtractor, PropertyKeyExtractor, SimpleDataSource} from "auto-collection";
+import {AxiosDataSource, IndexedKeyExtractor, PropertyKeyExtractor, SimpleDataSource} from "auto-collection";
 import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
-import {CollectionPageOptions} from "../../../Page/CollectionPage/CollectionPageOptions";
-import {TestingPageUtils} from "../../../Utils/TestingPageUtils";
+import TestingPageBuilder from "../../../Utils/TestingPageBuilder";
 
 
 configure({adapter: new Adapter()});
@@ -20,23 +18,8 @@ class SimpleCollectionPage extends CollectionPage {
     }
 }
 
-function getPageJSXComponent(context: any, name: any) {
-    return <SimpleCollectionPage name={name} context={context} history={(() => null) as any}
-                                 location={{} as any}
-                                 match={{} as any}/>
-}
+let ref: CollectionPage = null as any;
 
-function mountPage(context?: CrudContextValue, options?: CollectionPageOptions, state?: any, updateState?: any): SimpleCollectionPage {
-    if (!context) {
-        context = JSON.parse(JSON.stringify(TestingPageUtils.contextTemplate));
-    }
-    context!.updateState = updateState;
-    context!.getState = () => ({uiState: {pages: {index: state ?? {}}}});
-    context!.config.indexPage!.options = options ?? {}
-
-    const pageWrapper = mount(getPageJSXComponent(context, 'index'));
-    return pageWrapper.instance() as SimpleCollectionPage;
-}
 
 describe('CollectionContainer', () => {
 
@@ -44,85 +27,115 @@ describe('CollectionContainer', () => {
 
         it('should get DataSource from options', function () {
             const dataSource = new SimpleDataSource([]);
-            const page = mountPage(undefined, {dataSource: () => dataSource});
-            expect(page.getDataSource()).toBe(dataSource);
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .setOptions({dataSource: () => dataSource})
+                .mount()
+            expect(ref.getDataSource()).toBe(dataSource);
         });
 
         it('should get default DataSource', function () {
-            const page = mountPage();
-            const dataSource = page.getDataSource();
-            expect(dataSource.getOptions()).toEqual({
-                method: AutoCrudDefaults.httpMethods.collectionRequest,
-                url: TestingPageUtils.contextTemplate.config.endpointRoot
-            });
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .mount();
+            const dataSource = ref.getDataSource();
+            expect(dataSource).toEqual(new AxiosDataSource({
+                method: AutoCrudDefaults.httpMethods.collectionRequest as any,
+                url: TestingPageBuilder.contextTemplate.config.endpointRoot
+            }));
         });
 
         it('should get default DataSource with override options', function () {
             const overrideOptions: any = {x: 1, y: 2};
-            const page = mountPage(undefined, {dataSourceOptions: overrideOptions});
-            const dataSource = page.getDataSource();
-            expect(dataSource.getOptions()).toEqual({
+
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .setOptions({dataSourceOptions: overrideOptions})
+                .mount();
+
+            const dataSource = ref.getDataSource();
+            expect(dataSource).toEqual(new AxiosDataSource({
                 method: AutoCrudDefaults.httpMethods.collectionRequest,
-                url: TestingPageUtils.contextTemplate.config.endpointRoot,
+                url: TestingPageBuilder.contextTemplate.config.endpointRoot,
                 ...overrideOptions
-            });
+            }));
 
         });
 
         it('should get default DataSource with url passed as string', function () {
-            const page = mountPage(undefined, {dataSourceUrl: 'some url'});
-            const dataSource = page.getDataSource();
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .setOptions({dataSourceUrl: 'some url'})
+                .mount();
+            const dataSource = ref.getDataSource();
             expect(dataSource.getOptions().url)
-                .toEqual(`${TestingPageUtils.contextTemplate.config.endpointRoot}some url`);
+                .toEqual(`${TestingPageBuilder.contextTemplate.config.endpointRoot}some url`);
         });
 
         it('should get default DataSource with url passed as function', function () {
-            const page = mountPage(undefined, {dataSourceUrl: () => 'some url'});
-            const dataSource = page.getDataSource();
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .setOptions({dataSourceUrl: () => 'some url'})
+                .mount();
+            const dataSource = ref.getDataSource();
             expect(dataSource.getOptions().url).toEqual('some url');
         });
 
         it('should get default url for DataSource', function () {
-            const page = mountPage();
-            const dataSource = page.getDataSource();
-            expect(dataSource.getOptions().url).toEqual(TestingPageUtils.contextTemplate.config.endpointRoot);
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .mount();
+            const dataSource = ref.getDataSource();
+            expect(dataSource.getOptions().url).toEqual(TestingPageBuilder.contextTemplate.config.endpointRoot);
 
         });
 
     });
 
     describe('KeyExtractor', () => {
-        it('should get_context keyExtractor from config', function () {
+        it('should get_context keyExtractor from options', function () {
             const keyExtractor = new PropertyKeyExtractor('x');
-            const page = mountPage(undefined, {keyExtractor: keyExtractor});
-            expect(page.getKeyExtractor()).toBe(keyExtractor);
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .setOptions({keyExtractor: keyExtractor})
+                .mount();
+            expect(ref.getKeyExtractor()).toBe(keyExtractor);
         });
 
         it('should get default key extractor', function () {
-            const page = mountPage();
-            expect(page.getKeyExtractor()).toBeInstanceOf(IndexedKeyExtractor);
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .mount();
+            expect(ref.getKeyExtractor()).toBeInstanceOf(IndexedKeyExtractor);
         });
     });
 
     describe('localization', () => {
-        it('should get localizations from options', function () {
-            const page = mountPage(undefined, {
-                localization: {
-                    data_empty: 'EMPTY',
-                    fail_to_fetch_data: 'FAIL',
-                    loading_data: 'LOADING',
-                    refresh: 'REFRESH',
-                    try_again: 'AGAIN'
-                }
-            });
 
-            expect(page.getLocalization()).toEqual({
-                try_again: 'AGAIN',
-                fail_to_fetch_data: 'FAIL',
+        it('should get localizations from options', function () {
+            let localization = {
                 data_empty: 'EMPTY',
+                fail_to_fetch_data: 'FAIL',
                 loading_data: 'LOADING',
-                refresh: 'REFRESH'
-            });
+                refresh: 'REFRESH',
+                try_again: 'AGAIN'
+            };
+
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .setOptions({localization: localization})
+                .mount();
+
+            expect(ref.getLocalization()).toEqual(localization);
         });
 
         it('should get default localizations', function () {
@@ -133,83 +146,116 @@ describe('CollectionContainer', () => {
                 loading_data: AutoCrudDefaults.localization.loading_data,
                 refresh: AutoCrudDefaults.localization.refresh
             };
-            const page = mountPage(undefined , {localization : localization});
-            expect(page.getLocalization()).toEqual(localization);
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .setOptions({localization: localization})
+                .mount();
+            expect(ref.getLocalization()).toEqual(localization);
         });
     });
 
     describe('render callbacks', () => {
         it('should get default renderError', function () {
-            const page = mountPage();
-            const rendered = page.renderErrorMessage();
-            page.restart = jest.fn();
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .mount();
+            const rendered = ref.renderErrorMessage();
+            ref.restart = jest.fn();
             // noinspection TypeScriptValidateJSTypes
             rendered.props.action.onClick();
-            expect(page.restart).toBeCalled();
+            expect(ref.restart).toBeCalled();
         });
 
         it('should get renderError from options', function () {
-            const page = mountPage(undefined, {
-                renderErrorMessage: p => {
-                    expect(p).toEqual(page);
-                    return null;
-                }
-            });
-            const rendered = page.renderErrorMessage();
-            expect(rendered).toEqual(null);
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .setOptions({
+                    renderErrorMessage: (p: any) => {
+                        expect(p).toEqual(ref);
+                        return 'Error';
+                    }
+                })
+                .mount();
+            const rendered = ref.renderErrorMessage();
+            expect(rendered).toEqual('Error');
         });
 
         it('should get default renderLoading', function () {
-            const page = mountPage();
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .mount();
             const expected = AutoCrudDefaults.components.progressIndicator();
-            const rendered = page.renderLoading();
+            const rendered = ref.renderLoading();
             expect(rendered).toEqual(expected);
         });
 
         it('should get renderLoading from options', function () {
-            const page = mountPage(undefined, {
-                renderLoading: p => {
-                    expect(p).toEqual(page);
-                    return null;
-                }
-            });
-            const rendered = page.renderLoading();
-            expect(rendered).toEqual(null);
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .setOptions({
+                    renderLoading: (p: any) => {
+                        expect(p).toEqual(ref);
+                        return 'Loading';
+                    }
+                })
+                .mount();
+
+            const rendered = ref.renderLoading();
+            expect(rendered).toEqual('Loading');
         });
 
         it('should get default renderEmpty', function () {
-            const page = mountPage();
-            const rendered = page.renderEmpty();
-            page.restart = jest.fn();
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .mount();
+            const rendered = ref.renderEmpty();
+            ref.restart = jest.fn();
             // noinspection TypeScriptValidateJSTypes
             rendered.props.action.onClick();
-            expect(page.restart).toBeCalled();
+            expect(ref.restart).toBeCalled();
         });
 
         it('should get renderEmpty from options', function () {
-            const page = mountPage(undefined, {
-                renderEmpty: p => {
-                    expect(p).toEqual(page);
-                    return null;
-                }
-            });
-            const rendered = page.renderEmpty();
-            expect(rendered).toEqual(null);
+            new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+                .setComponent(SimpleCollectionPage)
+                .setRefCallback(r => ref = r)
+                .setOptions({
+                    renderEmpty: (p: any) => {
+                        expect(p).toEqual(ref);
+                        return 'Empty';
+                    }
+                })
+                .mount();
+
+            const rendered = ref.renderEmpty();
+            expect(rendered).toEqual('Empty');
         });
     });
 
     it('should set/get collectionContainerRef', function () {
-        const page = mountPage();
-        const mockedRef: any = {};
-        page.setCollectionContainerRef(mockedRef);
-        expect(page.getCollectionContainerRef()).toEqual(mockedRef);
+        new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+            .setComponent(SimpleCollectionPage)
+            .setRefCallback(r => ref = r)
+            .mount();
+        const mockedContainer: any = {};
+        ref.setCollectionContainerRef(mockedContainer);
+        expect(ref.getCollectionContainerRef()).toEqual(mockedContainer);
     });
 
     it('should handle restart', function () {
-        const page = mountPage();
-        const mockedCollectionContainer :any = {startDataFetch : jest.fn()};
-        page.getCollectionContainerRef = jest.fn().mockReturnValue(mockedCollectionContainer);
-        page.restart();
+        new TestingPageBuilder().setPageName('index').setPageIndex('indexPage')
+            .setComponent(SimpleCollectionPage)
+            .setRefCallback(r => ref = r)
+            .mount();
+        const mockedCollectionContainer: any = {startDataFetch: jest.fn()};
+        ref.setCollectionContainerRef(mockedCollectionContainer);
+        ref.restart();
         expect(mockedCollectionContainer.startDataFetch).toBeCalled();
     });
 
