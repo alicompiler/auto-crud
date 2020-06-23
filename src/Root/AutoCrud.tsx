@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {CrudContext} from "./CrudContext";
-import {DefaultConfigInitializer} from "./ConfigInitializer/ConfigInitializer";
+import {DefaultConfigInitializer} from "../Utils/ConfigInitializer/ConfigInitializer";
 import CrudRootHeader from "../Components/ModuleComponents/CrudRootHeaderComponent";
 import CrudLayout from "./CrudLayout";
 import {CrudConfig} from "./CrudConfig";
-import {UIStateInitializer} from "./ConfigInitializer/UIStateInitializer";
-import {PageOptionsModifier} from "../Page/PageConfigModifier/PageOptionsModifier";
+import {UIStateInitializer} from "../Utils/ConfigInitializer/UIStateInitializer";
+import {PageOptionsModifier} from "../Utils/PageConfigModifier/PageOptionsModifier";
 
 class AutoCrud extends React.Component<CrudConfig, any> {
 

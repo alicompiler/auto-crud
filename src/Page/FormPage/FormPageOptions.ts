@@ -9,7 +9,7 @@ import {BasePageOptions} from "../Base/BaseCrudPage/BasePageOptions";
 export interface FormPageOptions extends BasePageOptions {
     initialValues?: any;
     formListeners?: { [eventName: string]: (form: IForm, payload: any) => void };
-    onAnyValueChangeListener?: (key: string, value: any, field: IField, form: IForm) => void;
+    onAnyValueChangeListener?:  (key: string, value: any, field: IField, form: IForm) => void;
     services?: FormServices;
     submitConfig?: any;
     overrideSubmitConfig?: any;
@@ -20,11 +20,6 @@ export interface FormPageOptions extends BasePageOptions {
 
     onFail?: (page: FormPage, error: any) => any;
     onSuccess?: (page: FormPage, response: AxiosResponse) => any;
-
-
-    renderError?: (page: FormPage) => any;
-    renderLoading?: (page: FormPage) => any;
-    renderSuccess?: (page: FormPage) => any;
 
     url?: string | ((context: CrudContextValue) => string);
     httpMethod?: string;

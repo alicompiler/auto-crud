@@ -1,10 +1,10 @@
 import {BasePageConfigModifier} from "./PageConfigModifier";
-import {PageConfig} from "../PageConfig";
-import {IndexPage} from "../CrudPage/Index/IndexPage";
-import CreatePage from "../CrudPage/Create/CreatePage";
-import UpdatePage from "../CrudPage/Update/UpdatePage";
-import DeletePage from "../CrudPage/Delete/DeletePage";
-import DetailsPage from "../CrudPage/Details/DetailsPage";
+import {PageConfig} from "../../Page/PageConfig";
+import {IndexPage} from "../../Page/CrudPage/Index/IndexPage";
+import CreatePage from "../../Page/CrudPage/Create/CreatePage";
+import UpdatePage from "../../Page/CrudPage/Update/UpdatePage";
+import DeletePage from "../../Page/CrudPage/Delete/DeletePage";
+import DetailsPage from "../../Page/CrudPage/Details/DetailsPage";
 
 export class DefaultPageConfigModifier extends BasePageConfigModifier {
     handleCreatePage(): PageConfig {

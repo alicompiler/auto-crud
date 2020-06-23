@@ -1,4 +1,4 @@
-import {PageOptionsModifier} from "../../../Page/PageConfigModifier/PageOptionsModifier";
+import {PageOptionsModifier} from "../../../Utils/PageConfigModifier/PageOptionsModifier";
 import {CrudConfig} from "../../../Root/CrudConfig";
 
 describe('PageOptionsModifier', () => {

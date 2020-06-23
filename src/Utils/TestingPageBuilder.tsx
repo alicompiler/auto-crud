@@ -148,7 +148,7 @@ export default class TestingPageBuilder<T extends BasePageOptions = BasePageOpti
             context.getState = () => ({uiState: {pages: {[this.pageName!]: this.pageState}}})
         }
         if (this.fields) {
-            context.config.fileds = this.fields;
+            context.config.fields = [...this.fields];
         }
         if (this.getState) {
             context.getState = this.getState;

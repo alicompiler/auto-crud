@@ -1,5 +1,5 @@
 import {ActionPair, BaseActionRenderer} from "./BaseActionRenderer";
-import {ActionConfig} from "../PageConfig";
+import {ActionConfig} from "./ActionConfig";
 
 export class TableActionRenderer extends BaseActionRenderer {
     protected getHighOrderRender(action: ActionConfig): any {

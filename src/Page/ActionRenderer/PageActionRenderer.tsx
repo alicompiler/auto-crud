@@ -1,6 +1,6 @@
 import {ActionPair, BaseActionRenderer} from "./BaseActionRenderer";
-import {ActionConfig} from "../PageConfig";
 import {CrudContextValue} from "../../Root/CrudContext";
+import {ActionConfig} from "./ActionConfig";
 
 export class PageActionRenderer extends BaseActionRenderer {
     private readonly skip: string[];

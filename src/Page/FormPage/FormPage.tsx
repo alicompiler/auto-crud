@@ -7,6 +7,7 @@ import {BaseSubmitConfigGenerator} from "./BaseSubmitConfigGenerator";
 import {SubmitConfig} from "raf-axios-submitter/dist/SubmitConfig"
 import StatefulCrudPage from "../Base/StatefulCrudPage";
 import {AutoCrudDefaults} from "../../Defaults/AutoCrudDefaults";
+import {AxiosResponse} from "axios";
 
 class FormPage extends StatefulCrudPage {
 
@@ -65,10 +66,31 @@ class FormPage extends StatefulCrudPage {
         return generator.generate();
     };
 
-    public getDefaultHttpMethod = (): string => AutoCrudDefaults.httpMethods.actionPageMethod;
+    public getDefaultHttpMethod = (): string => AutoCrudDefaults.httpMethods.formPageMethod;
 
     public getDefaultSubmitConfig(): Partial<SubmitConfig> {
-        return {};
+        const onFail = this.getOptions().onFail;
+        const onSuccess = this.getOptions().onSuccess;
+        return {
+            onFail: (e: any) => {
+                let hookResult = undefined;
+                onFail && (hookResult = onFail(this, e));
+                if (hookResult === false) {
+                    return;
+                }
+                this.updateState({__error: e});
+            },
+            onSuccess: (response: AxiosResponse) => {
+                let hookResult = undefined;
+                onSuccess && (hookResult = onSuccess(this, response));
+                if (hookResult === false) {
+                    return;
+                }
+                this.getFormRef()!.clear();
+                this.updateState({__error: null});
+            },
+            changeLoadingStatus: true,
+        }
     }
 
     public getOptions(): FormPageOptions {

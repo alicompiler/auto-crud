@@ -1,7 +1,8 @@
 import {CrudContextValue} from "../../Root/CrudContext";
-import {ActionConfig, PageConfig} from "../PageConfig";
+import {PageConfig} from "../PageConfig";
 import React from "react";
 import PageConfigUtils from "../PageConfigUtils";
+import {ActionConfig} from "./ActionConfig";
 
 export interface ActionPair {
     action: ActionConfig;

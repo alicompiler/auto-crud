@@ -1,5 +1,5 @@
 import {CrudConfig} from "../../../Root/CrudConfig";
-import {MainConfigInitializer} from "../../../Root/ConfigInitializer/MainConfigInitializer";
+import {MainConfigInitializer} from "../../../Utils/ConfigInitializer/MainConfigInitializer";
 
 describe('MainConfigInitializer', () => {
 

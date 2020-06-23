@@ -1,5 +1,5 @@
 import {BasePageConfigModifier} from "./PageConfigModifier";
-import {PageConfig} from "../PageConfig";
+import {PageConfig} from "../../Page/PageConfig";
 import {CrudConfig} from "../../Root/CrudConfig";
 
 export class PageOptionsModifier extends BasePageConfigModifier {

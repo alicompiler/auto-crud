@@ -1,7 +1,7 @@
-import {CrudConfig} from "../CrudConfig";
+import {CrudConfig} from "../../Root/CrudConfig";
 import {MainConfigInitializer} from "./MainConfigInitializer";
-import {DefaultPageConfigModifier} from "../../Page/PageConfigModifier/DefaultPageConfigModifier";
-import {DefaultPageOptionsModifier} from "../../Page/PageConfigModifier/DefaultPageOptionsModifier";
+import {DefaultPageConfigModifier} from "../PageConfigModifier/DefaultPageConfigModifier";
+import {DefaultPageOptionsModifier} from "../PageConfigModifier/DefaultPageOptionsModifier";
 
 export interface ConfigInitializer {
     initialize(config: CrudConfig): CrudConfig;

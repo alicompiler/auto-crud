@@ -1,5 +1,5 @@
-import {CrudConfig} from "../CrudConfig";
-import {UIState} from "../CrudContext";
+import {CrudConfig} from "../../Root/CrudConfig";
+import {UIState} from "../../Root/CrudContext";
 
 export class UIStateInitializer {
 

@@ -1,5 +1,5 @@
 import {CrudConfig} from "../../Root/CrudConfig";
-import {PageConfig} from "../PageConfig";
+import {PageConfig} from "../../Page/PageConfig";
 
 export interface PageConfigModifier {
     getConfig(): CrudConfig;

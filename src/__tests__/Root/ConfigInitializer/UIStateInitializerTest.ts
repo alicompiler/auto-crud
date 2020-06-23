@@ -1,5 +1,5 @@
 import {CrudConfig} from "../../../Root/CrudConfig";
-import {UIStateInitializer} from "../../../Root/ConfigInitializer/UIStateInitializer";
+import {UIStateInitializer} from "../../../Utils/ConfigInitializer/UIStateInitializer";
 
 describe('UIStateInitializer', () => {
 

@@ -1,7 +1,7 @@
 import {CrudConfig} from "../../../Root/CrudConfig";
-import {MainConfigInitializer} from "../../../Root/ConfigInitializer/MainConfigInitializer";
-import {DefaultConfigInitializer} from "../../../Root/ConfigInitializer/ConfigInitializer";
-import {DefaultPageConfigModifier} from "../../../Page/PageConfigModifier/DefaultPageConfigModifier";
+import {MainConfigInitializer} from "../../../Utils/ConfigInitializer/MainConfigInitializer";
+import {DefaultConfigInitializer} from "../../../Utils/ConfigInitializer/ConfigInitializer";
+import {DefaultPageConfigModifier} from "../../../Utils/PageConfigModifier/DefaultPageConfigModifier";
 
 describe('DefaultConfigInitializer', () => {
 

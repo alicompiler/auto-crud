@@ -3,7 +3,7 @@ import {CrudConfig} from "../../../Root/CrudConfig";
 import UpdatePage from "../../../Page/CrudPage/Update/UpdatePage";
 import DeletePage from "../../../Page/CrudPage/Delete/DeletePage";
 import DetailsPage from "../../../Page/CrudPage/Details/DetailsPage";
-import {DefaultPageConfigModifier} from "../../../Page/PageConfigModifier/DefaultPageConfigModifier";
+import {DefaultPageConfigModifier} from "../../../Utils/PageConfigModifier/DefaultPageConfigModifier";
 
 describe('Page Config Initializer', () => {
 
