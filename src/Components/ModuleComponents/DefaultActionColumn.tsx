@@ -1,6 +1,6 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
-import {TableActionRenderer} from "../../Page/ActionRenderer/TableActionRenderer";
+import {TableActionRenderer} from "../../Page/Base/ActionRenderer/TableActionRenderer";
 
 
 class DefaultActionColumn extends React.Component<any> {

@@ -26,7 +26,7 @@ export class DefaultPageOptionsModifier extends BasePageConfigModifier {
     handleDeletePage(): PageConfig {
         return DefaultPageOptionsModifier.handlePage(this.getConfig().deletePage!, {
             action: {
-                className: 'inline-flex items-center justify-center bg-red-400 px-4 py-2 rounded w-16 text-white',
+                actionClassName: 'inline-flex items-center justify-center bg-red-400 px-4 py-2 rounded w-16 text-white',
                 icon: "fas fa-trash text-xl",
             }
         });
@@ -36,7 +36,7 @@ export class DefaultPageOptionsModifier extends BasePageConfigModifier {
     handleDetailsPage(): PageConfig {
         return DefaultPageOptionsModifier.handlePage(this.getConfig().detailsPage!, {
             action: {
-                className: 'inline-flex items-center justify-center bg-blue-400 px-4 py-2 rounded w-16 text-white',
+                actionClassName: 'inline-flex items-center justify-center bg-blue-400 px-4 py-2 rounded w-16 text-white',
                 icon: "fas fa-info text-xl",
             }
         });
@@ -50,7 +50,7 @@ export class DefaultPageOptionsModifier extends BasePageConfigModifier {
     handleUpdatePage(): PageConfig {
         return DefaultPageOptionsModifier.handlePage(this.getConfig().updatePage!, {
             action: {
-                className: 'inline-flex items-center justify-center bg-yellow-400 px-4 py-2 rounded w-16 text-white',
+                actionClassName: 'inline-flex items-center justify-center bg-yellow-400 px-4 py-2 rounded w-16 text-white',
                 icon: "fas fa-pen text-xl",
             }
         });

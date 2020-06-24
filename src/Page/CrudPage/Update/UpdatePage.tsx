@@ -1,17 +1,12 @@
-import CreatePage from "../Create/CreatePage";
 import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
+import FormPage from "../../FormPage/FormPage";
 
-class UpdatePage extends CreatePage {
+class UpdatePage extends FormPage {
 
-    public getDefaultHttpMethod = (): string => this.getOptions().httpMethod ?? AutoCrudDefaults.httpMethods.updateRequest;
+    public getDefaultHttpMethod = (): string => AutoCrudDefaults.httpMethods.updateRequest;
 
     public getDefaultPageTitle = () => AutoCrudDefaults.pageTitles.update;
-
-    public getInitialValues = () => {
-        const item = this.getState().__item ?? {};
-        return {...item};
-    }
-
+    
 }
 
 export default UpdatePage;

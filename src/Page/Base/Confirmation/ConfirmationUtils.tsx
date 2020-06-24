@@ -16,7 +16,7 @@ export class ConfirmationUtils {
     }
 
     public renderConfirmationForm = () => {
-        if (!this.getConfirmationOptions().confirmationRequired) {
+        if (!this.getConfirmationOptions().required) {
             return null;
         }
 
@@ -33,16 +33,16 @@ export class ConfirmationUtils {
     }
 
     public getConfirmationFormRenderOptions() {
-        const field = this.getConfirmationOptions().confirmationCodeField ?? AutoCrudDefaults.confirmation.field();
-        const confirmationFormWrapperClassName = this.getConfirmationOptions().confirmationWrapperClassName ?? AutoCrudDefaults.confirmation.formWrapperClassName;
-        const messageClassName = this.getConfirmationOptions().confirmationMessageClassName ?? AutoCrudDefaults.confirmation.messageClassName;
-        const confirmationMessage = this.getConfirmationOptions().confirmationMessage ?? AutoCrudDefaults.localization.confirmation_message;
+        const field = this.getConfirmationOptions().codeField ?? AutoCrudDefaults.confirmation.field();
+        const confirmationFormWrapperClassName = this.getConfirmationOptions().wrapperClassName ?? AutoCrudDefaults.confirmation.formWrapperClassName;
+        const messageClassName = this.getConfirmationOptions().messageClassName ?? AutoCrudDefaults.confirmation.messageClassName;
+        const confirmationMessage = this.getConfirmationOptions().message ?? AutoCrudDefaults.localization.confirmation_message;
         return {field, confirmationFormWrapperClassName, messageClassName, confirmationMessage};
     }
 
     public renderConfirmationCodeElement = () => {
         const code = this.getConfirmationCode();
-        const renderConfirmationElement = this.getConfirmationOptions().renderConfirmationCodeElement ?? AutoCrudDefaults.confirmation.renderConfirmationCodeElement;
+        const renderConfirmationElement = this.getConfirmationOptions().renderCodeElement ?? AutoCrudDefaults.confirmation.renderConfirmationCodeElement;
         return renderConfirmationElement(code);
     }
 
@@ -60,13 +60,13 @@ export class ConfirmationUtils {
 
 
     public generateRandomConfirmationCode = (): string | null => {
-        if (this.getConfirmationOptions().generateConfirmationCode) {
-            return this.getConfirmationOptions().generateConfirmationCode!(this.page);
+        if (this.getConfirmationOptions().generateCode) {
+            return this.getConfirmationOptions().generateCode!(this.page);
         }
 
         let buffer = '';
-        const characters = this.getConfirmationOptions().confirmationCharacters ?? AutoCrudDefaults.confirmation.characters;
-        const codeLength = this.getConfirmationOptions().confirmationCodeLength ?? AutoCrudDefaults.confirmation.codeLength;
+        const characters = this.getConfirmationOptions().characters ?? AutoCrudDefaults.confirmation.characters;
+        const codeLength = this.getConfirmationOptions().codeLength ?? AutoCrudDefaults.confirmation.codeLength;
         for (let i = 0; i < codeLength; i++) {
             buffer += characters.charAt(Math.floor(Math.random() * characters.length));
         }
@@ -76,7 +76,6 @@ export class ConfirmationUtils {
 
     public confirm = () => {
         return !(this.confirmationForm && this.currentConfirmationCode !== this.confirmationForm.collect().getData()['confirmation']);
-
     }
 
     private getConfirmationOptions(): ConfirmationOptions {

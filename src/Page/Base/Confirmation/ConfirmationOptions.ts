@@ -3,13 +3,13 @@ import BaseCrudPage from "../BaseCrudPage/BaseCrudPage";
 import {BasePageOptions} from "../BaseCrudPage/BasePageOptions";
 
 export interface ConfirmationOptions extends BasePageOptions {
-    confirmationRequired?: boolean;
-    confirmationCodeField?: FieldConfig;
-    confirmationWrapperClassName?: string;
-    confirmationMessage?: string;
-    confirmationMessageClassName?: string;
-    generateConfirmationCode?: (page: BaseCrudPage) => string | null;
-    confirmationCodeLength?: number;
-    confirmationCharacters?: string;
-    renderConfirmationCodeElement?: (code: string | null) => any;
+    required?: boolean;
+    codeField?: FieldConfig;
+    wrapperClassName?: string;
+    message?: string;
+    messageClassName?: string;
+    generateCode?: (page: BaseCrudPage) => string | null;
+    codeLength?: number;
+    characters?: string;
+    renderCodeElement?: (code: string | null) => any;
 }

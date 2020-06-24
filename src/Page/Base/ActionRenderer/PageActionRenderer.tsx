@@ -1,5 +1,5 @@
 import {ActionPair, BaseActionRenderer} from "./BaseActionRenderer";
-import {CrudContextValue} from "../../Root/CrudContext";
+import {CrudContextValue} from "../../../Root/CrudContext";
 import {ActionConfig} from "./ActionConfig";
 
 export class PageActionRenderer extends BaseActionRenderer {

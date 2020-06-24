@@ -1,4 +1,3 @@
-import React from "react";
 import {ConfirmationUtils} from "../../../Page/Base/Confirmation/ConfirmationUtils";
 import {ConfirmationOptions} from "../../../Page/Base/Confirmation/ConfirmationOptions";
 import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
@@ -21,7 +20,7 @@ describe('ConfirmationUtils', function () {
     });
 
     it('should not return null when confirmationRequired option set to true', function () {
-        const utils = getConfirmationUtils({confirmationRequired: true});
+        const utils = getConfirmationUtils({required: true});
         expect(utils.renderConfirmationForm()).not.toEqual(null);
     });
 
@@ -39,10 +38,10 @@ describe('ConfirmationUtils', function () {
 
     it('should return confirmation FormRenderOptions from page options', function () {
         const utils = getConfirmationUtils({
-            confirmationCodeField: true as any,
-            confirmationWrapperClassName: true as any,
-            confirmationMessage: true as any,
-            confirmationMessageClassName: true as any
+            codeField: true as any,
+            wrapperClassName: true as any,
+            message: true as any,
+            messageClassName: true as any
         });
 
         const options = utils.getConfirmationFormRenderOptions();
@@ -72,7 +71,7 @@ describe('ConfirmationUtils', function () {
     });
 
     it('should use code generator from page options', function () {
-        const utils = getConfirmationUtils({generateConfirmationCode: () => 'ABC'})
+        const utils = getConfirmationUtils({generateCode: () => 'ABC'})
         const code = utils.getConfirmationCode();
         expect(code).toEqual('ABC');
     });
@@ -87,7 +86,7 @@ describe('ConfirmationUtils', function () {
 
 
     it('should render code element using page options', function () {
-        const utils = getConfirmationUtils({renderConfirmationCodeElement: (code: string | null) => code})
+        const utils = getConfirmationUtils({renderCodeElement: (code: string | null) => code})
         utils.currentConfirmationCode = 'XXX';
         const element = utils.renderConfirmationCodeElement();
         expect(element).toEqual('XXX');

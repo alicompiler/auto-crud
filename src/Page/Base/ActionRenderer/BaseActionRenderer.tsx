@@ -1,8 +1,9 @@
-import {CrudContextValue} from "../../Root/CrudContext";
-import {PageConfig} from "../PageConfig";
+import {CrudContextValue} from "../../../Root/CrudContext";
+import {PageConfig} from "../../PageConfig";
 import React from "react";
-import PageConfigUtils from "../PageConfigUtils";
+import PageConfigUtils from "../../PageConfigUtils";
 import {ActionConfig} from "./ActionConfig";
+import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
 
 export interface ActionPair {
     action: ActionConfig;
@@ -52,8 +53,8 @@ export abstract class BaseActionRenderer {
         return this.filterAndOrder(actions.filter(a => !this.shouldBeHidden(a)));
     }
 
-    protected filterAndOrder(actionPair: ActionPair[]): ActionPair[] {
-        return actionPair;
+    protected filterAndOrder(actionsPair: ActionPair[]): ActionPair[] {
+        return actionsPair;
     }
 
     private renderActions(actions: ActionPair[]): any {
@@ -75,7 +76,8 @@ export abstract class BaseActionRenderer {
 
     private defaultRender = (page: PageConfig, action: ActionConfig) => {
         const handleAction = action.handleAction ?? this.defaultHandleAction;
-        return <button className={action.className} onClick={() => handleAction(this.context, page, this.item)}>
+        const actionClassName = action.actionClassName ?? AutoCrudDefaults.classNames.components.linkAction.action;
+        return <button className={actionClassName} onClick={() => handleAction(this.context, page, this.item)}>
             {action.icon && <i className={action.icon}/>}
             {action.text && action.text}
         </button>

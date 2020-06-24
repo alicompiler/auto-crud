@@ -3,7 +3,7 @@ import {KeyValueComponent} from "react-keyvalue-ui";
 import React from "react";
 import {DetailsPageOptions} from "./DetailsPageOptions";
 import {AutoCrudDefaults} from "../../../Defaults/AutoCrudDefaults";
-import {PageActionRenderer} from "../../ActionRenderer/PageActionRenderer";
+import {PageActionRenderer} from "../../Base/ActionRenderer/PageActionRenderer";
 
 class DetailsPage extends BaseCrudPage {
     public renderContent(): any {

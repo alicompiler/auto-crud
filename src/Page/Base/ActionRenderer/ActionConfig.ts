@@ -1,5 +1,5 @@
-import {CrudContextValue} from "../../Root/CrudContext";
-import {PageConfig} from "../PageConfig";
+import {CrudContextValue} from "../../../Root/CrudContext";
+import {PageConfig} from "../../PageConfig";
 
 export interface ActionConfig {
     hideInTable?: boolean;
@@ -10,6 +10,5 @@ export interface ActionConfig {
     handleAction?: (context: CrudContextValue, page: PageConfig, item: any) => void;
     icon?: string;
     text?: string;
-    colorClass?: string;
-    className?: string;
+    actionClassName?: string;
 }

@@ -1,6 +1,6 @@
 import BaseCrudPage from "./BaseCrudPage";
 import {ConfirmationOptions} from "../Confirmation/ConfirmationOptions";
-import {ActionConfig} from "../../ActionRenderer/ActionConfig";
+import {ActionConfig} from "../ActionRenderer/ActionConfig";
 
 export interface BasePageOptions {
 

@@ -11,7 +11,6 @@ export interface IDefaultsClassName {
     toolbar: {
         searchInput: string;
         wrapper: string;
-
     };
     titleWrapper: string;
     titleSeparator: string;
@@ -29,6 +28,9 @@ export interface IDefaultsClassName {
     },
 
     components: {
+        linkAction: {
+            action: string;
+        };
         emptyMessage: {
             message: string;
             wrapper: string;
@@ -54,16 +56,16 @@ export interface IDefaultsClassName {
         }
     },
 
-    formPage : {
-        button : () => string;
-        buttonColoring : string;
-        extra : string;
+    formPage: {
+        button: () => string;
+        buttonColoring: string;
+        extra: string;
     }
 }
 
 
 export const classNameDefaults: IDefaultsClassName = {
-    span_horizontal_divider : 'h-px inline-block w-2 px-4',
+    span_horizontal_divider: 'h-px inline-block w-2 px-4',
 
     divider: 'my-2 h-px w-full bg-gray-300',
 
@@ -96,6 +98,9 @@ export const classNameDefaults: IDefaultsClassName = {
 
 
     components: {
+        linkAction : {
+            action : '',
+        },
 
         emptyMessage: {
             wrapper: 'p-4 bg-blue-400 text-white flex items-center flex-col justify-center',
@@ -123,14 +128,14 @@ export const classNameDefaults: IDefaultsClassName = {
         }
     },
 
-    formPage : {
-        button : () => `rounded px-4 py-2 w-24 border text-lg
+    formPage: {
+        button: () => `rounded px-4 py-2 w-24 border text-lg
                           hover:text-xl hover:font-bold 
                           transition duration-500 ease-in-out 
                           disabled:bg-gray-100 disabled:text-gray-400 
                           ${AutoCrudDefaults.classNames.formPage.buttonColoring} ${AutoCrudDefaults.classNames.formPage.extra}`,
-        extra : '',
-        buttonColoring : 'bg-gray-400 text-gray-900'
+        extra: '',
+        buttonColoring: 'bg-gray-400 text-gray-900'
     }
 
 }

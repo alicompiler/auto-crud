@@ -16,7 +16,6 @@ class SimpleCrudApp extends Component {
                                   name: 'toggle', route: '/toggle', options: {
                                       action: {
                                           icon: 'fas fa-save text-xl',
-                                          className: 'inline-flex items-center justify-center bg-gray-600 px-4 py-2 rounded w-16 text-white'
                                       }
                                   }, pageComponent: ToggleActionPage
                               }

@@ -46,8 +46,9 @@ class FormPage extends StatefulCrudPage {
     };
 
     public getInitialValues = () => {
-        return this.getOptions().initialValues;
-    };
+        const item = this.getState().__item ?? {};
+        return {...item};
+    }
 
     public getFormListeners = () => {
         return this.getOptions().formListeners;
